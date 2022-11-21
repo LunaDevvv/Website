@@ -1,0 +1,41 @@
+nav {
+    display : flex;
+    justify-content: space-around;
+    align-items: center;
+    min-height: 8vh;
+    background-color: darkblue;
+    font-family: "Montserrat", sans-serif;
+}
+
+.nav-links {
+    display: flex;
+    justify-content: space-around;
+    width: 30%;
+}
+
+.nav-links li {
+    list-style-type: none;
+}
+.heading {
+    color : white;
+    text-transform: uppercase;
+    font-size: 20px;
+    letter-spacing: 5px;
+}
+
+.nav-links a {
+    color : white;
+    text-decoration: none;
+    letter-spacing: 3px;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 14px 16px;
+}
+
+.nav-links li a:hover:not(.active) {
+    background-color: lightskyblue;
+}
+
+.nav-links li a.active {
+    background-color: lightblue;
+}
