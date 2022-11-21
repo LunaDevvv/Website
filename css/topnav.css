@@ -4,6 +4,7 @@ nav {
     align-items: center;
     min-height: min-content;
     max-height: max-content;
+    min-width: fit-content;
     padding-top: 0px;
     padding-left: 0px;
     font-family: "Montserrat", sans-serif;
