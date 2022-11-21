@@ -2,8 +2,10 @@ nav {
     display : flex;
     justify-content: space-around;
     align-items: center;
-    min-height: 8vh;
-    background-color: darkblue;
+    min-height: min-content;
+    max-height: max-content;
+    padding-top: 0px;
+    padding-left: 0px;
     font-family: "Montserrat", sans-serif;
 }
 
