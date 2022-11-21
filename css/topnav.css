@@ -26,7 +26,7 @@ nav {
     letter-spacing: 5px;
 }
 
-.nav-links a {
+.nav-links a:not(.img) {
     color : white;
     text-decoration: none;
     letter-spacing: 3px;
@@ -35,10 +35,10 @@ nav {
     padding: 14px 16px;
 }
 
-.nav-links li a:hover:not(.active) {
-    background-color: lightskyblue;
+.nav-links li a:hover:not(.img) {
+    color: darkslateblue;
 }
 
-.nav-links li a.active {
-    background-color: lightblue;
+.img {
+    padding : 10px 16px
 }
