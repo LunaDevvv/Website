@@ -11,7 +11,7 @@ hr {
     visibility: hidden;
 }
 
-img {
+img:not(.img){
     position:relative;
     padding-left : 60vw;
     bottom : 50px;
