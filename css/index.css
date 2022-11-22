@@ -1,0 +1,18 @@
+button {
+    background-color: black;
+    color : lightgrey;
+    border-radius: 4px;
+    font-size: x-large;
+}
+
+hr {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    visibility: hidden;
+}
+
+img {
+    position:relative;
+    padding-left : 60vw;
+    bottom : 50px;
+}
