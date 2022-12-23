@@ -1,8 +1,7 @@
 button {
     background-color: black;
-    color : lightgrey;
-    border-radius: 4px;
     font-size: x-large;
+    border-color: white;
 }
 
 hr {
