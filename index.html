@@ -1,79 +1,122 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <!-- Importing CSS and naming the webpage -->
     <title>ShiroDev - Home</title>
     <link rel="stylesheet" href="./css/topnav.css" />
-    <link rel="stylesheet" href="./css/index.css">
+    <link rel="stylesheet" href="./css/index.css" />
   </head>
+
   <body>
+    <!--      Navbar         -->
     <script id="replace_with_navbar" src="./js/nav.js" defer></script>
 
-    <p
-      style="
-        font-size: 15px;
-        font-family: 'Courier New', Courier, monospace;
-        color: blue;
-      "
-    >
-      Hello, I am
-    </p>
-    <h1 style="padding-top: -10px; color: lightskyblue">ShiroDev</h1>
-    <h2 style="color: grey">I make discord bots, and random applications.</h2>
-    <p>
-      Currently I work on my discord bots (Shiro and Suzu), and a custom
-      language (Not much added yet)<br />
-      I don't work for anybody, so everything I do is just for fun. I mainly use
-      typescript and javascript.
-    </p>
-    <br /><br /><br />
-    <hr />
+    <!-- Title -->
+    <div class="header">
+      <div id="header_text">
+        <p>Discord Bot developer</p>
+        <h1>Hello, I am <span>ShiroDev</span></h1>
+      </div>
+    </div>
 
-    <h1>What I am currently working on</h1>
-    <hr />
-    <h3>This website you are reading!</h3>
-    <p>
-      This is my first (public) Website! <br />
-      I don't normally do frontend design, so this is the best I can do
-      currently. At somepoint, I am planning to make this look better.
-    </p>
-    <hr />
-    <p>
-      <h3>Suzu - Discord bot</h3>
-      Suzu is a discord bot that I am developing. Currently it doesn't have
-      much, but it will be updated soon!<br />
-      Suzu is meant to be a moderation bot, so it can help people who don't want
-      any extra commands.
-    </p>
-    <img
-      src="./photos/screenshots/suzu_guild.png"
-      width="300px"
-      height="200px"
-    />
-    <img
-      src="./photos/screenshots/Suzu_User.png"
-      width="300px"
-      height="200px"
-    />
-    <hr />
-    <p>
-      <h3>Shiro - Discord bot</h3>
-      Shiro is another discord bot that I am developing. Its early in
-      development, so it doesn't have much.<br />
-      Shiro is meant to be a game bot. It will have alot of commands, but if you
-      want moderation, get suzu.
-    </p>
-    <img
-      src="./photos/screenshots/trivia_animals.png"
-      width="300px"
-      height="200px"
-    />
-    <img
-      src="./photos/screenshots/trivia_geography.png"
-      width="300px"
-      height="200px"
-    />
+    <!-- About -->
+    <a name="about"></a>
+    <div class="about">
+      <div class="container">
+        <div id="row">
+          <div class="about-col-1">
+            <img src="./photos/ProfilePicurejpg.jpg" alt="My old profile
+            picture" / style="width: 50%; height: 75%;">
+            <p>My old profile picture</p>
+          </div>
+          <div class="about-col-2">
+            <h2 class="sub-title">About Me</h2>
+            <p>
+              Hello! I am ShiroDev, and I work on stuff like discord bots,
+              website backends, minecraft bots, and coding languages. Sometimes
+              I dabble in stuff like custom minecraft client / mod development,
+              or game development.
+              <br />
+              I started coding 3 - 4 years ago, starting with discord bots. I
+              mainly use Typescript / C++, but I sometimes use rust when I am
+              bored.
+            </p>
+            <div class="tab-titles">
+              <p class="tab-links active-link" onclick="opentab('skills')">
+                Skills
+              </p>
+              <p class="tab-links" onclick="opentab('experience')">
+                Experience
+              </p>
+              <p class="tab-links" onclick="opentab('education')">Education</p>
+            </div>
+            <div class="tab-contents active-tab" id="skills">
+              <ul>
+                <li>
+                  <span>Backend Development</span><br />Making a database, a
+                  discord clone, and a few older things
+                </li>
+                <li>
+                  <span>Discord Bot development</span><br />Making a few
+                  Versions of my suzu and shiro bots.
+                </li>
+                <li>
+                  <span>Language Development</span><br />Making a transpiled /
+                  Interpreted language in JS / C++
+                </li>
+              </ul>
+            </div>
+            <div class="tab-contents" id="experience">
+              <ul>
+                <li>
+                  <span
+                    >I currently don't have any work experience, but I might
+                    start freelancing at some point</span
+                  >
+                </li>
+              </ul>
+            </div>
+            <div class="tab-contents" id="education">
+              <ul>
+                <li>
+                  <span>I am currently in high-school</span><br />
+                  I am homeschooled, but I will be done with high-school soon!
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-    <hr>
-    <a href="https://shirodev.dev/projects"><button>View more</button></a>
+    <!-- Portfolio (Finally) -->
+    <div id="portfolio">
+      <div class="container">
+        <h2 class="sub-title">My Work</h2>
+        <div class="work-list">
+          <div class="work">
+            <!-- <img src="" alt=""> -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      var tablinks = document.getElementsByClassName("tab-links");
+      var tabcontents = document.getElementsByClassName("tab-contents");
+
+      function opentab(tabname) {
+        for (tablink of tablinks) {
+          tablink.classList.remove("active-link");
+        }
+
+        for (tabcontent of tabcontents) {
+          tabcontent.classList.remove("active-tab");
+        }
+
+        event.currentTarget.classList.add("active-link");
+        document.getElementById(tabname).classList.add("active-tab");
+      }
+    </script>
   </body>
 </html>

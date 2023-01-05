@@ -1,11 +1,96 @@
-button {
-    background-color: black;
-    font-size: x-large;
-    border-color: white;
+/* ----------- Comment Outline ----------- */
+
+/* ----------- Header ----------- */
+.header {
+    width: 100%;
+    height: 100vh;
+    background-image: url("https://cdn.discordapp.com/attachments/1020872913022365756/1060427253357490237/Illustration3_1.png");
+    background-repeat: no-repeat;
+    background-color: #040c2a;
+}
+#header_text {
+    margin-top: 5%;
+    font-size: 20px;
 }
 
-hr {
-    padding-top: 20px;
-    padding-bottom: 20px;
-    visibility: hidden;
+#header_text h1 {
+    font-size: 60px;
+    margin-top: 20px;
+}
+
+#header_text h1 span {
+    color: darkblue;
+}
+
+/* ----------- About ----------- */
+.about {
+    padding: 80px 0;
+    color : #ababab;
+}
+
+#row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.about-col-1 {
+    flex-basis: 45%;
+}
+.about-col-1 img {
+    width: 100%;
+    border-radius: 15px;
+}
+
+.about-col-2 {
+    flex-basis : 60%;
+}
+
+.sub-title {
+    color: white;
+}
+
+.tab-titles {
+    display: flex;
+    margin: 20px 0 40px;
+}
+
+.tab-links {
+    margin-right: 50px;
+    font-size: 18px;
+    font-weight: 500;
+    cursor: pointer;
+    position: relative;
+}
+
+.tab-links::after {
+    content : '';
+    width : 0;
+    height : 3px;
+    background : #ff004f;
+    position: absolute;
+    left: 0;
+    bottom: -8px;
+    transition: 0.5s;
+}
+
+.tab-links.active-link::after {
+    width : 50%;
+}
+
+.tab-contents ul li {
+    list-style: none;
+    margin: 10px 0;
+}
+
+.tab-contents ul li span {
+    color : #183291;
+    font-size: 14px;
+}
+
+.tab-contents {
+    display: none;
+}
+
+.tab-contents.active-tab {
+    display: block;
 }
