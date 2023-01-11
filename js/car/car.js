@@ -30,7 +30,7 @@ class Car {
         }
 
         // Creating controls.
-        this.controls = new controls(controlBool);
+        this.controls = new Controls(controlBool);
         if (!controlBool && !useBrain) {
             this.maxSpeed = 4;
         }
