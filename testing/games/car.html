@@ -1,0 +1,40 @@
+<!-- Setting up page -->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Suzu - Car AI</title>
+        <link rel="stylesheet" href="../../css/car.css" />
+    </head>
+
+    <body>
+        <h1>IN PROGRESS. OLD CODE BEING TRANSFERED</h1>
+        <!-- Adding Navbar -->
+        <script id="replace_with_navbar" src="./js/nav.js" defer></script>
+        <!-- Creating the canvas -->
+        <canvas id="carCanvas"></canvas>
+
+        <!-- Adding saving buttons -->
+        <div id="verticalButtons">
+            <button onclick="save()">save</button>
+            <button onclick="discard()">discard</button>
+            <a href="https://shirodev.dev/"><button>Return</button></a>
+        </div>
+
+        <!-- Creating a canvas to show the network -->
+        <canvas id="networkCanvas"></canvas>
+
+        <!-- Giving a discontiuation notice -->
+        <h1>
+            This might go back into devenloment, but it is better than I hoped
+            so I won't work on it much anymore
+        </h1>
+
+        <!-- Load js -->
+        <script src="../../js/car/utils.js"></script>
+        <script src="../../js/car/network.js"></script>
+        <script src="../../js/car/car.js"></script>
+        <script src="../../js/car/roads.js"></script>
+        <script src="../../js/car/controls.js"></script>
+        <script src="../../js/car/main.js"></script>
+    </body>
+</html>
