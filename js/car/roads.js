@@ -1,6 +1,4 @@
-// Road class
 class Road {
-    // Create the road with given arguments
     constructor(x, width, laneCount = 3) {
         this.x = x;
         this.width = width;
@@ -13,7 +11,6 @@ class Road {
         this.top = -infinity;
         this.bottom = infinity;
 
-        // Create the locations of the corners.
         const topLeft = { x: this.left, y: this.top };
         const topRight = { x: this.right, y: this.top };
         const bottomLeft = { x: this.left, y: this.bottom };
@@ -24,18 +21,15 @@ class Road {
         ];
     }
 
-    // Getting the center of the middle lane.
     getLaneCenter(laneIndex) {
         const laneWidth = this.width / this.laneCount;
         return this.left + laneWidth / 2 + laneIndex * laneWidth;
     }
 
-    // Draw the road
     draw(ctx) {
         ctx.lineWidth = 5;
         ctx.strokeStyle = "white";
 
-        // Draw the roads back
         for (let i = 1; i <= this.laneCount - 1; i++) {
             const x = lerp(this.left, this.right, i / this.laneCount);
 
@@ -46,7 +40,6 @@ class Road {
             ctx.stroke();
         }
 
-        // Create the roads dashes.
         ctx.setLineDash([]);
         this.borders.forEach((border) => {
             ctx.beginPath();

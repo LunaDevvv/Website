@@ -1,5 +1,3 @@
-// Sensor class
-// * I'll make comments later. I made this code a while ago.
 class Sensor {
     constructor(car) {
         this.car = car;
