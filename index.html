@@ -1,134 +1,153 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <!-- Importing CSS and naming the webpage -->
-    <title>ShiroDev - Home</title>
-    <link rel="stylesheet" href="./css/topnav.css" />
-    <link rel="stylesheet" href="./css/index.css" />
-  </head>
+    <head>
+        <!-- Importing CSS and naming the webpage -->
+        <title>ShiroDev - Home</title>
+        <link rel="stylesheet" href="./css/topnav.css" />
+        <link rel="stylesheet" href="./css/index.css" />
+    </head>
 
-  <body>
-    <!--      Navbar         -->
-    <script id="replace_with_navbar" src="./js/nav.js" defer></script>
+    <body>
+        <!--      Navbar         -->
+        <script id="replace_with_navbar" src="./js/nav.js" defer></script>
 
-    <!-- Title -->
-    <div class="header">
-      <div id="header_text">
-        <p>Discord Bot developer</p>
-        <h1>Hello, I am <span>ShiroDev</span></h1>
-      </div>
-    </div>
-
-    <!-- About -->
-    <a name="about"></a>
-    <div class="about">
-      <div class="container">
-        <div id="row">
-          <div class="about-col-1">
-            <img src="./photos/ProfilePicurejpg.jpg" alt="My old profile
-            picture" / style="width: 50%; height: 75%;">
-            <p>My old profile picture</p>
-          </div>
-          <div class="about-col-2">
-            <h2 class="sub-title">About Me</h2>
-            <p>
-              Hello! I am ShiroDev, and I work on stuff like discord bots,
-              website backends, minecraft bots, and coding languages. Sometimes
-              I dabble in stuff like custom minecraft client / mod development,
-              or game development.
-              <br />
-              I started coding 3 - 4 years ago, starting with discord bots. I
-              mainly use Typescript / C++, but I sometimes use rust when I am
-              bored.
-            </p>
-            <div class="tab-titles">
-              <p class="tab-links active-link" onclick="opentab('skills')">
-                Skills
-              </p>
-              <p class="tab-links" onclick="opentab('experience')">
-                Experience
-              </p>
-              <p class="tab-links" onclick="opentab('education')">Education</p>
+        <!-- Title -->
+        <div class="header">
+            <div id="header_text">
+                <p>Discord Bot developer</p>
+                <h1>Hello, I am <span>ShiroDev</span></h1>
+                <p style="font-size: x-small; color: red">
+                    Note : This website is not designed with small devices in
+                    mind currently
+                </p>
             </div>
-            <div class="tab-contents active-tab" id="skills">
-              <ul>
-                <li>
-                  <span>Backend Development</span><br />Making a database, a
-                  discord clone, and a few older things
-                </li>
-                <li>
-                  <span>Discord Bot development</span><br />Making a few
-                  Versions of my suzu and shiro bots.
-                </li>
-                <li>
-                  <span>Language Development</span><br />Making a transpiled /
-                  Interpreted language in JS / C++
-                </li>
-              </ul>
-            </div>
-            <div class="tab-contents" id="experience">
-              <ul>
-                <li>
-                  <span
-                    >I currently don't have any work experience, but I might
-                    start freelancing at some point</span
-                  >
-                </li>
-              </ul>
-            </div>
-            <div class="tab-contents" id="education">
-              <ul>
-                <li>
-                  <span>I am currently in high-school</span><br />
-                  I am homeschooled, but I will be done with high-school soon!
-                </li>
-              </ul>
-            </div>
-          </div>
         </div>
-      </div>
-    </div>
-
-    <!-- Portfolio (Finally) -->
-    <a name="projects"></a>
-    <div id="portfolio">
-      <div class="container">
-        <h2 class="sub-title">My Work</h2>
-        <div class="work-list">
-          <div class="work">
-            <!-- <img src="" alt=""> -->
-            <p>
-              Currently all of my projects are early in development, so I don't
-              have any screenshots :(<br />
-              I am currently working on : <br />
-              ShiroLang : A transpiled coding language<br />
-              Shiro : A game discord bot<br />
-              Suzu : A moderation discord bot<br />
-              Once they get early enough in development to get share enough
-              info, this will be updated!
-            </p>
-          </div>
+        <!-- About -->
+        <a name="about"></a>
+        <div class="about">
+            <div class="container">
+                <div id="row">
+                    <div class="about-col-1">
+                        <img src="./photos/ProfilePicurejpg.jpg" alt="My old
+                        profile picture" / style="width: 50%; height: 75%;">
+                        <p>My old profile picture</p>
+                    </div>
+                    <div class="about-col-2">
+                        <h2 class="sub-title">About Me</h2>
+                        <p>
+                            Hello! I am ShiroDev, and I work on stuff like
+                            discord bots, website backends, minecraft bots, and
+                            coding languages. Sometimes I dabble in stuff like
+                            custom minecraft client / mod development, or game
+                            development.
+                            <br />
+                            I started coding 3 - 4 years ago, starting with
+                            discord bots. I mainly use Typescript / C++, but I
+                            sometimes use rust when I am bored.
+                        </p>
+                        <div class="tab-titles">
+                            <p
+                                class="tab-links active-link"
+                                onclick="opentab('skills')">
+                                Skills
+                            </p>
+                            <p
+                                class="tab-links"
+                                onclick="opentab('experience')">
+                                Experience
+                            </p>
+                            <p class="tab-links" onclick="opentab('education')">
+                                Education
+                            </p>
+                        </div>
+                        <div class="tab-contents active-tab" id="skills">
+                            <ul>
+                                <li>
+                                    <span>Backend Development</span><br />Making
+                                    a database, a discord clone, and a few older
+                                    things
+                                </li>
+                                <li>
+                                    <span>Discord Bot development</span
+                                    ><br />Making a few Versions of my suzu and
+                                    shiro bots.
+                                </li>
+                                <li>
+                                    <span>Language Development</span
+                                    ><br />Making a transpiled / Interpreted
+                                    language in JS / C++
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="tab-contents" id="experience">
+                            <ul>
+                                <li>
+                                    <span
+                                        >I currently don't have any work
+                                        experience, but I might start
+                                        freelancing at some point</span
+                                    >
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="tab-contents" id="education">
+                            <ul>
+                                <li>
+                                    <span>I am currently in high-school</span
+                                    ><br />
+                                    I am homeschooled, but I will be done with
+                                    high-school soon!
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-    <p>This website will also house all of my experiments with websites :)</p>
 
-    <script>
-      var tablinks = document.getElementsByClassName("tab-links");
-      var tabcontents = document.getElementsByClassName("tab-contents");
+        <!-- Portfolio (Finally) -->
+        <a name="projects"></a>
+        <div id="portfolio">
+            <div class="container">
+                <h2 class="sub-title">My Work</h2>
+                <p>This will look less weird once I add more stuff</p>
+                <div class="work-list">
+                    <div class="work">
+                        <img
+                            src="./photos/screenshots/Car_AI.png"
+                            alt="Car AI"
+                            width="20px"
+                            height="200px" />
+                        <div class="layer">
+                            <a href="https://shirodev.dev/testing/games/car"
+                                ><h3>Car AI</h3></a
+                            >
+                            <p>
+                                This car ai is run using a neural network, but
+                                the traffic spawning could be made alot better.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-      function opentab(tabname) {
-        for (tablink of tablinks) {
-          tablink.classList.remove("active-link");
-        }
+        <script>
+            var tablinks = document.getElementsByClassName("tab-links");
+            var tabcontents = document.getElementsByClassName("tab-contents");
 
-        for (tabcontent of tabcontents) {
-          tabcontent.classList.remove("active-tab");
-        }
+            function opentab(tabname) {
+                for (tablink of tablinks) {
+                    tablink.classList.remove("active-link");
+                }
 
-        event.currentTarget.classList.add("active-link");
-        document.getElementById(tabname).classList.add("active-tab");
-      }
-    </script>
-  </body>
+                for (tabcontent of tabcontents) {
+                    tabcontent.classList.remove("active-tab");
+                }
+
+                event.currentTarget.classList.add("active-link");
+                document.getElementById(tabname).classList.add("active-tab");
+            }
+        </script>
+    </body>
 </html>
