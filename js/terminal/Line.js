@@ -1,7 +1,7 @@
 class Line {
     text = "";
 
-    constructor(text, css, speed, type = "pre", ...elements) {
+    constructor(text, css, speed, type = "pre", prompt = false, ...elements) {
         text = text;
 
         if (typeof text !== "string") return;
@@ -11,6 +11,7 @@ class Line {
         this.speed = speed;
         this.type = type;
         this.elements = elements;
+        this.prompt = prompt;
 
         Terminal.loadLine(this);
 
@@ -25,7 +26,14 @@ class Line {
         terminalDiv.appendChild(textp);
 
         let elementNumber = 0;
-        for (let i = 0; i < this.text.length; i++) {
+        for (let i = 0; i <= this.text.length; i++) {
+
+            if (i == this.text.length && this.prompt) {
+                textp.innerHTML += "▭";
+                continue;
+            }
+            else if (i == this.text.length) continue;
+
             if (this.text[i] === "{" && this.text[i + 1] === "}") {
                 textp.innerHTML += this.elements[elementNumber].innerHTML;
                 i += 2;

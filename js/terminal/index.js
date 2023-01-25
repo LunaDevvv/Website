@@ -19,7 +19,8 @@ Developed by ShiroDev. Commands are case Sensitive.
     /   \\_    [   /
     \\     \\_  /  /
      [ [ /  \\/ _/
-    _[ [ \\  /_/`.split("\n");
+    _[ [ \\  /_/
+Welcome to my websites terminal!`.split("\n");
 
 console.log('in development');
 console.log("Run Terminal.clearLines() to clear terminal.\n Run showHeader to make a new header appear");
@@ -39,7 +40,7 @@ async function showHeader() {
 
     let help = document.createElement("pre");
     help.innerHTML = "<span style=\"color : blue;\">'help'</span>";
-    new Line(`Type {} for help with commands`, "", 20, "pre", help);
+    new Line(`Type {} for help with commands`, "", 20, "pre", false, help);
 
     await sleep(1000);
     waiting = false;
@@ -58,10 +59,8 @@ async function takeInput(ev) {
         return;
     }
     if (!typing) {
-        new Line("Hello ~ ", "", 25, undefined);
+        new Line("ShiroDev.dev ~ ", "", 25, undefined, true);
         waiting = true;
-        await sleep(225);
-        document.getElementById("Hello ~ ").innerText = document.getElementById("Hello ~ ").innerText += "▭";
         waiting = false;
         typing = true;
     }
@@ -69,26 +68,26 @@ async function takeInput(ev) {
 
     if (!ev) return;
     if (!(ev.keyCode >= 48 && ev.keyCode <= 57 || ev.keyCode == 96) && !(ev.keyCode >= 65 && ev.keyCode <= 90) && !(ev.keyCode >= 97 && ev.keyCode <= 122) && ev.keyCode != 32 && ev.keyCode != "13" && ev.keyCode != 8) return;
-    document.getElementById("Hello ~ ").innerText = document.getElementById("Hello ~ ").innerText.replace("▭", "");
+    document.getElementById("ShiroDev.dev ~ ").innerText = document.getElementById("ShiroDev.dev ~ ").innerText.replace("▭", "");
     if (ev.key === "Backspace") {
-        if (document.getElementById("Hello ~ ").textContent == "Hello ~ ") return document.getElementById("Hello ~ ").textContent = document.getElementById("Hello ~ ").textContent += "▭";
-        document.getElementById("Hello ~ ").textContent = document.getElementById("Hello ~ ").textContent.slice(0, -1);
-        return document.getElementById("Hello ~ ").textContent = document.getElementById("Hello ~ ").textContent += "▭";
+        if (document.getElementById("ShiroDev.dev ~ ").textContent == "ShiroDev.dev ~ ") return document.getElementById("ShiroDev.dev ~ ").textContent = document.getElementById("ShiroDev.dev ~ ").textContent += "▭";
+        document.getElementById("ShiroDev.dev ~ ").textContent = document.getElementById("ShiroDev.dev ~ ").textContent.slice(0, -1);
+        return document.getElementById("ShiroDev.dev ~ ").textContent = document.getElementById("ShiroDev.dev ~ ").textContent += "▭";
     }
 
     if (ev.key == "Enter") {
         typing = false;
-        let text = document.getElementById("Hello ~ ").textContent.replace("Hello ~ ", "");
-        document.getElementById("Hello ~ ").id = "";
+        let text = document.getElementById("ShiroDev.dev ~ ").textContent.replace("ShiroDev.dev ~ ", "");
+        document.getElementById("ShiroDev.dev ~ ").id = "";
         return parseInput(text);
     }
 
     if (ev.shiftKey) {
-        document.getElementById("Hello ~ ").textContent += ev.key.toUpperCase() + "▭";
+        document.getElementById("ShiroDev.dev ~ ").textContent += ev.key.toUpperCase() + "▭";
         return;
     }
 
-    document.getElementById("Hello ~ ").textContent += ev.key += "▭";
+    document.getElementById("ShiroDev.dev ~ ").textContent += ev.key += "▭";
     return;
 }
 function sleep(ms) {
@@ -110,6 +109,9 @@ async function parseInput(text) {
             new Line("help : Sends info on current commands", `color : orange`, 20);
             new Line("header : Shows the header", "color : red", 20);
             new Line("home : Return to the home page", "color : white", 20);
+            new Line("inspiration : Shows the websites that inspired me to make this", "color : yellow;", 10);
+            new Line("mespyr : Opens a new tab with mespyr.github.io searched", "color : pink", 10);
+            new Line("fkcodes : Opens a new tab with fkcodes.com seached", "color : brown", 15);
             await sleep(1200);
 
             waiting = false;
@@ -122,6 +124,26 @@ async function parseInput(text) {
 
         case "home":
             return window.location.href = "/";
+
+        case "mespyr":
+            window.open("https://mespyr.github.io", "_blank");
+            waiting = false;
+            return takeInput();
+
+        case "fkcodes":
+            window.open("https://fkcodes.com/", "_blank");
+
+            waiting = false;
+            return takeInput();
+
+        case "inspiration":
+            new Line("This website was inspired by : ", "color : blue;", 20);
+            new Line("mespyr.github.io (A friends website)", "color : red", 20);
+            new Line("fkcodes.com (youtubers website)", "color : orange", 20);
+
+            await sleep(1000);
+            waiting = false;
+            return takeInput();
 
         default:
             let timedText = `Command not found : ${text}`;
