@@ -112,6 +112,7 @@ async function parseInput(text) {
             new Line("inspiration : Shows the websites that inspired me to make this", "color : yellow;", 10);
             new Line("mespyr : Opens a new tab with mespyr.github.io searched", "color : pink", 10);
             new Line("fkcodes : Opens a new tab with fkcodes.com seached", "color : brown", 15);
+            new Line("sudo : Makes more commands available (Warning : Commands are in development)", "color : gray", 15);
             await sleep(1200);
 
             waiting = false;
@@ -142,6 +143,16 @@ async function parseInput(text) {
             new Line("fkcodes.com (youtubers website)", "color : orange", 20);
 
             await sleep(1000);
+            waiting = false;
+            return takeInput();
+
+        case "sudo":
+            new Line("You thought", "color : red", 20);
+
+            await sleep(600);
+
+            window.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ', '_blank');
+
             waiting = false;
             return takeInput();
 
