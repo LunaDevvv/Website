@@ -1,7 +1,7 @@
 const terminalDiv = document.getElementById("terminal");
 
 let textArray = `
-Developed by ShiroDev. Commands are case Sensitive. No touch screen compatibility.
+Developed by ShiroDev. Commands are case Sensitive. Touch screen compatability added!
   /$$$$$$  /$$       /$$                     /$$$$$$$                      
  /$$__  $$| $$      |__/                    | $$__  $$                     
 | $$  \\__/| $$$$$$$  /$$  /$$$$$$   /$$$$$$ | $$  \\ $$  /$$$$$$  /$$    /$$
