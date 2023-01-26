@@ -50,15 +50,14 @@ async function showHeader() {
         const area = document.createElement("input");
         area.innerHTML = "<input type=\"text\" id=\"mobilePrompt\"></input>";
 
-        new Line("ShiroDev.dev ~  {}", "", 10, undefined, false, area);
+        let line = new Line("ShiroDev.dev ~  {}", "", 10, undefined, false, area);
 
         await sleep(1000);
 
         document.getElementById("mobilePrompt").addEventListener("keypress", (ev) => {
             if (ev.key === "Enter") {
-                new Line(document.getElementById("mobilePrompt").value, "", 0);
-                parseInput(document.getElementById("mobilePrompt").value);
-                document.getElementById("mobilePrompt").remove();
+                parseInput(document.getElementById("mobilePrompt").value, 500);
+                line.editText(document.getElementById("mobilePrompt").value, true);
             }
         });
         document.getElementById("mobilePrompt").focus();
@@ -88,17 +87,16 @@ if (!mobileDevice()) {
 async function takeInput(ev) {
     if (mobileDevice()) {
         const area = document.createElement("input");
-        area.innerHTML = "<input type=\"text\" id=\"mobilePrompt\"></input>";
+        area.innerHTML = "<input type=\"text\" id=\"mobilePrompt\" style=\"background-color : black;\"></input>";
 
-        new Line("ShiroDev.dev ~  {}", "", 10, undefined, false, area);
+        let line = new Line("ShiroDev.dev ~  {}", "", 10, undefined, false, area);
 
         await sleep(1000);
 
         document.getElementById("mobilePrompt").addEventListener("keypress", (ev) => {
             if (ev.key === "Enter") {
-                new Line(document.getElementById("mobilePrompt").value, "", 0);
-                parseInput(document.getElementById("mobilePrompt").value);
-                document.getElementById("mobilePrompt").remove();
+                parseInput(document.getElementById("mobilePrompt").value, 500);
+                line.editText(document.getElementById("mobilePrompt").value, true);
             }
         });
         document.getElementById("mobilePrompt").focus();
@@ -146,7 +144,9 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-async function parseInput(text) {
+async function parseInput(text, sleeptime) {
+
+    if (sleeptime) await sleep(sleeptime);
     waiting = true;
 
     switch (text) {

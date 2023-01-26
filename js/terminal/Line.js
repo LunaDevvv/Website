@@ -37,6 +37,11 @@ class Line {
             else if (i == this.text.length) return;
 
             if (this.text[i] === "{" && this.text[i + 1] === "}") {
+                if (!this.elements[elementNumber]) {
+                    i += 1;
+                    sleep(this.speed ? this.speed : 50);
+                    continue;
+                }
                 textp.innerHTML += this.elements[elementNumber].innerHTML;
                 i += 2;
                 elementNumber++;
@@ -50,5 +55,17 @@ class Line {
 
     clear() {
         this.element.remove();
+    }
+
+    editText(text, clearElements) {
+        this.text += text;
+
+        this.clear();
+        if (clearElements) {
+            this.elements = [];
+            this.text = this.text.replaceAll("{} ", "");
+        }
+        this.showText();
+
     }
 }
