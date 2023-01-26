@@ -79,9 +79,11 @@ function mobileDevice() {
 
 let typing = false;
 
-// document.addEventListener("keydown", (ev) => {
-//     takeInput(ev);
-// })
+if (!mobileDevice()) {
+    document.addEventListener("keydown", (ev) => {
+        takeInput(ev);
+    })
+}
 
 async function takeInput(ev) {
     if (mobileDevice()) {
