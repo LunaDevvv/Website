@@ -88,6 +88,7 @@ async function takeInput(ev) {
     }
 
     document.getElementById("ShiroDev.dev ~ ").textContent += ev.key += "▭";
+    document.getElementById("ShiroDev.dev ~ ").focus();
     return;
 }
 function sleep(ms) {
