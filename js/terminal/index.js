@@ -44,17 +44,70 @@ async function showHeader() {
 
     await sleep(1000);
     waiting = false;
-    takeInput();
 
+
+    if (mobileDevice()) {
+        const area = document.createElement("input");
+        area.innerHTML = "<input type=\"text\" id=\"mobilePrompt\"></input>";
+
+        new Line("ShiroDev.dev ~  {}", "", 10, undefined, false, area);
+
+        await sleep(1000);
+
+        document.getElementById("mobilePrompt").addEventListener("keypress", (ev) => {
+            if (ev.key === "Enter") {
+                new Line(document.getElementById("mobilePrompt").value, "", 0);
+                parseInput(document.getElementById("mobilePrompt").value);
+                document.getElementById("mobilePrompt").remove();
+            }
+        });
+        document.getElementById("mobilePrompt").focus();
+
+        return;
+    }
+
+    takeInput();
+}
+
+function mobileDevice() {
+    console.log(navigator.userAgent);
+    if (navigator.userAgent.match(/Android/i)
+        || navigator.userAgent.match(/webOS/i)
+        || navigator.userAgent.match(/iPhone/i)
+        || navigator.userAgent.match(/iPad/i)
+        || navigator.userAgent.match(/iPod/i)
+        || navigator.userAgent.match(/BlackBerry/i)
+        || navigator.userAgent.match(/Windows Phone/i)) return true;
+    return false;
 }
 
 let typing = false;
 
-document.addEventListener("keydown", (ev) => {
-    takeInput(ev);
-})
+// document.addEventListener("keydown", (ev) => {
+//     takeInput(ev);
+// })
 
 async function takeInput(ev) {
+    if (mobileDevice()) {
+        const area = document.createElement("input");
+        area.innerHTML = "<input type=\"text\" id=\"mobilePrompt\"></input>";
+
+        new Line("ShiroDev.dev ~  {}", "", 10, undefined, false, area);
+
+        await sleep(1000);
+
+        document.getElementById("mobilePrompt").addEventListener("keypress", (ev) => {
+            if (ev.key === "Enter") {
+                new Line(document.getElementById("mobilePrompt").value, "", 0);
+                parseInput(document.getElementById("mobilePrompt").value);
+                document.getElementById("mobilePrompt").remove();
+            }
+        });
+        document.getElementById("mobilePrompt").focus();
+
+        return;
+    }
+
     if (waiting != false) {
         return;
     }

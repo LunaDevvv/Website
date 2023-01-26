@@ -19,27 +19,30 @@ class Line {
     }
 
     async showText() {
+
         let textp = document.createElement(this.type);
         this.element = textp;
-        textp.id = this.text;
+        if (mobileDevice()) textp.id = this.text.replace(" {}", "");
+        else textp.id = this.text;
         textp.style = this.css;
         terminalDiv.appendChild(textp);
 
         let elementNumber = 0;
         for (let i = 0; i <= this.text.length; i++) {
 
-            if (i == this.text.length && this.prompt) {
+            if (i >= this.text.length && this.prompt) {
                 textp.innerHTML += "▭";
                 continue;
             }
-            else if (i == this.text.length) continue;
+            else if (i == this.text.length) return;
 
             if (this.text[i] === "{" && this.text[i + 1] === "}") {
                 textp.innerHTML += this.elements[elementNumber].innerHTML;
                 i += 2;
                 elementNumber++;
-                sleep(this.speed ? this.speed : 50)
+                sleep(this.speed ? this.speed : 50);
             }
+            if (this.text[i] === undefined) return;
             textp.innerHTML += this.text[i];
             await sleep(this.speed ? this.speed : 50);
         }
