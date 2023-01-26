@@ -3,7 +3,6 @@ const terminalDiv = document.getElementById("terminal");
 
 //* Creating the header.
 let textArray = `
-Developed by ShiroDev. Commands are case Sensitive. Touch screen compatability added!
   /$$$$$$  /$$       /$$                     /$$$$$$$                      
  /$$__  $$| $$      |__/                    | $$__  $$                     
 | $$  \\__/| $$$$$$$  /$$  /$$$$$$   /$$$$$$ | $$  \\ $$  /$$$$$$  /$$    /$$
@@ -22,7 +21,7 @@ Developed by ShiroDev. Commands are case Sensitive. Touch screen compatability a
     \\     \\_  /  /
      [ [ /  \\/ _/
     _[ [ \\  /_/
-Welcome to my websites terminal!`.split("\n");
+{} `.split("\n");
 
 //* Allowing people to make their own lines through instructions.
 console.log("Run Terminal.clearLines() to clear terminal.\n Run showHeader to make a new header appear");
@@ -38,19 +37,35 @@ async function showHeader() {
     waiting = true;
     typing = false;
 
+    const element2 = document.createElement("pre");
+    element2.innerHTML = '<span id="WelcomeText" style="color : red;">Welcome to my websites terminal!</span>';
+
+
     //* Slowly show the header
     for (let i = 0; i < textArray.length; i++) {
-        new Line(textArray[i], `font-family: monospace; line-height:3px; color : blue;`, 10);
+
+
+        if (i == 0) {
+            new Line("Developed by ShiroDev. Commands are case Sensitive. Touch screen compatability added!", `font-family: monospace; line-height:3px; color : Orange;`, 10, undefined, undefined);
+            continue;
+        }
+
+        if (i == textArray.length - 1) {
+            new Line(textArray[i - 1], `font-family: monospace; line-height:3px; color : blue;`, 10, undefined, undefined, { element: element2, id: "WelcomeText" });
+            continue;
+        }
+
+        new Line(textArray[i - 1], `font-family: monospace; line-height:3px; color : blue;`, 10);
         await sleep(50);
     }
 
     //* Create the different color 'help' text.
     let help = document.createElement("pre");
-    help.innerHTML = "<span style=\"color : blue;\">'help'</span>";
+    help.innerHTML = `<span style="color : blue;", id="helpText">'help'</span>`;
     await sleep(10);
 
     //* Show the text as a line
-    new Line(`Type {} for help with commands `, "", 20, "pre", false, help);
+    new Line(`Type {} for help with commands `, "", 20, "pre", false, { element: help, id: "helpText" });
     window.scrollTo(0, document.body.scrollHeight);
     await sleep(1000);
     waiting = false;
@@ -61,7 +76,7 @@ async function showHeader() {
         const area = document.createElement("input");
         area.innerHTML = "<input type=\"text\" id=\"mobilePrompt\"></input>";
 
-        let line = new Line("ShiroDev.dev ~  {}", "", 10, undefined, false, area);
+        let line = new Line("ShiroDev.dev ~  {}", "", 10, undefined, false, { element: area });
 
         await sleep(1000);
 
@@ -84,7 +99,6 @@ async function showHeader() {
 
 //* Check if the user is on a mobile device.
 function mobileDevice() {
-    console.log(navigator.userAgent);
     if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
         return true;
     }
@@ -108,7 +122,7 @@ async function takeInput(ev) {
         const area = document.createElement("input");
         area.innerHTML = "<input type=\"text\" id=\"mobilePrompt\" style=\"background-color : black;\"></input>";
 
-        let line = new Line("ShiroDev.dev ~  {}", "", 10, undefined, false, area);
+        let line = new Line("ShiroDev.dev ~  {}", "", 10, undefined, false, { element: area });
 
         await sleep(1000);
 
@@ -264,13 +278,21 @@ async function parseInput(text, sleeptime) {
             return takeInput();
 
         //* Redirect them to my github.
-        case "github":
+        case "repo":
             new Line("Opening page...", "color : orange;", 10);
 
             await sleep(100);
             window.open("https://github.com/shirodevv/website", "_blank");
             waiting = false;
             return takeInput();
+
+        //* Open my github. 
+        case "github":
+            new Line("Opening page...", "color : orange;", 10);
+            window.open("https://github.com/shirodevv/", "_blank");
+            waiting = false;
+            return takeInput();
+
 
         //* Give update information
         case "updates":
@@ -283,6 +305,18 @@ async function parseInput(text, sleeptime) {
             await sleep(1000);
             waiting = false;
             return takeInput();
+
+        case "whoami":
+            new Line("Hello, I'm ShiroDev!", "color : pink", 10);
+            new Line("I'm currently in highschool, and I have been programming for 4 ~ 5 years.", "color : brown;", 10);
+            new Line("I have worked on alot of smaller projects, but not many large ones.", "color : gray;", 10);
+            new Line();
+            new Line("I work on more of the backend side of things, since I don't like making the main UI's", 'color : pink', 10);
+            new Line("I have a youtube channel, but I don't post to it too often.", 'color : brown;', 10);
+            new Line("In my free time, I play the guitar / piano, and I like drawing a bit", 'color : gray', 10);
+            waiting = false;
+            return takeInput();
+
 
         //* Tell them that the comand isn't found
         default:

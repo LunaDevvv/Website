@@ -1,9 +1,9 @@
 class Line {
     text = "";
+    elementBackup;
     constructor(text, css, speed, type = "pre", prompt = false, ...elements) {
         //* Constructor mainly just sets variables
         text = text;
-
 
         if (typeof text !== "string") return;
 
@@ -12,6 +12,7 @@ class Line {
         this.speed = speed;
         this.type = type;
         this.elements = elements;
+        this.elementBackup = elements;
         this.prompt = prompt;
 
         Terminal.loadLine(this);
@@ -35,25 +36,44 @@ class Line {
         //* Go through the text, and only show 1 character at a specified time interval.
         let elementNumber = 0;
         for (let i = 0; i <= this.text.length; i++) {
-
+            if (!this.elements) {
+                this.elements = this.elementBackup;
+                console.log(this.elementBackup);
+            }
             if (i >= this.text.length && this.prompt) {
                 textp.innerHTML += "▭";
                 continue;
             }
             else if (i == this.text.length) return;
-
-
             //* if {} is detected, replace it with one of the elements given.
             if (this.text[i] === "{" && this.text[i + 1] === "}") {
-                if (!this.elements[elementNumber]) {
+                if (this.elements[elementNumber] == undefined) {
+                    console.log("missing element");
                     i += 1;
                     sleep(this.speed ? this.speed : 50);
                     continue;
                 }
-                textp.innerHTML += this.elements[elementNumber].innerHTML;
-                i += 2;
+
+                const text = this.elements[elementNumber].element.innerText;
+                this.elements[elementNumber].innerHTML = this.elements[elementNumber].element.innerHTML.replace(text, "");
+                textp.innerHTML += this.elements[elementNumber].element.innerHTML;
+
+                let id = this.elements[elementNumber].id;
+                document.getElementById(id).innerText = "";
+                if (id) {
+                    for (let j = 0; j < text.length; j++) {
+                        try {
+                            document.getElementById(id).innerText += text[j];
+                            await sleep(this.speed ? this.speed : 50);
+                        } catch (err) { console.error(err) }
+                    }
+                }
+
+
+                i += 1;
                 elementNumber++;
-                sleep(this.speed ? this.speed : 50);
+                await sleep(this.speed ? this.speed : 50);
+                continue;
             }
             if (this.text[i] === undefined) return;
             textp.innerHTML += this.text[i];
