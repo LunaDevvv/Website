@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+
 <html lang="en">
 
 <head>
@@ -5,12 +7,25 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/gameEngine/home.css">
+    <script src="./js/engine/codeRunner.js" defer></script>
     <script src="./js/engine/index.js" defer></script>
+    <script src="./js/engine/objects/rectangle.js" defer></script>
     <title>ShiroEngine</title>
 </head>
 
+
 <body>
     <canvas id="gameCanvas"></canvas>
+
+    <div id="codeEditor">
+        <div id="header"></div>
+        <div id="codeDiv">
+            <textarea id="code">Its recommended to use a editor (Like vscode) and paste the code here, since there is no syntax highlighting
+            press ` to test game.</textarea>
+        </div>
+    </div>
+
+    <div id="ErrorArea"></div>
 </body>
 
 </html>

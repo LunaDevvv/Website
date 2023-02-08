@@ -2,6 +2,39 @@
     color-scheme: dark;
 }
 
+body {
+    display: flex;
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+
+#codeEditor {
+    height: 100vh;
+}
+
+#gameCanvas {
+    max-height: 337;
+    max-width: 600;
+}
+
+#codeDiv {
+    margin-left: 5px;
+    /* background-color: black; */
+}
+
+#code {
+    height: 95vh;
+    width: 65vw;
+}
+
+#ErrorArea {
+    position: fixed;
+    left: 0px;
+    top: 350px;
+
+}
+
 canvas {
+    display: block !important;
     background-color: white;
 }

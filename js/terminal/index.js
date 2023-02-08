@@ -200,7 +200,7 @@ async function parseInput(text, sleeptime) {
     waiting = true;
 
     //* Switch-case for the commands.
-    switch (text) {
+    switch (text.split(" ")[0]) {
         //* Clear the terminal line-by-line
         case "clear":
             await Terminal.clearLines();
@@ -314,6 +314,33 @@ async function parseInput(text, sleeptime) {
             new Line("I work on more of the backend side of things, since I don't like making the main UI's", 'color : pink', 10);
             new Line("I have a youtube channel, but I don't post to it too often.", 'color : brown;', 10);
             new Line("In my free time, I play the guitar / piano, and I like drawing a bit", 'color : gray', 10);
+            waiting = false;
+            return takeInput();
+
+        case "docs":
+            const args = text.split(" ");
+            if (!args[1]) {
+                new Line("Missing Args : info_item", 'color : red', 10);
+                new Line("Run \"docs args\" to get a list of options", "color : blue", 10);
+                waiting = false;
+                return takeInput();
+            }
+
+            switch (args[1]) {
+                case "rectangle":
+                    rectangle(text);
+                    break;
+
+                case "args":
+                    new Line("rectangle : Rectangle command in ShiroEngine", "color : red", 10);
+                    break;
+
+                default:
+                    new Line("Error : Item Not found", 'color : red', 10);
+                    new Line("Run \"docs args\" to get a list of options", "color : blue", 10);
+                    break;
+            }
+
             waiting = false;
             return takeInput();
 
