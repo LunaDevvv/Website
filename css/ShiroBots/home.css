@@ -34,7 +34,6 @@
 
 .example-images {
     display: flex;
-    justify-content: space-between;
 }
 
 .example_image {
