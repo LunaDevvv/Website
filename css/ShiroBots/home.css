@@ -25,6 +25,7 @@
     position: relative;
     padding-left: 20px;
     padding-right: 20px;
+    text-align: center;
 }
 
 .command img {
@@ -36,12 +37,8 @@
     justify-content: space-between;
 }
 
-.imagine-example {
-    width: 256px;
+.example_image {
     padding-left: 5px;
     padding-right: 5px;
-}
-
-.imagine-example {
     text-align: center;
 }
