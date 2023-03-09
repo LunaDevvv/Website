@@ -1,4 +1,4 @@
-fetch('https://www.shirodev.dev/nav.html')
+fetch('../nav.html')
     .then(res => res.text())
     .then(text => {
         let oldelem = document.querySelector("script#replace_with_navbar");

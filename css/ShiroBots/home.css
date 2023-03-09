@@ -1,0 +1,47 @@
+.header {
+    text-align: center;
+    color: lightblue;
+}
+
+.warning {
+    color: red;
+}
+
+.botText {
+    text-align: center;
+    padding-top: 20px;
+    font-size: 50px;
+    color: crimson;
+}
+
+.commandDiv {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.command {
+    background-color: darkcyan;
+    border-radius: 10px;
+    position: relative;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.command img {
+    border-radius: 10px;
+}
+
+.example-images {
+    display: flex;
+    justify-content: space-between;
+}
+
+.imagine-example {
+    width: 256px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.imagine-example {
+    text-align: center;
+}
