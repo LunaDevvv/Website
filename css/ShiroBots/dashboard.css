@@ -1,0 +1,22 @@
+.bot {
+    color: maroon;
+    text-align: center;
+    font-size: 50px;
+}
+
+.container {
+    display: grid;
+}
+
+.command {
+    display: flex;
+}
+
+.commandName {
+    color: orange;
+}
+
+.usage {
+    color: brown;
+    padding-left: 70vw;
+}
