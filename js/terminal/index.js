@@ -213,7 +213,6 @@ async function parseInput(text, sleeptime) {
             new Line("clear : Clears the terminal", `color : green`, 20);
             new Line("help : Sends info on current commands", `color : orange`, 20);
             new Line("header : Shows the header", "color : red", 20);
-            new Line("home : Return to the home page", "color : white", 20);
             new Line("inspiration : Shows the websites that inspired me to make this", "color : yellow;", 10);
             new Line("mespyr : Opens a new tab with mespyr.github.io searched", "color : pink", 10);
             new Line("fkcodes : Opens a new tab with fkcodes.com seached", "color : brown", 15);
@@ -230,12 +229,6 @@ async function parseInput(text, sleeptime) {
         case "header":
             showHeader();
             return;
-
-        //* Redirect to the home page
-        case "home":
-            waiting = false;
-            takeInput();
-            return window.location.href = "/";
 
         //* Redirect to mespyr's website
         case "mespyr":
