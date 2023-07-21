@@ -18,8 +18,7 @@ class BottomBar {
     button_x = 10;
 
     onResize() {
-        baseDiv.style.width = window.innerWidth - 50;
-        baseDiv.style.top = window.innerHeight - 50;
+        baseDiv.style.left = window.innerWidth - 50;
         baseDiv.style.top = window.innerHeight - 50;
         baseDiv.style.left = window.innerWidth - (window.innerWidth / 10) * 9;
         baseDiv.style.width = window.innerWidth - window.innerWidth / 5;
@@ -40,12 +39,13 @@ class BottomBar {
         button.style.cursor = "pointer";
         button.style.position = "absolute";
         button.style.left = `${this.button_x}px`;
+        button.style.top = `5px`;
 
         imageElem.src = image;
         
         imageElem.style.borderRadius = "30%";
-        imageElem.width = 50;
-        imageElem.height = 50;
+        imageElem.width = 40;
+        imageElem.height = 40;
 
         button.appendChild(imageElem);
 

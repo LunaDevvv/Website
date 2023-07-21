@@ -1,7 +1,10 @@
-* {
-    scroll-behavior: none;
-}
+/* html,body{min-height:100%} */
 
 body {
-    background-size: cover;
+    /* background-size: cover; */
+    overflow: hidden;
 }
+
+/* * {
+    display: grid;
+} */
