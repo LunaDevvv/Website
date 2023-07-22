@@ -22,16 +22,10 @@ let textArray = `
     \\     \\_  /  /
      [ [ /  \\/ _/
     _[ [ \\  /_/
-{} `.split("\n");
 
-//* Allowing people to make their own lines through instructions.
-console.log(
-    "Run Terminal.clearLines() to clear terminal.\n Run showHeader to make a new header appear"
-);
-console.log("Key for creating a line : ");
-console.log(
-    `new Line("text", "css", mstime = 20, /* html tag type */ "pre", false /*prompt text*/, undefined /*extra elements*/);`
-);
+If this runs slow, refocus this window~
+Run osInfo for information on the OS~
+{} `.split("\n");
 
 //* Create a terminal instance.
 const Terminal = new terminal();
@@ -266,6 +260,7 @@ async function parseInput(text, sleeptime) {
         //* Give info on all of the current commands.
         case "help":
             new Line("Current commands : ", undefined, 20);
+            new Line("whoami : Tells you information on me!", `color: pink`, 20);
             new Line("clear : Clears the terminal", `color : green`, 20);
             new Line("help : Sends info on current commands", `color : orange`, 20);
             new Line("header : Shows the header", "color : red", 20);
@@ -301,7 +296,7 @@ async function parseInput(text, sleeptime) {
             );
 
             new Line(
-                "lunaOS: Sends you to my fake OS esc thing. Might become a desktop application someday.",
+                "Terminal: Sends you to the original terminal esc page. Currently the terminal you are using.",
                 "color : pink",
                 25
             )
@@ -337,9 +332,10 @@ async function parseInput(text, sleeptime) {
 
         //* Let people know who I "borrowed" the idea from.
         case "inspiration":
-            new Line("This website was inspired by : ", "color : blue;", 20);
+            new Line("This terminal was inspired by : ", "color : blue;", 20);
             new Line("mespyr.github.io (A friends website)", "color : red", 20);
             new Line("fkcodes.com (youtubers website)", "color : orange", 20);
+            new Line("The website was not inspired by anything, I just thought this would be cool", "color: pink", 20);
 
             await sleep(1000);
             waiting = false;
@@ -393,7 +389,7 @@ async function parseInput(text, sleeptime) {
             return takeInput();
 
         case "whoami":
-            new Line("Hello, I'm ShiroDev!", "color : pink", 10);
+            new Line("Hello, I'm LunaDev (Used to be ShiroDev)!", "color : pink", 10);
             new Line(
                 "I'm currently in highschool, and I have been programming for 4 ~ 5 years.",
                 "color : brown;",
@@ -420,6 +416,11 @@ async function parseInput(text, sleeptime) {
                 "color : gray",
                 10
             );
+            new Line(
+                "Currently I am working on a fake OS website (Probably what you are using right now), for my portfolio",
+                "color : darkSlateGray",
+                10
+            )
             waiting = false;
             return takeInput();
 
@@ -464,11 +465,21 @@ async function parseInput(text, sleeptime) {
 
 
         
-        case "lunaOS":
-            window.location.href = "./LunaOS.html";
+        case "terminal":
+            window.location.href = "./terminal.html";
             waiting = false;
             return takeInput();
-        
+            
+
+        case "osInfo":
+            new Line("OS Version : 0.1.3", "", 10);
+            new Line("OS Name : LunaOS", "", 10);
+            new Line("Warnings:", "", 10);
+            new Line("You currently cannot resize windows.", "", 10);
+            
+            waiting = false;
+            return takeInput();
+
         //* Tell them that the comand isn't found
         default:
             let timedText = `Command not found : ${text}`;

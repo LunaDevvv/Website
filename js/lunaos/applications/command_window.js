@@ -10,8 +10,10 @@ function console_function(command_window) {
     replacement_window.style.left = command_window.holder_div.style.left;
     replacement_window.style.position = command_window.holder_div.style.position;
     
-    replacement_window.src = "https://shirodev.dev/terminal"
+    replacement_window.src = "./terminal.html"
     replacement_window.title = "Command Window";
+
+    replacement_window.style.border = "none";
 
     replacement_window.style.backgroundColor = command_window.holder_div.style.backgroundColor;
     

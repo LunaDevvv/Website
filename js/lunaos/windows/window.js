@@ -38,7 +38,7 @@ class luna_window {
         window_holder.id = `${this.window_name}`;
         window_holder.style.position = "absolute";
         
-        window_holder.style.backgroundColor = "rgba(47, 79, 79, 0.5)";
+        window_holder.style.backgroundColor = "rgba(0, 0, 0, 0.5)";
         window_holder.style.minHeight = `${this.min_height}px`;
         window_holder.style.minWidth = `${this.min_width}px`;
         window_holder.style.width = `${this.starting_width}px`;
@@ -46,6 +46,7 @@ class luna_window {
         window_holder.style.borderRadius = "5px";
         window_holder.style.left = `${this.starting_x}px`;
         window_holder.style.top = `${this.starting_y}px`;
+        window_holder.style.backdropFilter = "blur(20px)"
         
         let title_div = document.createElement("div");
         title_div.style.height = "20px";
@@ -66,13 +67,16 @@ class luna_window {
         title_text.style.left = "10px";
         title_text.style.top = "-10px";
         title_text.style.cursor = "default";
-
+        title_text.style.fontSize = "15px";
+        title_text.style.color = "white";
         const exit_button = document.createElement("button");
         exit_button.textContent = "X";
         exit_button.style.position = "absolute";
         exit_button.style.color = "red";
         exit_button.style.width = "25px";
         exit_button.style.left = `${Number(window_holder.style.width.replace('px', "")) - Number(exit_button.style.width.replace("px", ""))}px`;
+        exit_button.style.border = "none";
+        exit_button.style.background = "none";
 
         exit_button.onclick = () => {
             document.getElementById(this.window_name).remove();
@@ -87,6 +91,8 @@ class luna_window {
         minimize_button.style.color = "gray";
         minimize_button.style.width = "25px";
         minimize_button.style.left = `${Number(window_holder.style.width.replace('px', "")) - Number(minimize_button.style.width.replace("px", "")) - 60}px`;
+        minimize_button.style.border = "none";
+        minimize_button.style.background = "none";
         
         let holder_div = document.createElement("div");
         holder_div.style.position = "absolute";
@@ -103,6 +109,8 @@ class luna_window {
         maximize_button.style.color = "white";
         maximize_button.style.width = "25px";
         maximize_button.style.left = `${Number(window_holder.style.width.replace('px', "")) - Number(maximize_button.style.width.replace("px", "")) - 30}px`;
+        maximize_button.style.border = "none";
+        maximize_button.style.background = "none";
 
         maximize_button.onclick = () => {
             this.#maximize();
@@ -111,7 +119,7 @@ class luna_window {
 
         minimize_button.onclick = async () => {
 
-            window_holder.hidden = true;
+            this.minimize();
             return;
         }
         
@@ -181,8 +189,6 @@ class luna_window {
             this.window_holder.style.height = `${this.starting_height}px`;
             this.window_holder.style.width = `${this.starting_width}px`;
 
-            console.log(this.holder_div);
-
             this.holder_div.style.height = `${Number(this.window_holder.style.height.replace("px", "")) - 30}px`;
             this.holder_div.style.width = `${Number(this.window_holder.style.width.replace("px", "")) - 10}px`;
 
@@ -215,12 +221,31 @@ class luna_window {
         this.holder_div.style.width = `${Number(this.window_holder.style.width.replace("px", "")) - 10}px`;
 
         this.maximized = true;
-        return console.log("In development!");
     }
 
     change_holder_div() {
         this.holder_div = document.getElementById(`${this.window_name}_holder`);
+    }
 
-        console.log("From change_holder\n" + this.holder_div.outerHTML)
+    async minimize() {
+
+        if(this.window_holder.hidden == true) {
+            this.window_holder.style.opacity = 1;
+            this.window_holder.hidden = false;
+
+            return;
+        }
+
+        for(let i = 1; i > 0; i -= 0.05) {
+            console.log(i);
+            this.window_holder.style.opacity = i;
+            await sleep(1);  
+        }
+
+        this.window_holder.hidden = true;
+    }
+
+    update() {
+        return this;
     }
 }

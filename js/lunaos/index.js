@@ -4,42 +4,40 @@ body.style.backgroundImage = "url(\"../../photos/LunaOS/backgrounds/desktop.jpg\
 
 body.style.backgroundSize = "100% 100%";
 
+let command_window = undefined;
+
 let bottomBar = new BottomBar();
 
 window.addEventListener("resize", (ev) => {
     bottomBar.onResize();
 })
 
-let windows = {}
-
+let windows = {};
 
 bottomBar.appendButton("../../photos/LunaOS/bottomBar/settingsButton.png", async () => {
     console.log("button pressed!");
 });
 
 bottomBar.appendButton("../../photos/LunaOS/bottomBar/terminal.png", async () => {
-    let current_window = document.getElementById("command_line");
-    
-    if(current_window != undefined) {
-        current_window.hidden = !current_window.hidden;
 
-        current_window.style.top = windows.command_window.y + "px";
-        current_window.style.left = windows.command_window.x + "px";
+    if(command_window != undefined) {
+        command_window = command_window.update();
+        command_window.minimize();
+
+        command_window.window_holder.style.top = windows.command_window.y + "px";
+        command_window.window_holder.style.left = windows.command_window.x + "px";
         return;   
     }
 
     const STARTING_X = 1000;
     const STARTING_Y = 100;
-    const STARTING_HEIGHT = 400;
-    const STARTING_WIDTH = 600;
+    const STARTING_HEIGHT = 1000;
+    const STARTING_WIDTH = 1200;
     const MIN_HEIGHT = 300;
     const MIN_WIDTH = 300;
-    /*
-        The way I did this definitely seems overkill, but its so that I have everything setup from the beginning.
-    */
 
-    let command_window = new luna_window("command line", STARTING_X, STARTING_Y, STARTING_HEIGHT, STARTING_WIDTH, MIN_HEIGHT, MIN_WIDTH, console_function, () => {
+    command_window = new luna_window("Command Prompt", STARTING_X, STARTING_Y, STARTING_HEIGHT, STARTING_WIDTH, MIN_HEIGHT, MIN_WIDTH, console_function, () => {
         command_window = undefined;
     });
-    windows["command_window"] = command_window;
+
 });
