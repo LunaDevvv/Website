@@ -3,6 +3,7 @@ const terminalDiv = document.getElementById("terminal");
 
 //* Creating the header.
 let textArray = `
+
   /$$$$$$  /$$       /$$                     /$$$$$$$                      
  /$$__  $$| $$      |__/                    | $$__  $$                     
 | $$  \\__/| $$$$$$$  /$$  /$$$$$$   /$$$$$$ | $$  \\ $$  /$$$$$$  /$$    /$$

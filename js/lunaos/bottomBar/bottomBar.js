@@ -1,14 +1,14 @@
 const baseDiv = document.createElement("div");
 baseDiv.width= window.innerWidth;
 baseDiv.style.height = "50px";
-baseDiv.style.width = window.innerWidth - 50;
+baseDiv.style.width = `${window.innerWidth - 50}px`;
 baseDiv.style.background = "rgba(9, 95, 97, 0.5)";
 // baseDiv.style.opacity = "25%";
 baseDiv.style.backdropFilter = "blur(2px)";
-baseDiv.style.position = "absolute";
-baseDiv.style.top = window.innerHeight - 50;
-baseDiv.style.left = window.innerWidth - (window.innerWidth / 10) * 9;
-baseDiv.style.width = window.innerWidth - window.innerWidth / 5;
+baseDiv.style.position = "fixed";
+baseDiv.style.top = `${window.innerHeight - 65}px`;
+baseDiv.style.left = `${window.innerWidth - (window.innerWidth / 10) * 9}px`;
+baseDiv.style.width = `${window.innerWidth - window.innerWidth / 5}px`;
 baseDiv.style.borderRadius = "20px";
 baseDiv.id = "bottomBar";
 
@@ -18,10 +18,10 @@ class BottomBar {
     button_x = 10;
 
     onResize() {
-        baseDiv.style.left = window.innerWidth - 50;
-        baseDiv.style.top = window.innerHeight - 50;
-        baseDiv.style.left = window.innerWidth - (window.innerWidth / 10) * 9;
-        baseDiv.style.width = window.innerWidth - window.innerWidth / 5;
+        baseDiv.style.width = `${window.innerWidth - 50}px`;
+        baseDiv.style.top = `${window.innerHeight - 65}px`;
+        baseDiv.style.left = `${window.innerWidth - (window.innerWidth / 10) * 9}px`;
+        baseDiv.style.width = `${window.innerWidth - window.innerWidth / 5}px`;
     }
 
 

@@ -1,6 +1,6 @@
 let body = document.getElementById("body");
 
-body.style.backgroundImage = "url(\"../../photos/LunaOS/backgrounds/base.png\")";
+body.style.backgroundImage = "url(\"../../photos/LunaOS/backgrounds/desktop.jpg\")";
 
 body.style.backgroundSize = "100% 100%";
 
@@ -13,7 +13,7 @@ window.addEventListener("resize", (ev) => {
 let windows = {}
 
 
-bottomBar.appendButton("../../photos/LunaOS/bottomBar/startButton.png", async () => {
+bottomBar.appendButton("../../photos/LunaOS/bottomBar/settingsButton.png", async () => {
     console.log("button pressed!");
 });
 
@@ -34,18 +34,12 @@ bottomBar.appendButton("../../photos/LunaOS/bottomBar/terminal.png", async () =>
     const STARTING_WIDTH = 600;
     const MIN_HEIGHT = 300;
     const MIN_WIDTH = 300;
-
-    function inside_function() {
-        console.log("Working!");
-    }
-
     /*
         The way I did this definitely seems overkill, but its so that I have everything setup from the beginning.
     */
 
-    let command_window = new luna_window("command line", STARTING_X, STARTING_Y, STARTING_HEIGHT, STARTING_WIDTH, MIN_HEIGHT, MIN_WIDTH, inside_function, () => {
+    let command_window = new luna_window("command line", STARTING_X, STARTING_Y, STARTING_HEIGHT, STARTING_WIDTH, MIN_HEIGHT, MIN_WIDTH, console_function, () => {
         command_window = undefined;
     });
-
     windows["command_window"] = command_window;
 });
