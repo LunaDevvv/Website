@@ -12,20 +12,37 @@ window.addEventListener("resize", (ev) => {
     bottomBar.onResize();
 })
 
-let windows = {};
 
 bottomBar.appendButton("../../photos/LunaOS/bottomBar/settingsButton.png", async () => {
     console.log("button pressed!");
 });
 
 bottomBar.appendButton("../../photos/LunaOS/bottomBar/terminal.png", async () => {
+    document.body.style.cursor = "wait";
+    if(typeof terminal == "undefined") {
+        const clear_command_class = document.createElement("script");
+        clear_command_class.src = "./js/lunaos/applications/command_window/command_window.js";
+        clear_command_class.id = "command_window_function";
+
+        document.head.appendChild(clear_command_class);
+
+        while(typeof import_scripts == "undefined") {
+            await sleep(5);
+        }
+
+        await import_scripts();
+    
+        while(typeof terminal == "undefined" || typeof Line == "undefined") {
+            await sleep(5);
+        }
+    }
 
     if(command_window != undefined) {
         command_window = command_window.update();
         command_window.minimize();
 
-        command_window.window_holder.style.top = windows.command_window.y + "px";
-        command_window.window_holder.style.left = windows.command_window.x + "px";
+        command_window.window_holder.style.top = command_window.y + "px";
+        command_window.window_holder.style.left = command_window.x + "px";
         return;   
     }
 
@@ -36,8 +53,10 @@ bottomBar.appendButton("../../photos/LunaOS/bottomBar/terminal.png", async () =>
     const MIN_HEIGHT = 300;
     const MIN_WIDTH = 300;
 
-    command_window = new luna_window("Command Prompt", STARTING_X, STARTING_Y, STARTING_HEIGHT, STARTING_WIDTH, MIN_HEIGHT, MIN_WIDTH, console_function, () => {
+    document.body.style.cursor = "default";
+
+    command_window = new luna_window("Command Prompt", STARTING_X, STARTING_Y, STARTING_HEIGHT, STARTING_WIDTH, MIN_HEIGHT, MIN_WIDTH, console_function, async () => {
         command_window = undefined;
     });
-
+    
 });

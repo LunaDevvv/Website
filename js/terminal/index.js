@@ -3,16 +3,17 @@ const terminalDiv = document.getElementById("terminal");
 
 //* Creating the header.
 let textArray = `
-
-  /$$$$$$  /$$       /$$                     /$$$$$$$                      
- /$$__  $$| $$      |__/                    | $$__  $$                     
-| $$  \\__/| $$$$$$$  /$$  /$$$$$$   /$$$$$$ | $$  \\ $$  /$$$$$$  /$$    /$$
-|  $$$$$$ | $$__  $$| $$ /$$__  $$ /$$__  $$| $$  | $$ /$$__  $$|  $$  /$$/
- \\____  $$| $$  \\ $$| $$| $$  \\__/| $$  \\ $$| $$  | $$| $$$$$$$$ \\  $$/$$/ 
- /$$  \\ $$| $$  | $$| $$| $$      | $$  | $$| $$  | $$| $$_____/  \\  $$$/  
-|  $$$$$$/| $$  | $$| $$| $$      |  $$$$$$/| $$$$$$$/|  $$$$$$$   \\  $/   
- \\______/ |__/  |__/|__/|__/       \\______/ |_______/  \\_______/    \\_/ 
- 
+{}
+▄█       ███    █▄  ███▄▄▄▄      ▄████████       ▄██████▄     ▄████████ 
+███       ███    ███ ███▀▀▀██▄   ███    ███      ███    ███   ███    ███ 
+███       ███    ███ ███   ███   ███    ███      ███    ███   ███    █▀  
+███       ███    ███ ███   ███   ███    ███      ███    ███   ███        
+███       ███    ███ ███   ███ ▀███████████      ███    ███ ▀███████████ 
+███       ███    ███ ███   ███   ███    ███      ███    ███          ███ 
+███▌    ▄ ███    ███ ███   ███   ███    ███      ███    ███    ▄█    ███ 
+█████▄▄██ ████████▀   ▀█   █▀    ███    █▀        ▀██████▀   ▄████████▀  
+▀                                                                        
+                                          
    /\\   /\\
   //\\\\_//\\\\     ____
   \\_     _/    /   /
@@ -36,10 +37,6 @@ async function showHeader() {
     waiting = true;
     typing = false;
 
-    const element2 = document.createElement("pre");
-    element2.innerHTML =
-        '<span id="WelcomeText" style="color : red;">Welcome to my websites terminal!</span>';
-
     //* Slowly show the header
     for (let i = 0; i < textArray.length; i++) {
         if (i == 0) {
@@ -59,8 +56,7 @@ async function showHeader() {
                 `font-family: monospace; line-height:3px; color : blue;`,
                 10,
                 undefined,
-                undefined,
-                { element: element2, id: "WelcomeText" }
+                undefined
             );
             continue;
         }
@@ -222,14 +218,6 @@ async function takeInput(ev) {
             .textContent.replace("ShiroDev.dev ~ ", "");
         document.getElementById("ShiroDev.dev ~ ").id = "";
         return parseInput(text);
-    }
-
-    //* Actually have the ability for capital letters
-    if (ev.shiftKey) {
-        //* Update the text content.
-        document.getElementById("ShiroDev.dev ~ ").textContent +=
-            ev.key.toUpperCase() + "▭";
-        return;
     }
 
     //* Update the text content.

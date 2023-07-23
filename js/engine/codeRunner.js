@@ -5,7 +5,6 @@ class codeRunner {
 
     setCode(code) {
         this.code = code;
-        console.log(code);
     }
 
     runCode() {

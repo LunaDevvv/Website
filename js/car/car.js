@@ -118,14 +118,12 @@ class Car {
     #assessDamage(roadBorders, traffic) {
         for (var i = 0; i < roadBorders.length; i++) {
             if (polysIntersect(this.polygon, roadBorders[i])) {
-                console.log("Border");
                 return true;
             }
         }
 
         for (var i = 0; i < traffic.length; i++) {
             if (polysIntersect(this.polygon, traffic[i].polygon)) {
-                console.log("Intercept");
                 return true;
             }
         }

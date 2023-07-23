@@ -38,7 +38,6 @@ class Line {
         for (let i = 0; i <= this.text.length; i++) {
             if (!this.elements) {
                 this.elements = this.elementBackup;
-                console.log(this.elementBackup);
             }
             if (i >= this.text.length && this.prompt) {
                 textp.innerHTML += "▭";
@@ -48,7 +47,6 @@ class Line {
             //* if {} is detected, replace it with one of the elements given.
             if (this.text[i] === "{" && this.text[i + 1] === "}") {
                 if (this.elements[elementNumber] == undefined) {
-                    console.log("missing element");
                     i += 1;
                     sleep(this.speed ? this.speed : 50);
                     continue;

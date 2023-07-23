@@ -47,8 +47,6 @@ animate();
 
 function save() {
     localStorage.setItem("bestBrain", JSON.stringify(bestCar.brain));
-
-    console.log("Saved");
 }
 
 function discard() {

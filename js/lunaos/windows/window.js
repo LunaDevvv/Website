@@ -38,7 +38,7 @@ class luna_window {
         window_holder.id = `${this.window_name}`;
         window_holder.style.position = "absolute";
         
-        window_holder.style.backgroundColor = "rgba(0, 0, 0, 0.5)";
+        window_holder.style.backgroundColor = "rgba(0, 0, 0, 1)";
         window_holder.style.minHeight = `${this.min_height}px`;
         window_holder.style.minWidth = `${this.min_width}px`;
         window_holder.style.width = `${this.starting_width}px`;
@@ -46,7 +46,6 @@ class luna_window {
         window_holder.style.borderRadius = "5px";
         window_holder.style.left = `${this.starting_x}px`;
         window_holder.style.top = `${this.starting_y}px`;
-        window_holder.style.backdropFilter = "blur(20px)"
         
         let title_div = document.createElement("div");
         title_div.style.height = "20px";
@@ -82,8 +81,6 @@ class luna_window {
             document.getElementById(this.window_name).remove();
             this.exitCallback();
         }
-
-        
         
         const minimize_button = document.createElement("button");
         minimize_button.textContent = "-";
@@ -95,6 +92,7 @@ class luna_window {
         minimize_button.style.background = "none";
         
         let holder_div = document.createElement("div");
+        holder_div.tabIndex = 0;
         holder_div.style.position = "absolute";
         holder_div.style.top = "25px";
         holder_div.style.left = "5px";
@@ -102,6 +100,7 @@ class luna_window {
         holder_div.style.width = `${Number(window_holder.style.width.replace("px", "")) - 10}px`;
         holder_div.style.backgroundColor = "black";
         holder_div.id = `${this.window_name}_holder`;
+        holder_div.style.overflow = "auto";
 
         const maximize_button = document.createElement("button");
         maximize_button.textContent = "□";
@@ -112,7 +111,7 @@ class luna_window {
         maximize_button.style.border = "none";
         maximize_button.style.background = "none";
 
-        maximize_button.onclick = () => {
+        maximize_button.onclick = async () => {
             this.#maximize();
             return;
         }
@@ -123,9 +122,21 @@ class luna_window {
             return;
         }
         
-        
-        
-        
+        let bottom_right_resize = document.createElement("div");
+        bottom_right_resize.style.width = "10px";
+        bottom_right_resize.style.height = "10px";
+        bottom_right_resize.style.zIndex = 2;
+        bottom_right_resize.style.cursor = "nwse-resize";
+        bottom_right_resize.style.position = "absolute";
+        bottom_right_resize.style.left = "99%";
+        bottom_right_resize.style.top = "99%";
+        bottom_right_resize.style.offset = 
+
+        bottom_right_resize.addEventListener("mousedown", async (ev) => {
+            ev.preventDefault();
+            this.#resize(ev);
+        })
+
         window_holder.appendChild(title_div);
         this.title_div = title_div;
         this.window_holder = window_holder;
@@ -137,6 +148,8 @@ class luna_window {
         this.maximize_button = maximize_button;
         window_holder.appendChild(minimize_button);
         this.minimize_button = minimize_button;
+
+        window_holder.appendChild(bottom_right_resize);
 
         window_holder.appendChild(holder_div);
         this.holder_div = holder_div;
@@ -158,7 +171,7 @@ class luna_window {
 
         let offset = [offsetX, offsetY];
 
-        document.addEventListener("mousemove", (mouseEvent) => {
+        document.addEventListener("mousemove", async (mouseEvent) => {
             let window_holder = document.getElementById(this.window_name);
             
             if(this.moving == false) {
@@ -237,7 +250,6 @@ class luna_window {
         }
 
         for(let i = 1; i > 0; i -= 0.05) {
-            console.log(i);
             this.window_holder.style.opacity = i;
             await sleep(1);  
         }
@@ -247,5 +259,44 @@ class luna_window {
 
     update() {
         return this;
+    }
+
+
+    /**
+     * 
+     * @param {MouseEvent} ev 
+     */
+    #resize(ev) {
+        let original_click_offset = [ev.offsetX, ev.offsetY];
+
+        let finish_resizing = false;
+
+        document.addEventListener("mouseup", () => {
+            finish_resizing = true;
+        })
+
+        document.addEventListener("mousemove", async (mouseEvent) => {
+            if(finish_resizing) return;
+
+
+
+            let new_size_x = Math.abs((mouseEvent.x + original_click_offset[0]) - (Number(this.window_holder.style.left.replace("px", ""))));
+            let new_size_y = Math.abs((mouseEvent.y + original_click_offset[1]) - (Number(this.window_holder.style.top.replace("px", ""))));
+
+            this.window_holder.style.width = `${new_size_x}px`;
+            this.window_holder.style.height = `${new_size_y}px`;
+
+            console.log(this.window_holder.style.height);
+
+            this.title_div.style.width = `${Number(this.window_holder.style.width.replace("px", "")) - 65}px`;
+    
+            this.exit_button.style.left = `${Number(this.window_holder.style.width.replace('px', "")) - Number(this.exit_button.style.width.replace("px", ""))}px`;
+            this.maximize_button.style.left = `${Number(this.window_holder.style.width.replace('px', "")) - Number(this.maximize_button.style.width.replace("px", "")) - 30}px`;
+            this.minimize_button.style.left = `${Number(this.window_holder.style.width.replace('px', "")) - Number(this.minimize_button.style.width.replace("px", "")) - 60}px`;
+    
+            this.holder_div.style.height = `${Number(this.window_holder.style.height.replace("px", "")) - 30}px`;
+            this.holder_div.style.width = `${Number(this.window_holder.style.width.replace("px", "")) - 10}px`;
+
+        });
     }
 }
