@@ -28,9 +28,10 @@ class BottomBar {
     /**
      * 
      * @param {string} image  
+     * @param {string} id
      * @param {Function} callbackFunction 
      */
-    appendButton(image, callbackFunction) {
+    appendButton(image, id, callbackFunction) {
         const button = document.createElement("button");
         const imageElem = document.createElement("img");
 
@@ -40,12 +41,16 @@ class BottomBar {
         button.style.position = "absolute";
         button.style.left = `${this.button_x}px`;
         button.style.top = `5px`;
+        
+        button.id = id;
 
         imageElem.src = image;
         
         imageElem.style.borderRadius = "30%";
         imageElem.width = 40;
         imageElem.height = 40;
+        
+        this.imageElem = imageElem;
 
         button.appendChild(imageElem);
 
@@ -54,5 +59,14 @@ class BottomBar {
         baseDiv.appendChild(button);
 
         this.button_x += 55;
+    }
+
+
+    /**
+     * 
+     * @param {string} image 
+     */
+    updateImage(image) {
+        this.imageElem.src = image;
     }
 }

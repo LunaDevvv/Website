@@ -1,3 +1,8 @@
+/**
+ * @type {Array<luna_window>}
+ */
+let windows = [];
+
 class luna_window {
     /**
      * @param {string} window_name
@@ -18,7 +23,8 @@ class luna_window {
         this.starting_width = starting_width;
         this.min_height = min_height;
         this.min_width = min_width;
-
+        this.focused = false;
+        windows.push(this);
 
         this.x = starting_x;
         this.y = starting_y;
@@ -31,6 +37,7 @@ class luna_window {
         this.maximized = false;
 
         this.#generate_window();
+
     }
 
     #generate_window() {
@@ -46,6 +53,10 @@ class luna_window {
         window_holder.style.borderRadius = "5px";
         window_holder.style.left = `${this.starting_x}px`;
         window_holder.style.top = `${this.starting_y}px`;
+
+        window_holder.onmousedown = () => {
+            this.focus();
+        }
         
         let title_div = document.createElement("div");
         title_div.style.height = "20px";
@@ -167,7 +178,7 @@ class luna_window {
         top_right_resize.style.width = "10px";
         top_right_resize.style.height = "10px";
         top_right_resize.style.zIndex = 2;
-        top_right_resize.style.left = "100%";
+        top_right_resize.style.left = "99%";
         top_right_resize.style.cursor = "nesw-resize";
         top_right_resize.style.position = "absolute";
 
@@ -178,7 +189,8 @@ class luna_window {
 
         let left_resize = document.createElement("div");
         left_resize.style.width = "10px";
-        left_resize.style.height = "100%";
+        left_resize.style.height = "98%";
+        left_resize.style.top = "8px";
         left_resize.style.zIndex = 2;
         left_resize.style.cursor = "ew-resize";
         left_resize.style.position = "absolute";
@@ -190,7 +202,7 @@ class luna_window {
 
         let right_resize = document.createElement("div");
         right_resize.style.width = "10px";
-        right_resize.style.height = "100%";
+        right_resize.style.height = "99%";
         right_resize.style.left = "100%";
         right_resize.style.zIndex = 2;
         right_resize.style.cursor = "ew-resize";
@@ -202,7 +214,7 @@ class luna_window {
         });
 
         let top_resize = document.createElement("div");
-        top_resize.style.width = "100%";
+        top_resize.style.width = "99%";
         top_resize.style.height = "10px";
         top_resize.style.top = "-1%"
         top_resize.style.zIndex = 2;
@@ -215,7 +227,7 @@ class luna_window {
         });
 
         let bottom_resize = document.createElement("div");
-        bottom_resize.style.width = "100%";
+        bottom_resize.style.width = "99%";
         bottom_resize.style.height = "10px";
         bottom_resize.style.top = "100%";
         bottom_resize.style.zIndex = 2;
@@ -253,6 +265,8 @@ class luna_window {
         window_holder.left = "10px";
 
         document.body.appendChild(window_holder);
+
+        this.focus();
 
         this.inside_function(this);
     }
@@ -562,5 +576,23 @@ class luna_window {
         window.window_holder.style.height = `${new_size_y}px`;
 
         window.holder_div.style.height = `${Number(window.window_holder.style.height.replace("px", "")) - 30}px`;
+    }
+
+
+    focus() {
+        for(let i = 0; i < windows.length; i++) {
+            if(windows[i].focused) {
+                windows[i].unfocus();
+            }
+        }
+
+        this.focused = true;
+
+        this.window_holder.style.zIndex = "5";
+    }
+
+    unfocus() {
+        this.focused = false;
+        this.window_holder.style.zIndex = "0";
     }
 }

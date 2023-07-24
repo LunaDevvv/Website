@@ -2,6 +2,8 @@ html,body{min-height:100%}
 
 body {
     overflow: hidden;
+    min-height : 100%;
+    padding: 0;
 }
 
 pre {
