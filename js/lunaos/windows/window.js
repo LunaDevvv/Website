@@ -128,15 +128,105 @@ class luna_window {
         bottom_right_resize.style.zIndex = 2;
         bottom_right_resize.style.cursor = "nwse-resize";
         bottom_right_resize.style.position = "absolute";
-        bottom_right_resize.style.left = "99%";
+        bottom_right_resize.style.left = "100%";
         bottom_right_resize.style.top = "99%";
-        bottom_right_resize.style.offset = 
 
         bottom_right_resize.addEventListener("mousedown", async (ev) => {
             ev.preventDefault();
-            this.#resize(ev);
-        })
 
+            console.log(ev.x);
+            this.#resize(ev, "bottom_right");
+        });
+
+        let bottom_left_resize = document.createElement("div");
+        bottom_left_resize.style.width = "10px";
+        bottom_left_resize.style.height = "10px";
+        bottom_left_resize.style.zIndex = 2;
+        bottom_left_resize.style.cursor = "nesw-resize";
+        bottom_left_resize.style.position = "absolute";
+        bottom_left_resize.style.top = "99%";
+
+        bottom_left_resize.addEventListener("mousedown", async (ev) => {
+            ev.preventDefault();
+            this.#resize(ev, "bottom_left");
+        });
+
+        let top_left_resize = document.createElement("div");
+        top_left_resize.style.width = "10px";
+        top_left_resize.style.height = "10px";
+        top_left_resize.style.zIndex = 2;
+        top_left_resize.style.cursor = "nwse-resize";
+        top_left_resize.style.position = "absolute";
+
+        top_left_resize.addEventListener("mousedown", async (ev) => {
+            ev.preventDefault();
+            this.#resize(ev, "top_left");
+        });
+
+        let top_right_resize = document.createElement("div");
+        top_right_resize.style.width = "10px";
+        top_right_resize.style.height = "10px";
+        top_right_resize.style.zIndex = 2;
+        top_right_resize.style.left = "100%";
+        top_right_resize.style.cursor = "nesw-resize";
+        top_right_resize.style.position = "absolute";
+
+        top_right_resize.addEventListener("mousedown", async (ev) => {
+            ev.preventDefault();
+            this.#resize(ev, "top_right");
+        });
+
+        let left_resize = document.createElement("div");
+        left_resize.style.width = "10px";
+        left_resize.style.height = "100%";
+        left_resize.style.zIndex = 2;
+        left_resize.style.cursor = "ew-resize";
+        left_resize.style.position = "absolute";
+
+        left_resize.addEventListener("mousedown", async (ev) => {
+            ev.preventDefault();
+            this.#resize(ev, "left");
+        });
+
+        let right_resize = document.createElement("div");
+        right_resize.style.width = "10px";
+        right_resize.style.height = "100%";
+        right_resize.style.left = "100%";
+        right_resize.style.zIndex = 2;
+        right_resize.style.cursor = "ew-resize";
+        right_resize.style.position = "absolute";
+
+        right_resize.addEventListener("mousedown", async (ev) => {
+            ev.preventDefault();
+            this.#resize(ev, "right");
+        });
+
+        let top_resize = document.createElement("div");
+        top_resize.style.width = "100%";
+        top_resize.style.height = "10px";
+        top_resize.style.top = "-1%"
+        top_resize.style.zIndex = 2;
+        top_resize.style.cursor = "ns-resize";
+        top_resize.style.position = "absolute";
+
+        top_resize.addEventListener("mousedown", async (ev) => {
+            ev.preventDefault();
+            this.#resize(ev, "top");
+        });
+
+        let bottom_resize = document.createElement("div");
+        bottom_resize.style.width = "100%";
+        bottom_resize.style.height = "10px";
+        bottom_resize.style.top = "100%";
+        bottom_resize.style.zIndex = 2;
+        bottom_resize.style.cursor = "ns-resize";
+        bottom_resize.style.position = "absolute";
+
+        bottom_resize.addEventListener("mousedown", async (ev) => {
+            ev.preventDefault();
+            this.#resize(ev, "bottom");
+        });
+        
         window_holder.appendChild(title_div);
         this.title_div = title_div;
         this.window_holder = window_holder;
@@ -150,6 +240,13 @@ class luna_window {
         this.minimize_button = minimize_button;
 
         window_holder.appendChild(bottom_right_resize);
+        window_holder.appendChild(bottom_left_resize);
+        window_holder.appendChild(top_left_resize);
+        window_holder.appendChild(top_right_resize);
+        window_holder.appendChild(left_resize);
+        window_holder.appendChild(right_resize);
+        window_holder.appendChild(top_resize);
+        window_holder.appendChild(bottom_resize);
 
         window_holder.appendChild(holder_div);
         this.holder_div = holder_div;
@@ -265,38 +362,205 @@ class luna_window {
     /**
      * 
      * @param {MouseEvent} ev 
+     * @param {"bottom_right"} position
      */
-    #resize(ev) {
+    #resize(ev, position) {
         let original_click_offset = [ev.offsetX, ev.offsetY];
 
         let finish_resizing = false;
 
+        let math_functions = {
+            bottom_right : {
+                x : (mouseEvent) => Math.abs((mouseEvent.x + original_click_offset[0]) - (Number(this.window_holder.style.left.replace("px", "")))),
+                y : (mouseEvent) => Math.abs((mouseEvent.y + original_click_offset[1]) - (Number(this.window_holder.style.top.replace("px", "")))),
+                function : this.#resize_bottom_right
+            },
+            bottom_left : {
+                x : (mouseEvent) => Math.abs((mouseEvent.x + original_click_offset[0]) - (Number(this.window_holder.style.left.replace("px", "")) + Number(this.window_holder.style.width.replace("px", "")))),
+                y : (mouseEvent) => Math.abs((mouseEvent.y + original_click_offset[1]) - (Number(this.window_holder.style.top.replace("px", "")))),
+                function : this.#resize_bottom_left
+            },
+            top_left : {
+                x : (mouseEvent) => Math.abs((mouseEvent.x + original_click_offset[0]) - (Number(this.window_holder.style.left.replace("px", "")) + Number(this.window_holder.style.width.replace("px", "")))),
+                y : (mouseEvent) => Math.abs((mouseEvent.y + original_click_offset[1]) - (Number(this.window_holder.style.top.replace("px", "")) + Number(this.window_holder.style.height.replace("px", "")))),
+                function : this.#resize_top_left
+            },
+            top_right : {
+                x : (mouseEvent) => Math.abs((mouseEvent.x + original_click_offset[0]) - (Number(this.window_holder.style.left.replace("px", "")))),
+                y : (mouseEvent) => Math.abs((mouseEvent.y + original_click_offset[1]) - (Number(this.window_holder.style.top.replace("px", "")) + Number(this.window_holder.style.height.replace("px", "")))),
+                function : this.#resize_top_right
+            },
+            left: {
+                x : (mouseEvent) => Math.abs((mouseEvent.x + original_click_offset[0]) - (Number(this.window_holder.style.left.replace("px", "")) + Number(this.window_holder.style.width.replace("px", "")))),
+                y : (mouseEvent) => 0,
+                function : this.#resize_left
+            },
+            right: {
+                x : (mouseEvent) => Math.abs((mouseEvent.x + original_click_offset[0]) - (Number(this.window_holder.style.left.replace("px", "")))),
+                y : (mouseEvent) => 0,
+                function : this.#resize_right
+            },
+            top : {
+                x : (mouseEvent) => 0,
+                y : (mouseEvent) => Math.abs((mouseEvent.y + original_click_offset[1]) - (Number(this.window_holder.style.top.replace("px", "")) + Number(this.window_holder.style.height.replace("px", "")))),
+                function : this.#resize_top
+            },
+
+            bottom : {
+                x : (mouseEvent) => 0,
+                y : (mouseEvent) => Math.abs((mouseEvent.y + original_click_offset[1]) - (Number(this.window_holder.style.top.replace("px", "")))),
+                function : this.#resize_bottom
+            },
+        }
+
         document.addEventListener("mouseup", () => {
             finish_resizing = true;
+
+            document.removeEventListener
         })
 
         document.addEventListener("mousemove", async (mouseEvent) => {
             if(finish_resizing) return;
 
+            let new_size_x = math_functions[position].x(mouseEvent);
+            let new_size_y = math_functions[position].y(mouseEvent);
 
+            if(new_size_x < this.min_width) new_size_x = `${this.min_width}px`;
+            if(new_size_y < this.min_height) new_size_y = `${this.min_height}px`;
 
-            let new_size_x = Math.abs((mouseEvent.x + original_click_offset[0]) - (Number(this.window_holder.style.left.replace("px", ""))));
-            let new_size_y = Math.abs((mouseEvent.y + original_click_offset[1]) - (Number(this.window_holder.style.top.replace("px", ""))));
-
-            this.window_holder.style.width = `${new_size_x}px`;
-            this.window_holder.style.height = `${new_size_y}px`;
-
-            console.log(this.window_holder.style.height);
-
-            this.title_div.style.width = `${Number(this.window_holder.style.width.replace("px", "")) - 65}px`;
-    
-            this.exit_button.style.left = `${Number(this.window_holder.style.width.replace('px', "")) - Number(this.exit_button.style.width.replace("px", ""))}px`;
-            this.maximize_button.style.left = `${Number(this.window_holder.style.width.replace('px', "")) - Number(this.maximize_button.style.width.replace("px", "")) - 30}px`;
-            this.minimize_button.style.left = `${Number(this.window_holder.style.width.replace('px', "")) - Number(this.minimize_button.style.width.replace("px", "")) - 60}px`;
-    
-            this.holder_div.style.height = `${Number(this.window_holder.style.height.replace("px", "")) - 30}px`;
-            this.holder_div.style.width = `${Number(this.window_holder.style.width.replace("px", "")) - 10}px`;
-
+            math_functions[position].function(new_size_x, new_size_y, this);
         });
+    }
+
+    /**
+     * 
+     * @param {number} new_size_x 
+     * @param {number} new_size_y 
+     * @param {luna_window} window
+     */
+    #resize_bottom_right(new_size_x, new_size_y, window) {
+
+        window.window_holder.style.width = `${new_size_x}px`;
+        window.window_holder.style.height = `${new_size_y}px`;
+
+        window.title_div.style.width = `${Number(window.window_holder.style.width.replace("px", "")) - 65}px`;
+
+        window.exit_button.style.left = `${Number(window.window_holder.style.width.replace('px', "")) - Number(window.exit_button.style.width.replace("px", ""))}px`;
+        window.maximize_button.style.left = `${Number(window.window_holder.style.width.replace('px', "")) - Number(window.maximize_button.style.width.replace("px", "")) - 30}px`;
+        window.minimize_button.style.left = `${Number(window.window_holder.style.width.replace('px', "")) - Number(window.minimize_button.style.width.replace("px", "")) - 60}px`;
+
+        window.holder_div.style.height = `${Number(window.window_holder.style.height.replace("px", "")) - 30}px`;
+        window.holder_div.style.width = `${Number(window.window_holder.style.width.replace("px", "")) - 10}px`;
+    }
+
+        /**
+     * 
+     * @param {number} new_size_x 
+     * @param {number} new_size_y 
+     * @param {luna_window} window
+     */
+
+    #resize_bottom_left(new_size_x, new_size_y, window) {
+        let right_x = Number(window.window_holder.style.left.replace("px", "")) + Number(window.window_holder.style.width.replace("px", ""));
+
+        window.window_holder.style.width = `${new_size_x}px`;
+        window.window_holder.style.height = `${new_size_y}px`;
+
+        
+        window.title_div.style.width = `${Number(window.window_holder.style.width.replace("px", "")) - 65}px`;
+        
+        window.exit_button.style.left = `${Number(window.window_holder.style.width.replace('px', "")) - Number(window.exit_button.style.width.replace("px", ""))}px`;
+        window.maximize_button.style.left = `${Number(window.window_holder.style.width.replace('px', "")) - Number(window.maximize_button.style.width.replace("px", "")) - 30}px`;
+        window.minimize_button.style.left = `${Number(window.window_holder.style.width.replace('px', "")) - Number(window.minimize_button.style.width.replace("px", "")) - 60}px`;
+        
+        window.holder_div.style.height = `${Number(window.window_holder.style.height.replace("px", "")) - 30}px`;
+        window.holder_div.style.width = `${Number(window.window_holder.style.width.replace("px", "")) - 10}px`;
+
+        window.window_holder.style.left = `${right_x - window.window_holder.style.width.replace("px", "")}px`;
+    }
+
+    #resize_top_left(new_size_x, new_size_y, window) {
+        let right_x = Number(window.window_holder.style.left.replace("px", "")) + Number(window.window_holder.style.width.replace("px", ""));
+        let bottom_y = Number(window.window_holder.style.top.replace("px", "")) + Number(window.window_holder.style.height.replace("px", ""));
+
+        window.window_holder.style.width = `${new_size_x}px`;
+        window.window_holder.style.height = `${new_size_y}px`;
+
+        
+        window.title_div.style.width = `${Number(window.window_holder.style.width.replace("px", "")) - 65}px`;
+        
+        window.exit_button.style.left = `${Number(window.window_holder.style.width.replace('px', "")) - Number(window.exit_button.style.width.replace("px", ""))}px`;
+        window.maximize_button.style.left = `${Number(window.window_holder.style.width.replace('px', "")) - Number(window.maximize_button.style.width.replace("px", "")) - 30}px`;
+        window.minimize_button.style.left = `${Number(window.window_holder.style.width.replace('px', "")) - Number(window.minimize_button.style.width.replace("px", "")) - 60}px`;
+        
+        window.holder_div.style.height = `${Number(window.window_holder.style.height.replace("px", "")) - 30}px`;
+        window.holder_div.style.width = `${Number(window.window_holder.style.width.replace("px", "")) - 10}px`;
+        
+        window.window_holder.style.left = `${right_x - window.window_holder.style.width.replace("px", "")}px`;
+        window.window_holder.style.top = `${bottom_y - window.window_holder.style.height.replace("px", "")}px`;
+    }
+
+    #resize_top_right(new_size_x, new_size_y, window) {
+        let bottom_y = Number(window.window_holder.style.top.replace("px", "")) + Number(window.window_holder.style.height.replace("px", ""));
+
+        window.window_holder.style.width = `${new_size_x}px`;
+        window.window_holder.style.height = `${new_size_y}px`;
+
+        
+        window.title_div.style.width = `${Number(window.window_holder.style.width.replace("px", "")) - 65}px`;
+        
+        window.exit_button.style.left = `${Number(window.window_holder.style.width.replace('px', "")) - Number(window.exit_button.style.width.replace("px", ""))}px`;
+        window.maximize_button.style.left = `${Number(window.window_holder.style.width.replace('px', "")) - Number(window.maximize_button.style.width.replace("px", "")) - 30}px`;
+        window.minimize_button.style.left = `${Number(window.window_holder.style.width.replace('px', "")) - Number(window.minimize_button.style.width.replace("px", "")) - 60}px`;
+        
+        window.holder_div.style.height = `${Number(window.window_holder.style.height.replace("px", "")) - 30}px`;
+        window.holder_div.style.width = `${Number(window.window_holder.style.width.replace("px", "")) - 10}px`;
+        
+        window.window_holder.style.top = `${bottom_y - window.window_holder.style.height.replace("px", "")}px`;
+    }
+
+    #resize_left(new_size_x, new_size_y, window) {
+        let right_x = Number(window.window_holder.style.left.replace("px", "")) + Number(window.window_holder.style.width.replace("px", ""));
+
+        window.window_holder.style.width = `${new_size_x}px`;
+        
+        window.title_div.style.width = `${Number(window.window_holder.style.width.replace("px", "")) - 65}px`;
+        
+        window.exit_button.style.left = `${Number(window.window_holder.style.width.replace('px', "")) - Number(window.exit_button.style.width.replace("px", ""))}px`;
+        window.maximize_button.style.left = `${Number(window.window_holder.style.width.replace('px', "")) - Number(window.maximize_button.style.width.replace("px", "")) - 30}px`;
+        window.minimize_button.style.left = `${Number(window.window_holder.style.width.replace('px', "")) - Number(window.minimize_button.style.width.replace("px", "")) - 60}px`;
+        
+        window.holder_div.style.width = `${Number(window.window_holder.style.width.replace("px", "")) - 10}px`;
+        
+        window.window_holder.style.left = `${right_x - window.window_holder.style.width.replace("px", "")}px`;
+    }
+
+    #resize_right(new_size_x, new_size_y, window) {
+        window.window_holder.style.width = `${new_size_x}px`;
+        
+        window.title_div.style.width = `${Number(window.window_holder.style.width.replace("px", "")) - 65}px`;
+        
+        window.exit_button.style.left = `${Number(window.window_holder.style.width.replace('px', "")) - Number(window.exit_button.style.width.replace("px", ""))}px`;
+        window.maximize_button.style.left = `${Number(window.window_holder.style.width.replace('px', "")) - Number(window.maximize_button.style.width.replace("px", "")) - 30}px`;
+        window.minimize_button.style.left = `${Number(window.window_holder.style.width.replace('px', "")) - Number(window.minimize_button.style.width.replace("px", "")) - 60}px`;
+        
+        window.holder_div.style.width = `${Number(window.window_holder.style.width.replace("px", "")) - 10}px`;
+
+    }
+
+    #resize_top(new_size_x, new_size_y, window) {
+        let bottom_y = Number(window.window_holder.style.top.replace("px", "")) + Number(window.window_holder.style.height.replace("px", ""));
+
+        window.window_holder.style.height = `${new_size_y}px`;
+
+        window.holder_div.style.height = `${Number(window.window_holder.style.height.replace("px", "")) - 30}px`;
+
+        window.window_holder.style.top = `${bottom_y - window.window_holder.style.height.replace("px", "")}px`;
+    }
+
+    #resize_bottom(new_size_x, new_size_y, window) {
+        window.window_holder.style.height = `${new_size_y}px`;
+
+        window.holder_div.style.height = `${Number(window.window_holder.style.height.replace("px", "")) - 30}px`;
     }
 }
