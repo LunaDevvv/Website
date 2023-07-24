@@ -36,9 +36,15 @@ class Line {
         let lineElement = document.createElement(this.elementType);
         this.element = lineElement;  
         this.element.id = this.text;
+
         if(this.css) {
-            this.element.style = this.css;
+            this.css = this.css.replace("color: white;", "");
+            this.css = this.css.replace("color: black;", "");
         }
+
+        this.css = `color: ${color_themes[current_theme].text}; ${this.css ? this.css : ""}`;
+
+        this.element.style = this.css;
 
         this.terminal.terminalDiv.appendChild(this.element);
 

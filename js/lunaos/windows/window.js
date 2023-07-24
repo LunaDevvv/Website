@@ -1,9 +1,19 @@
 /**
  * @type {Array<luna_window>}
+ * 
+ * @typedef {import("../color_themes")}
  */
 let windows = [];
 
+function reloadWindowColors() {
+    for(let i = 0; i < windows.length; i++) {
+        windows[i].reloadColors();
+    }
+}
+
 class luna_window {
+    window_storage = {};
+
     /**
      * @param {string} window_name
      * @param {number} starting_x
@@ -37,15 +47,14 @@ class luna_window {
         this.maximized = false;
 
         this.#generate_window();
-
     }
 
     #generate_window() {
         const window_holder = document.createElement("div");
         window_holder.id = `${this.window_name}`;
         window_holder.style.position = "absolute";
-        
-        window_holder.style.backgroundColor = "rgba(0, 0, 0, 1)";
+
+        window_holder.style.backgroundColor = color_themes[current_theme].window_holder;
         window_holder.style.minHeight = `${this.min_height}px`;
         window_holder.style.minWidth = `${this.min_width}px`;
         window_holder.style.width = `${this.starting_width}px`;
@@ -59,10 +68,13 @@ class luna_window {
         }
         
         let title_div = document.createElement("div");
-        title_div.style.height = "20px";
-        title_div.style.width = `${Number(window_holder.style.width.replace("px", "")) - 65}px`;
+        title_div.style.width = `${Number(window_holder.style.width.replace("px", "")) - 90}px`;
         title_div.style.top = "0px";
+        title_div.style.height = "25px";
         title_div.style.position = "absolute";
+        title_div.style.backgroundColor = color_themes[current_theme].title_div;
+        title_div.style.borderRadius = "5px";
+        
         title_div.addEventListener("mousedown", (event) => {
             this.#move_window(event.offsetX, event.offsetY);
         });
@@ -78,7 +90,7 @@ class luna_window {
         title_text.style.top = "-10px";
         title_text.style.cursor = "default";
         title_text.style.fontSize = "15px";
-        title_text.style.color = "white";
+        title_text.style.color = color_themes[current_theme].text;
         const exit_button = document.createElement("button");
         exit_button.textContent = "X";
         exit_button.style.position = "absolute";
@@ -87,6 +99,16 @@ class luna_window {
         exit_button.style.left = `${Number(window_holder.style.width.replace('px', "")) - Number(exit_button.style.width.replace("px", ""))}px`;
         exit_button.style.border = "none";
         exit_button.style.background = "none";
+        exit_button.style.borderRadius = "5px";
+        exit_button.style.height = "25px"
+
+        exit_button.onmouseleave = () => {
+            exit_button.style.background = "none";
+        }
+        
+        exit_button.onmouseenter = () => {
+            exit_button.style.backgroundColor = "darkRed";
+        }
 
         exit_button.onclick = () => {
             document.getElementById(this.window_name).remove();
@@ -100,7 +122,9 @@ class luna_window {
         minimize_button.style.width = "25px";
         minimize_button.style.left = `${Number(window_holder.style.width.replace('px', "")) - Number(minimize_button.style.width.replace("px", "")) - 60}px`;
         minimize_button.style.border = "none";
+        minimize_button.style.height = "25px"
         minimize_button.style.background = "none";
+        minimize_button.style.borderRadius = "5px";
         
         let holder_div = document.createElement("div");
         holder_div.tabIndex = 0;
@@ -109,18 +133,36 @@ class luna_window {
         holder_div.style.left = "5px";
         holder_div.style.height = `${Number(window_holder.style.height.replace("px", "")) - 30}px`;
         holder_div.style.width = `${Number(window_holder.style.width.replace("px", "")) - 10}px`;
-        holder_div.style.backgroundColor = "black";
+        holder_div.style.backgroundColor = color_themes[current_theme].holder_div;
         holder_div.id = `${this.window_name}_holder`;
         holder_div.style.overflow = "auto";
 
         const maximize_button = document.createElement("button");
         maximize_button.textContent = "□";
         maximize_button.style.position = "absolute";
-        maximize_button.style.color = "white";
+        maximize_button.style.color = color_themes[current_theme].text;
+        maximize_button.style.height = "25px"
         maximize_button.style.width = "25px";
         maximize_button.style.left = `${Number(window_holder.style.width.replace('px', "")) - Number(maximize_button.style.width.replace("px", "")) - 30}px`;
         maximize_button.style.border = "none";
         maximize_button.style.background = "none";
+        maximize_button.style.borderRadius = "5px";
+
+        minimize_button.onmouseleave = () => {
+            minimize_button.style.background = "none";
+        }
+        
+        minimize_button.onmouseenter = () => {
+            minimize_button.style.backgroundColor = "#252626";
+        }
+
+        maximize_button.onmouseleave = () => {
+            maximize_button.style.background = "none";
+        }
+        
+        maximize_button.onmouseenter = () => {
+            maximize_button.style.backgroundColor = "#2a282e";
+        }
 
         maximize_button.onclick = async () => {
             this.#maximize();
@@ -144,8 +186,6 @@ class luna_window {
 
         bottom_right_resize.addEventListener("mousedown", async (ev) => {
             ev.preventDefault();
-
-            console.log(ev.x);
             this.#resize(ev, "bottom_right");
         });
 
@@ -273,9 +313,13 @@ class luna_window {
 
     #move_window(offsetX, offsetY) {
         if(this.maximized) {
+            let original_x = Number(this.window_holder.style.left.replace("px"))
+
             this.#maximize();
-            offsetX = 0;
-            offsetY = 0;
+
+            let new_x = Number(this.window_holder.style.left.replace("px"));
+
+            offsetX -= new_x + original_x;
         }
 
         this.moving = true;
@@ -323,7 +367,7 @@ class luna_window {
             this.window_holder.style.left = `${this.x}px`;
             this.window_holder.style.top = `${this.y}px`;
 
-            this.title_div.style.width = `${Number(this.window_holder.style.width.replace("px", "")) - 65}px`;
+            this.title_div.style.width = `${Number(this.window_holder.style.width.replace("px", "")) - 90}px`;
 
             this.maximized = false;
             return;
@@ -335,7 +379,7 @@ class luna_window {
         this.window_holder.style.height = `${window.innerHeight}px`;
         this.window_holder.style.width = `${window.innerWidth}px`;
 
-        this.title_div.style.width = `${Number(this.window_holder.style.width.replace("px", "")) - 65}px`;
+        this.title_div.style.width = `${Number(this.window_holder.style.width.replace("px", "")) - 90}px`;
 
         this.exit_button.style.left = `${Number(this.window_holder.style.width.replace('px', "")) - Number(this.exit_button.style.width.replace("px", ""))}px`;
         this.maximize_button.style.left = `${Number(this.window_holder.style.width.replace('px', "")) - Number(this.maximize_button.style.width.replace("px", "")) - 30}px`;
@@ -457,7 +501,7 @@ class luna_window {
         window.window_holder.style.width = `${new_size_x}px`;
         window.window_holder.style.height = `${new_size_y}px`;
 
-        window.title_div.style.width = `${Number(window.window_holder.style.width.replace("px", "")) - 65}px`;
+        window.title_div.style.width = `${Number(window.window_holder.style.width.replace("px", "")) - 90}px`;
 
         window.exit_button.style.left = `${Number(window.window_holder.style.width.replace('px', "")) - Number(window.exit_button.style.width.replace("px", ""))}px`;
         window.maximize_button.style.left = `${Number(window.window_holder.style.width.replace('px', "")) - Number(window.maximize_button.style.width.replace("px", "")) - 30}px`;
@@ -481,7 +525,7 @@ class luna_window {
         window.window_holder.style.height = `${new_size_y}px`;
 
         
-        window.title_div.style.width = `${Number(window.window_holder.style.width.replace("px", "")) - 65}px`;
+        window.title_div.style.width = `${Number(window.window_holder.style.width.replace("px", "")) - 90}px`;
         
         window.exit_button.style.left = `${Number(window.window_holder.style.width.replace('px', "")) - Number(window.exit_button.style.width.replace("px", ""))}px`;
         window.maximize_button.style.left = `${Number(window.window_holder.style.width.replace('px', "")) - Number(window.maximize_button.style.width.replace("px", "")) - 30}px`;
@@ -501,7 +545,7 @@ class luna_window {
         window.window_holder.style.height = `${new_size_y}px`;
 
         
-        window.title_div.style.width = `${Number(window.window_holder.style.width.replace("px", "")) - 65}px`;
+        window.title_div.style.width = `${Number(window.window_holder.style.width.replace("px", "")) - 90}px`;
         
         window.exit_button.style.left = `${Number(window.window_holder.style.width.replace('px', "")) - Number(window.exit_button.style.width.replace("px", ""))}px`;
         window.maximize_button.style.left = `${Number(window.window_holder.style.width.replace('px', "")) - Number(window.maximize_button.style.width.replace("px", "")) - 30}px`;
@@ -521,7 +565,7 @@ class luna_window {
         window.window_holder.style.height = `${new_size_y}px`;
 
         
-        window.title_div.style.width = `${Number(window.window_holder.style.width.replace("px", "")) - 65}px`;
+        window.title_div.style.width = `${Number(window.window_holder.style.width.replace("px", "")) - 90}px`;
         
         window.exit_button.style.left = `${Number(window.window_holder.style.width.replace('px', "")) - Number(window.exit_button.style.width.replace("px", ""))}px`;
         window.maximize_button.style.left = `${Number(window.window_holder.style.width.replace('px', "")) - Number(window.maximize_button.style.width.replace("px", "")) - 30}px`;
@@ -538,7 +582,7 @@ class luna_window {
 
         window.window_holder.style.width = `${new_size_x}px`;
         
-        window.title_div.style.width = `${Number(window.window_holder.style.width.replace("px", "")) - 65}px`;
+        window.title_div.style.width = `${Number(window.window_holder.style.width.replace("px", "")) - 90}px`;
         
         window.exit_button.style.left = `${Number(window.window_holder.style.width.replace('px', "")) - Number(window.exit_button.style.width.replace("px", ""))}px`;
         window.maximize_button.style.left = `${Number(window.window_holder.style.width.replace('px', "")) - Number(window.maximize_button.style.width.replace("px", "")) - 30}px`;
@@ -552,7 +596,7 @@ class luna_window {
     #resize_right(new_size_x, new_size_y, window) {
         window.window_holder.style.width = `${new_size_x}px`;
         
-        window.title_div.style.width = `${Number(window.window_holder.style.width.replace("px", "")) - 65}px`;
+        window.title_div.style.width = `${Number(window.window_holder.style.width.replace("px", "")) - 90}px`;
         
         window.exit_button.style.left = `${Number(window.window_holder.style.width.replace('px', "")) - Number(window.exit_button.style.width.replace("px", ""))}px`;
         window.maximize_button.style.left = `${Number(window.window_holder.style.width.replace('px', "")) - Number(window.maximize_button.style.width.replace("px", "")) - 30}px`;
@@ -594,5 +638,17 @@ class luna_window {
     unfocus() {
         this.focused = false;
         this.window_holder.style.zIndex = "0";
+    }
+
+    reloadColors() {
+        this.window_holder.style.backgroundColor = color_themes[current_theme].window_holder;
+        this.title_div.style.backgroundColor = color_themes[current_theme].title_div;
+        this.holder_div.style.backgroundColor = color_themes[current_theme].holder_div;
+        this.title_text.style.color = color_themes[current_theme].text;
+        this.maximize_button.style.color = color_themes[current_theme].text;
+    }
+
+    add_to_storage(name, variable) {
+        this.window_storage[name] = variable;
     }
 }

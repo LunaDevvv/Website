@@ -13,95 +13,28 @@ desktop.style.position = "static";
 
 desktop.clientLeft = "0px";
 desktop.style.zIndex = "0";
-
 desktop.style.padding = "none";
 desktop.style.backgroundSize = `${window.innerWidth}px ${window.innerHeight}px`;
 
-desktop.addEventListener("contextmenu", (ev) => {
-    ev.preventDefault();
+desktop.addEventListener("contextmenu", context_menu_function);
 
-    const context_div = document.createElement("div");
-
-    context_div.style.width = "100px";
-    context_div.style.height = "150px";
-    context_div.style.backgroundColor = "darkSlateGray";
-    context_div.style.position = "absolute";
-    context_div.style.zIndex = "100";
-    context_div.id = "desktopContextMenu";
-
-    context_div.style.borderRadius = "5px";
-    context_div.style.opacity = "80%";
-    context_div.style.filter = "10px";
-    
-    context_div.style.left = `${ev.x}px`;
-    context_div.style.top = `${ev.y}px`;
-
-    let settings_button = document.createElement("button");
-
-    settings_button.textContent = "settings";
-    settings_button.style.width = "100%";
-    settings_button.style.fontSize = "15px";
-    settings_button.style.background = "none";
-    settings_button.style.border = "none";
-    settings_button.style.color = "white";
-
-    settings_button.onclick = () => {
-        document.getElementById("settings").click();
-
-        context_div.remove();
-    }
-
-    settings_button.onmouseenter = () => {
-        settings_button.style.borderRadius = "5px";
-        settings_button.style.backgroundSize = "100% 40px";
-        settings_button.style.backgroundColor = "gray";
-    }
-
-    settings_button.onmouseleave = () => {
-        settings_button.style.background = "none";   
-    }
-
-
-    let terminal_button = document.createElement("button");
-
-    terminal_button.textContent = "terminal";
-    terminal_button.style.paddingTop = "3px";
-    terminal_button.style.width = "100%";
-    terminal_button.style.fontSize = "15px";
-    terminal_button.style.background = "none";
-    terminal_button.style.border = "none";
-    terminal_button.style.color = "white";
-
-    terminal_button.onclick = () => {
-        document.getElementById("terminal").click();
-
-        context_div.remove();
-    }
-
-    terminal_button.onmouseenter = () => {
-        terminal_button.style.borderRadius = "5px";
-        terminal_button.style.backgroundSize = "100% 40px";
-        terminal_button.style.backgroundColor = "gray";
-    }
-
-    terminal_button.onmouseleave = () => {
-        terminal_button.style.background = "none";   
-    }
-
-    context_div.appendChild(settings_button);
-    context_div.appendChild(terminal_button);
-    document.body.appendChild(context_div);
-});
-
-desktop.addEventListener("mousedown", (ev) => {
+document.addEventListener("mousedown", async (ev) => {
     let contextmenu = document.getElementById("desktopContextMenu");
     if(!contextmenu) return;
+
+    await sleep(100);
 
     contextmenu.remove();
 })
 
 
+/**
+ * @type {luna_window}
+ */
 let command_window = undefined;
+/**
+ * @type {luna_window}
+ */
 let settings_window = undefined;
 
 let bottomBar = new BottomBar();
@@ -126,7 +59,6 @@ bottomBar.appendButton("../../photos/LunaOS/bottomBar/settingsButton.png", "sett
     document.body.style.cursor = "default";
 
     if(settings_window != undefined) {
-        console.log(settings_window);
         settings_window = settings_window.update();
         settings_window.minimize();
         return;
@@ -188,3 +120,11 @@ bottomBar.appendButton("../../photos/LunaOS/bottomBar/terminal.png", "terminal",
     });
     
 });
+
+function updateColors() {
+    reloadWindowColors();
+    reloadBottomBarColors();
+    if(command_window) {
+        command_window.window_storage.terminal.updateLineColors();
+    }
+}

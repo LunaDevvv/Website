@@ -1,8 +1,12 @@
+/**
+ * @typedef {import("../color_themes")}
+ */
+
 const baseDiv = document.createElement("div");
 baseDiv.width= window.innerWidth;
 baseDiv.style.height = "50px";
 baseDiv.style.width = `${window.innerWidth - 50}px`;
-baseDiv.style.background = "rgba(9, 95, 97, 0.5)";
+baseDiv.style.background = color_themes[current_theme].base_div;
 // baseDiv.style.opacity = "25%";
 baseDiv.style.backdropFilter = "blur(2px)";
 baseDiv.style.position = "fixed";
@@ -13,6 +17,11 @@ baseDiv.style.borderRadius = "20px";
 baseDiv.id = "bottomBar";
 
 document.body.appendChild(baseDiv);
+
+
+function reloadBottomBarColors() {
+    baseDiv.style.background = color_themes[current_theme].base_div;
+}
 
 class BottomBar {
     button_x = 10;

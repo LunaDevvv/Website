@@ -1,4 +1,7 @@
 class terminal {
+    /**
+     * @type {Array<Line>}
+     */
     lines = [];
     current_path = "";
 
@@ -22,14 +25,22 @@ class terminal {
         this.lines.push(line);
     }
 
-    async clearLines() {
-        for (let i = 0; i < this.lines.length; i++) {
-            this.lines[i].clear();
-            await sleep(5);
+    async updateLineColors() {
+        for(let i = 0 ; i < this.lines.length; i++) {
+            this.lines[i].editText("");
+
+            await sleep(10);
         }
 
-        this.lines = [];
-
         return;
+    }
+
+    async clearLines() {
+        let CLEAR_SLEEP_TIME = 10;
+        while(this.terminalDiv.firstChild) {
+            this.terminalDiv.removeChild(this.terminalDiv.firstChild);
+    
+            await sleep(CLEAR_SLEEP_TIME);
+        }
     }
 }

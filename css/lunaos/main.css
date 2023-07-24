@@ -6,11 +6,6 @@ body {
     padding: 0;
 }
 
-pre {
-    color : white;
-    font-size: 15px;
-}
-
 :focus { outline: none; }
 
 ::-webkit-scrollbar {

@@ -34,6 +34,8 @@ Run osInfo for information on the OS~
 */
 async function console_function(command_window) {
     let Terminal = new terminal(command_window.holder_div);
+
+    command_window.add_to_storage("terminal", Terminal);
     
     await showHeader(Terminal);
 
@@ -99,6 +101,11 @@ async function showHeader(Terminal) {
  * @return { terminal }
  */
 
+/**
+ * @type {Line}
+ */
+let prompt_line = undefined
+
 async function takeInput(ev, Terminal) {
     if(Terminal.waiting != false) {
         return Terminal;
@@ -107,7 +114,7 @@ async function takeInput(ev, Terminal) {
     
     if(!Terminal.typing) {
         Terminal.waiting = true;
-        new Line(`LS .${Terminal.current_path} ~ `, Terminal, {
+        prompt_line = new Line(`LS .${Terminal.current_path} ~ `, Terminal, {
             speed : 5,
             isPrompt : true
         });
@@ -143,9 +150,11 @@ async function takeInput(ev, Terminal) {
                 
                 let text = prompt_element.textContent.replace(`LS .${Terminal.current_path} ~ `, "").replace("▭", "");
 
-                // prompt_element.textContent = prompt_element.textContent.replace("▭", "");
+                prompt_line.isPrompt = false;
 
                 prompt_element.id = "";
+
+                prompt_line.editText(`${text}`);
 
                 Terminal = await parseInput(text, Terminal);
 
