@@ -70,6 +70,7 @@ function makeSideDiv(window) {
     personalizationButton.style.backgroundColor = color_themes[current_theme].settingsButtons
     personalizationButton.style.color = color_themes[current_theme].text;
     personalizationButton.style.border = "none";
+    personalizationButton.style.marginTop = "5px";
 
     personalizationButton.onclick = () => {
         personalizationPage(window);

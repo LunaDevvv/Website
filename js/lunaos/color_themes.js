@@ -1,4 +1,4 @@
-let current_theme = "light_mode";
+let current_theme = "dark_mode";
 
 let color_themes = {
     dark_mode: {

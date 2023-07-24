@@ -1,5 +1,6 @@
 /**
  * @typedef {import("../color_themes")}
+ * @typedef {import("../icon_themes")} icon_themes
  */
 
 const baseDiv = document.createElement("div");
@@ -18,6 +19,16 @@ baseDiv.id = "bottomBar";
 
 document.body.appendChild(baseDiv);
 
+
+let button_images = [];
+
+async function updateIcons() {
+    for(let i  = 0; i < button_images.length; i++) {
+        if(icon_themes[current_icon_theme][button_images[i].image_key]) {
+            button_images[i].elem.src = icon_themes[current_icon_theme][button_images[i].image_key];
+        }
+    }
+}
 
 function reloadBottomBarColors() {
     baseDiv.style.background = color_themes[current_theme].base_div;
@@ -68,14 +79,10 @@ class BottomBar {
         baseDiv.appendChild(button);
 
         this.button_x += 55;
-    }
 
-
-    /**
-     * 
-     * @param {string} image 
-     */
-    updateImage(image) {
-        this.imageElem.src = image;
+        button_images.push({
+            elem : imageElem,
+            image_key: id
+        });
     }
 }

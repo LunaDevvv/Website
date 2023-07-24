@@ -154,10 +154,92 @@ function context_menu_function(ev) {
 
     theme_div.onmouseleave = () => {
         theme_div.lastChild.remove();
+        theme_div.style.background = "none";
+    }
+
+    const icon_theme_div = document.createElement("div");
+    icon_theme_div.textContent = "Icon theme";
+    icon_theme_div.style.paddingTop = "3px";
+    icon_theme_div.style.width = "100%";
+    icon_theme_div.style.height = "20px";
+    icon_theme_div.style.fontSize = "15px";
+    icon_theme_div.style.textAlign = "center";
+    icon_theme_div.style.background = "none";
+    icon_theme_div.style.border = "none";
+    icon_theme_div.style.color = color_themes[current_theme].text;
+
+    icon_theme_div.onmouseenter = () => {
+        icon_theme_div.style.backgroundColor = color_themes[current_theme].context_menu_button;
+        const icon_theme_holder = document.createElement("div");
+        icon_theme_holder.style.position = "absolute";
+        icon_theme_holder.style.left = "100%";
+        icon_theme_holder.style.top = "60px";
+        icon_theme_holder.style.height = "50px";
+        icon_theme_holder.style.width = "100px";
+        icon_theme_holder.style.backgroundColor = color_themes[current_theme].context_div;
+
+        const dark_mode_button = document.createElement("button");
+        dark_mode_button.textContent = "Dark mode";
+        dark_mode_button.style.paddingTop = "3px";
+        dark_mode_button.style.width = "100%";
+        dark_mode_button.style.fontSize = "15px";
+        dark_mode_button.style.background = "none";
+        dark_mode_button.style.border = "none";
+        dark_mode_button.style.color = color_themes[current_theme].text;
+
+        dark_mode_button.onmouseenter = () => {
+            dark_mode_button.style.borderRadius = "5px";
+            dark_mode_button.style.backgroundSize = "100% 40px";
+            dark_mode_button.style.backgroundColor = color_themes[current_theme].context_menu_button;
+        }
+    
+        dark_mode_button.onmouseleave = () => {
+            dark_mode_button.style.background = "none";   
+        }
+    
+        dark_mode_button.onclick = () => {
+            current_icon_theme = "dark_mode";
+            updateIcons();
+        }
+
+        const anime_icon_button = document.createElement("button");
+        anime_icon_button.textContent = "Anime";
+        anime_icon_button.style.paddingTop = "3px";
+        anime_icon_button.style.width = "100%";
+        anime_icon_button.style.fontSize = "15px";
+        anime_icon_button.style.background = "none";
+        anime_icon_button.style.border = "none";
+        anime_icon_button.style.color = color_themes[current_theme].text;
+
+        anime_icon_button.onmouseenter = () => {
+            anime_icon_button.style.borderRadius = "5px";
+            anime_icon_button.style.backgroundSize = "100% 40px";
+            anime_icon_button.style.backgroundColor = color_themes[current_theme].context_menu_button;
+        }
+    
+        anime_icon_button.onmouseleave = () => {
+            anime_icon_button.style.background = "none";   
+        }
+    
+        anime_icon_button.onclick = () => {
+            current_icon_theme = "anime";
+            updateIcons();
+        }
+        
+        icon_theme_div.appendChild(icon_theme_holder);
+
+        icon_theme_holder.appendChild(dark_mode_button);
+        icon_theme_holder.appendChild(anime_icon_button);
+    }
+
+    icon_theme_div.onmouseleave = () => {
+        icon_theme_div.lastChild.remove();
+        icon_theme_div.style.background = "none";
     }
 
     context_div.appendChild(settings_button);
     context_div.appendChild(terminal_button);
     context_div.appendChild(theme_div);
+    context_div.appendChild(icon_theme_div);
     document.body.appendChild(context_div);
 }
