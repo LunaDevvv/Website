@@ -663,6 +663,8 @@ class luna_window {
             }
         }
 
+        this.window_holder.style.opacity = "100%";
+
         this.focused = true;
 
         this.window_holder.style.zIndex = "5";
@@ -670,6 +672,7 @@ class luna_window {
 
     unfocus() {
         this.focused = false;
+        this.window_holder.style.opacity = "80%";
         this.window_holder.style.zIndex = "0";
     }
 

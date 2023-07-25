@@ -38,7 +38,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 const baseDiv = document.createElement("div");
 baseDiv.width= window.innerWidth;
-baseDiv.style.height = "50px";
+baseDiv.style.height = "60px";
 baseDiv.style.width = `${window.innerWidth - 50}px`;
 baseDiv.style.background = color_themes[current_theme].base_div;
 // baseDiv.style.opacity = "25%";
@@ -59,6 +59,7 @@ async function updateIcons() {
     for(let i  = 0; i < button_images.length; i++) {
         if(icon_themes[current_icon_theme][button_images[i].image_key]) {
             button_images[i].elem.src = icon_themes[current_icon_theme][button_images[i].image_key];
+            button_images[i].elem.style.fill = color_themes[current_theme].text;
         }
     }
 }
@@ -88,21 +89,27 @@ class BottomBar {
         const button = document.createElement("button");
         const imageElem = document.createElement("img");
 
-        button.style.border = "none";
-        button.style.background = "none";
+        if(image.endsWith(".svg")) {
+            imageElem.onload = "SVGInject(this)";
+        }
+
+        // button.style.border = "none";
+        button.style.backgroundColor = "rgba(0, 0, 0, 0)";
         button.style.cursor = "pointer";
         button.style.position = "absolute";
         button.style.left = `${this.button_x}px`;
         button.style.top = `5px`;
+        button.style.borderRadius = "50%";
+        button.style.borderColor = color_themes[current_theme].text;
         
         button.id = id;
-
+        
         imageElem.src = image;
         
         imageElem.style.borderRadius = "30%";
         imageElem.width = 40;
         imageElem.height = 40;
-        
+
         this.imageElem = imageElem;
 
         button.appendChild(imageElem);
@@ -111,7 +118,7 @@ class BottomBar {
 
         baseDiv.appendChild(button);
 
-        this.button_x += 55;
+        this.button_x += 65;
 
         button_images.push({
             elem : imageElem,

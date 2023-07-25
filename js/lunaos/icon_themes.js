@@ -31,18 +31,22 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 
-let current_icon_theme = "dark_mode";
+let current_icon_theme = "default";
 
 let icon_themes = {
-    dark_mode: {
-        settings : "/photos/LunaOS/bottomBar/settingsButton.png",
-        terminal : "/photos/LunaOS/bottomBar/terminal.png",
-        background: "url(\"/photos/LunaOS/backgrounds/desktop.jpg\")"
+    default: {
+        settings : "/photos/LunaOS/bottomBar/settings.svg",
+        terminal : "/photos/LunaOS/bottomBar/terminal.svg",
+        file_explorer : "/photos/LunaOS/bottomBar/file_explorer.svg"
     },
 
     anime : { 
         settings : "/photos/LunaOS/bottomBar/settingsButtonAnime.png",
-        terminal: "/photos/LunaOS/bottomBar/terminalAnime.png",
-        background: "url(\"/photos/LunaOS/backgrounds/anime.png\")"
+        terminal: "/photos/LunaOS/bottomBar/terminalAnime.png"
+    },
+
+    old_default: {
+        settings : "/photos/LunaOS/bottomBar/settingsButton.png",
+        terminal : "/photos/LunaOS/bottomBar/terminal.png"
     }
 }

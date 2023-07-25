@@ -43,7 +43,8 @@ let color_themes = {
         context_menu_button: "gray",
         base_div: "rgba(9, 95, 97, 0.5)",
         settingsButtons: "#424040",
-        selectedSettingsButton: "#292828"
+        selectedSettingsButton: "#292828",
+        file_explorer_search_bar: "#3d3736"
     },
     light_mode: {
         text: "black",
@@ -54,6 +55,7 @@ let color_themes = {
         context_menu_button: "#998eed",
         base_div: "rgba(122, 122, 122, 0.5)",
         settingsButtons: "#d1d1d1",
-        selectedSettingsButton: "#adaaaa"
+        selectedSettingsButton: "#adaaaa",
+        file_explorer_search_bar: "#9c9c9c"
     }
 }

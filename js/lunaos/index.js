@@ -37,11 +37,15 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
 let desktop = document.getElementById("desktop");
+
+/**
+ * @typedef {import("./fileSystem/fileSystem")}
+ */
 let osFileSystem = new fileSystem();
 
 
 desktop.style.height = `${window.innerHeight}px`;
-document.body.style.backgroundImage = icon_themes[current_icon_theme].background;
+document.body.style.backgroundImage = "url(\"/photos/LunaOS/backgrounds/desktop.jpg\")";
 document.body.style.backgroundSize = "100% 100%";
 
 desktop.style.position = "static";
@@ -67,10 +71,16 @@ document.addEventListener("mousedown", async (ev) => {
  * @type {luna_window}
  */
 let command_window = undefined;
+
 /**
  * @type {luna_window}
  */
 let settings_window = undefined;
+
+/**
+ * @type {luna_window}
+ */
+let file_explorer_window = undefined;
 
 let bottomBar = new BottomBar();
 
@@ -136,9 +146,7 @@ bottomBar.appendButton(icon_themes[current_icon_theme].terminal, "terminal", asy
     if(command_window != undefined) {
         command_window = command_window.update();
         command_window.minimize();
-
-        // command_window.window_holder.style.top = command_window.y + "px";
-        // command_window.window_holder.style.left = command_window.x + "px";
+        
         return;   
     }
 
@@ -155,6 +163,40 @@ bottomBar.appendButton(icon_themes[current_icon_theme].terminal, "terminal", asy
     });
     
 });
+
+bottomBar.appendButton(icon_themes[current_icon_theme].file_explorer, "file_explorer", async() => {
+    document.body.style.cursor = "wait";
+
+    if(typeof file_explorer_function == "undefined") {
+        const file_explorer_class = document.createElement("script");
+        file_explorer_class.src = "./js/lunaos/applications/file_explorer/file_explorer.js";
+
+        document.head.appendChild(file_explorer_class);
+
+        while(typeof file_explorer_function == "undefined") {
+            await sleep(5);
+        }
+    }
+
+    document.body.style.cursor = "default";
+    if(file_explorer_window != undefined) {
+        file_explorer_window = file_explorer_window.update();
+        file_explorer_window.minimize();
+        
+        return;   
+    }
+
+    const STARTING_X = 100;
+    const STARTING_Y = 100;
+    const STARTING_HEIGHT = 1000;
+    const STARTING_WIDTH = 1200;
+    const MIN_HEIGHT = 300;
+    const MIN_WIDTH = 1200;
+
+    file_explorer_window = new luna_window("File Explorer", STARTING_X, STARTING_Y, STARTING_HEIGHT, STARTING_WIDTH, MIN_HEIGHT, MIN_WIDTH, file_explorer_function, async () => {
+        file_explorer_window = undefined;
+    });
+})
 
 function updateColors() {
     reloadWindowColors();

@@ -112,6 +112,7 @@ async function personalizationPage(window) {
     iconThemeSelector.appendChild(current_icon_theme_option);
 
     for(const [key, value] of Object.entries(icon_themes)) {
+        console.log(key);
 
         if(key == current_icon_theme) continue;
         let option = document.createElement("option");

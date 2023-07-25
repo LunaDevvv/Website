@@ -120,6 +120,7 @@ function context_menu_function(ev) {
     theme_div.style.background = "none";
     theme_div.style.border = "none";
     theme_div.style.color = color_themes[current_theme].text;
+    
 
     theme_div.onmouseenter = () => {
         theme_div.style.backgroundColor = color_themes[current_theme].context_menu_button;
@@ -130,6 +131,8 @@ function context_menu_function(ev) {
         theme_holder.style.height = "50px";
         theme_holder.style.width = "100px";
         theme_holder.style.backgroundColor = color_themes[current_theme].context_div;
+        theme_holder.style.borderTopRightRadius = "5px";
+        theme_holder.style.borderBottomRightRadius = "5px";
 
         const dark_mode_button = document.createElement("button");
         dark_mode_button.textContent = "Dark mode";
@@ -207,31 +210,57 @@ function context_menu_function(ev) {
         icon_theme_holder.style.position = "absolute";
         icon_theme_holder.style.left = "100%";
         icon_theme_holder.style.top = "60px";
-        icon_theme_holder.style.height = "50px";
-        icon_theme_holder.style.width = "100px";
+        icon_theme_holder.style.height = "65px";
+        icon_theme_holder.style.width = "160px";
+        icon_theme_holder.style.borderTopRightRadius = "5px";
+        icon_theme_holder.style.borderBottomRightRadius = "5px";
         icon_theme_holder.style.backgroundColor = color_themes[current_theme].context_div;
 
-        const dark_mode_button = document.createElement("button");
-        dark_mode_button.textContent = "Dark mode";
-        dark_mode_button.style.paddingTop = "3px";
-        dark_mode_button.style.width = "100%";
-        dark_mode_button.style.fontSize = "15px";
-        dark_mode_button.style.background = "none";
-        dark_mode_button.style.border = "none";
-        dark_mode_button.style.color = color_themes[current_theme].text;
+        const default_icons_button = document.createElement("button");
+        default_icons_button.textContent = "Default icons";
+        default_icons_button.style.paddingTop = "3px";
+        default_icons_button.style.width = "100%";
+        default_icons_button.style.fontSize = "15px";
+        default_icons_button.style.background = "none";
+        default_icons_button.style.border = "none";
+        default_icons_button.style.color = color_themes[current_theme].text;
 
-        dark_mode_button.onmouseenter = () => {
-            dark_mode_button.style.borderRadius = "5px";
-            dark_mode_button.style.backgroundSize = "100% 40px";
-            dark_mode_button.style.backgroundColor = color_themes[current_theme].context_menu_button;
+        default_icons_button.onmouseenter = () => {
+            default_icons_button.style.borderRadius = "5px";
+            default_icons_button.style.backgroundSize = "100% 40px";
+            default_icons_button.style.backgroundColor = color_themes[current_theme].context_menu_button;
         }
     
-        dark_mode_button.onmouseleave = () => {
-            dark_mode_button.style.background = "none";   
+        default_icons_button.onmouseleave = () => {
+            default_icons_button.style.background = "none";   
         }
     
-        dark_mode_button.onclick = () => {
-            current_icon_theme = "dark_mode";
+        default_icons_button.onclick = () => {
+            current_icon_theme = "default";
+            updateIcons();
+        }
+
+        const old_icons_button = document.createElement("button");
+        old_icons_button.textContent = "Old Default icons";
+        old_icons_button.style.paddingTop = "3px";
+        old_icons_button.style.width = "100%";
+        old_icons_button.style.fontSize = "15px";
+        old_icons_button.style.background = "none";
+        old_icons_button.style.border = "none";
+        old_icons_button.style.color = color_themes[current_theme].text;
+
+        old_icons_button.onmouseenter = () => {
+            old_icons_button.style.borderRadius = "5px";
+            old_icons_button.style.backgroundSize = "100% 40px";
+            old_icons_button.style.backgroundColor = color_themes[current_theme].context_menu_button;
+        }
+    
+        old_icons_button.onmouseleave = () => {
+            old_icons_button.style.background = "none";   
+        }
+    
+        old_icons_button.onclick = () => {
+            current_icon_theme = "old_default";
             updateIcons();
         }
 
@@ -261,7 +290,8 @@ function context_menu_function(ev) {
         
         icon_theme_div.appendChild(icon_theme_holder);
 
-        icon_theme_holder.appendChild(dark_mode_button);
+        icon_theme_holder.appendChild(default_icons_button);
+        icon_theme_holder.appendChild(old_icons_button);
         icon_theme_holder.appendChild(anime_icon_button);
     }
 
