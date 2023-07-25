@@ -39,3 +39,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
+
+/**
+ * 
+ * @param {Number} min 
+ * @param {Number} max 
+ */
+function randomIntMinMax(min, max) {
+    return Math.floor(Math.random() * (max - min) + min);
+}

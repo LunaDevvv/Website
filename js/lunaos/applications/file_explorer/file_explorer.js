@@ -71,13 +71,23 @@ async function file_explorer_function(explorer_window) {
         }
 
 
-        for(const [key, value] of Object.entries(osFileSystem.files[pathBar.value])) {
+        for(const [key, value] of Object.entries(osFileSystem.files[pathBar.value].getFiles())) {
             let button = document.createElement("button");
 
-            if(typeof osFileSystem.files[pathBar.value][key] == "string") {
-                button.textContent = `📁 ${osFileSystem.files[pathBar.value][key]}`;
+            button.onclick = () => {
+                for(let i = 0; i < file_holder.children.length; i++) {
+                    let edit_button = file_holder.children[i];
+                    
+                    edit_button.style.backgroundColor = color_themes[current_theme].file_explorer_unselected_button;
+                }
 
-                button.onclick = () => {
+                button.style.backgroundColor = color_themes[current_theme].file_explorer_selected_button;
+            }
+
+            if(typeof osFileSystem.files[pathBar.value].getFile(key) == "string") {
+                button.textContent = `📁 ${osFileSystem.files[pathBar.value].getFile(key)}`;
+
+                button.ondblclick = () => {
                     explorer_window.window_storage["last_path_array"] = [];
                     backIndex = -1;
 
@@ -87,10 +97,39 @@ async function file_explorer_function(explorer_window) {
                     valueChange();
                 }
             } else {
-                button.textContent = `📄${osFileSystem.files[pathBar.value][key].name}`;
+                let input = document.createElement("input");
+                input.style.width = "100%";
+                input.style.height = "100%";
+                input.type = "text";
+                input.style.border = "none";
+                input.style.background = "none";
+                input.readOnly = "readonly";
+                input.style.cursor = "default";
 
-                button.onclick = () => {
-                    osFileSystem.files[pathBar.value][key].open();
+                input.onkeydown = (ev) => {
+                    if(ev.key == "F2") {
+                        input.readOnly = "";
+                        input.style.cursor = "text";
+                    }
+                }
+
+                input.onchange = (ev) => {
+                    let text = input.value;
+
+                    input.readOnly = "readOnly";
+                    input.style.cursor = "default";
+
+                    let result = osFileSystem.files[pathBar.value].getFile(key).editName(text);
+
+                    if(result == false) input.value = `📄${osFileSystem.files[pathBar.value].getFile(key).getName()}`;
+                }
+
+                input.value = `📄${osFileSystem.files[pathBar.value].getFile(key).getName()}`;
+
+                button.appendChild(input);
+
+                button.ondblclick = () => {
+                    osFileSystem.files[pathBar.value].getFile(key).open();
                 }
             }
 
@@ -98,7 +137,7 @@ async function file_explorer_function(explorer_window) {
             button.style.width = "100%";
             button.style.height = "25px";
             button.style.color = color_themes[current_theme].text;
-            button.style.backgroundColor = color_themes[current_theme].file_explorer_search_bar;
+            button.style.backgroundColor = color_themes[current_theme].file_explorer_unselected_button;
             button.style.borderRadius = "10px";
 
 

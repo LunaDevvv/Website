@@ -44,7 +44,9 @@ let color_themes = {
         base_div: "rgba(9, 95, 97, 0.5)",
         settingsButtons: "#424040",
         selectedSettingsButton: "#292828",
-        file_explorer_search_bar: "#3d3736"
+        file_explorer_search_bar: "#3d3736",
+        file_explorer_unselected_button: "#3d3736",
+        file_explorer_selected_button : "#575352"
     },
     light_mode: {
         text: "black",
@@ -56,6 +58,8 @@ let color_themes = {
         base_div: "rgba(122, 122, 122, 0.5)",
         settingsButtons: "#d1d1d1",
         selectedSettingsButton: "#adaaaa",
-        file_explorer_search_bar: "#9c9c9c"
+        file_explorer_search_bar: "#9c9c9c",
+        file_explorer_unselected_button: "#9c9c9c",
+        file_explorer_selected_button : "#757373"
     }
 }
