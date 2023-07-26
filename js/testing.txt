@@ -1,0 +1,13 @@
+// Once I add in a code runner, I'll add this to the built in files.
+
+
+let new_window = new luna_window("Generated from testing.js", 100, 100, 800,800, 600, 600, async (this_window) => {
+    const text = document.createElement("p");
+    text.textContent = "Generated from testing.js";
+    text.style.color = color_themes[current_theme].text;
+    
+    this_window.holder_div.appendChild(text);
+}, () => {new_window = undefined});
+
+
+// This creates a file following the current theme, which is runnable in the OS using eval();

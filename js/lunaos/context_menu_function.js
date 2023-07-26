@@ -155,6 +155,7 @@ function context_menu_function(ev) {
     
         dark_mode_button.onclick = () => {
             current_theme = "dark_mode";
+            localStorage.setItem("current_theme", current_theme);
             updateColors();
         }
 
@@ -179,6 +180,7 @@ function context_menu_function(ev) {
     
         light_mode_button.onclick = () => {
             current_theme = "light_mode";
+            localStorage.setItem("current_theme", current_theme);
             updateColors();
         }
         
@@ -237,6 +239,7 @@ function context_menu_function(ev) {
     
         default_icons_button.onclick = () => {
             current_icon_theme = "default";
+            localStorage.setItem("current_icon_theme", current_icon_theme);
             updateIcons();
         }
 
@@ -261,6 +264,7 @@ function context_menu_function(ev) {
     
         old_icons_button.onclick = () => {
             current_icon_theme = "old_default";
+            localStorage.setItem("current_icon_theme", current_icon_theme);
             updateIcons();
         }
 
@@ -285,6 +289,7 @@ function context_menu_function(ev) {
     
         anime_icon_button.onclick = () => {
             current_icon_theme = "anime";
+            localStorage.setItem("current_icon_theme", current_icon_theme);
             updateIcons();
         }
         

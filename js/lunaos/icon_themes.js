@@ -33,6 +33,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 let current_icon_theme = "default";
 
+if(localStorage.getItem("current_icon_theme")) {
+    current_icon_theme = localStorage.getItem("current_icon_theme");
+} else {
+    localStorage.setItem("current_icon_theme", current_icon_theme);
+}
+
 let icon_themes = {
     default: {
         settings : "/photos/LunaOS/bottomBar/settings.svg",
@@ -42,11 +48,13 @@ let icon_themes = {
 
     anime : { 
         settings : "/photos/LunaOS/bottomBar/settingsButtonAnime.png",
-        terminal: "/photos/LunaOS/bottomBar/terminalAnime.png"
+        terminal: "/photos/LunaOS/bottomBar/terminalAnime.png",
+        file_explorer : "/photos/LunaOS/bottomBar/file_explorer.svg"
     },
 
     old_default: {
         settings : "/photos/LunaOS/bottomBar/settingsButton.png",
-        terminal : "/photos/LunaOS/bottomBar/terminal.png"
+        terminal : "/photos/LunaOS/bottomBar/terminal.png",
+        file_explorer : "/photos/LunaOS/bottomBar/file_explorer.svg"
     }
 }

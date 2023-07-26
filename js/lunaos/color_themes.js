@@ -33,6 +33,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 let current_theme = "dark_mode";
 
+if(localStorage.getItem("current_theme")) {
+    current_theme = localStorage.getItem("current_theme");
+} else {
+    localStorage.setItem("current_theme", current_theme);
+}
+
 let color_themes = {
     dark_mode: {
         text: "white",

@@ -88,6 +88,7 @@ async function personalizationPage(window) {
 
     themeSelector.onchange = async (ev) => {
         current_theme = themeSelector.selectedOptions[0].value;
+        localStorage.setItem("current_theme", themeSelector.selectedOptions[0].value);
         updateColors();
 
         sideDiv.children[1].click();
@@ -126,6 +127,7 @@ async function personalizationPage(window) {
 
     iconThemeSelector.onchange = async (ev) => {
         current_icon_theme = iconThemeSelector.selectedOptions[0].value;
+        localStorage.setItem("current_icon_theme", iconThemeSelector[0].value);
         updateIcons();
 
         sideDiv.children[1].click();
