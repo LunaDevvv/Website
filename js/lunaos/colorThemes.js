@@ -45,14 +45,16 @@ let colorThemes = {
         windowHolder: "rgba(0, 0, 0, 1)",
         titleDiv: "#373837",
         holderDiv: "black",
-        contextDiv: "darkSlateGray",
+        contextDiv: "rgb(0,0,0)",
         contextMenuButton: "gray",
-        baseDiv: "rgba(9, 95, 97, 0.5)",
+        baseDiv: "rgba(0, 0, 0, 0.5)",
         settingsButtons: "#424040",
         selectedSettingsButton: "#292828",
         fileExplorerSearchBar: "#3d3736",
         fileExplorerUnselectedButton: "#3d3736",
-        fileExplorerSelectedButton : "#575352"
+        fileExplorerSelectedButton : "#575352",
+        menuHover : "rgb(0, 0, 0)",
+        topMenuColor: "rgb(0, 0, 0)"
     },
     light_mode: {
         text: "black",
@@ -66,6 +68,8 @@ let colorThemes = {
         selectedSettingsButton: "#adaaaa",
         fileExplorerSearchBar: "#9c9c9c",
         fileExplorerUnselectedButton: "#9c9c9c",
-        fileExplorerSelectedButton : "#757373"
+        fileExplorerSelectedButton : "#757373",
+        menuHover : "rgb(255, 255, 255)",
+        topMenuColor: "rgb(150, 150, 150)"
     }
 }

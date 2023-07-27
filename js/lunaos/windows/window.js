@@ -147,6 +147,8 @@ class lunaWindow {
         EXIT_BUTTON.onclick = () => {
             document.getElementById(this.windowName).remove();
             this.exitCallback();
+
+            TOP_BAR.closedWindow(this);
         }
         
         const MINIMIZE_BUTTON = document.createElement("button");
@@ -343,6 +345,8 @@ class lunaWindow {
         this.focus();
 
         this.insideFunction(this);
+
+        TOP_BAR.openedWindow(this);
     }
 
     #moveWindow(offsetX, offsetY) {

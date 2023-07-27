@@ -88,14 +88,27 @@ let settingsWindow = undefined;
  */
 let fileExplorerWindow = undefined;
 
-let bottomBar = new BottomBar();
+const BOTTOM_BAR = new BottomBar();
+const TOP_BAR = new topBar();
 
 window.addEventListener("resize", (ev) => {
-    bottomBar.onResize();
+    BOTTOM_BAR.onResize();
 })
 
+TOP_BAR.appendApplication("Utilites", "Settings", () => {
+    document.getElementById("settings").click();
+});
 
-bottomBar.appendButton(iconThemes[currentIconTheme].settings, "settings", async () => {
+TOP_BAR.appendApplication("Utilites", "Terminal", () => {
+    document.getElementById("terminal").click();
+});
+
+TOP_BAR.appendApplication("Utilites", "File Explorer", () => {
+    document.getElementById("fileExplorer").click();
+});
+
+
+BOTTOM_BAR.appendButton(iconThemes[currentIconTheme].settings, "settings", async () => {
     document.body.style.cursor = "wait";
     if(typeof settingsFunction == "undefined") {
         const SETTINGS_COMMAND_CLASS = document.createElement("script");
@@ -128,7 +141,7 @@ bottomBar.appendButton(iconThemes[currentIconTheme].settings, "settings", async 
 
 });
 
-bottomBar.appendButton(iconThemes[currentIconTheme].terminal, "terminal", async () => {
+BOTTOM_BAR.appendButton(iconThemes[currentIconTheme].terminal, "terminal", async () => {
     document.body.style.cursor = "wait";
 
     if(typeof consoleFunction == "undefined") {
@@ -163,7 +176,7 @@ bottomBar.appendButton(iconThemes[currentIconTheme].terminal, "terminal", async 
     
 });
 
-bottomBar.appendButton(iconThemes[currentIconTheme].fileExplorer, "fileExplorer", async() => {
+BOTTOM_BAR.appendButton(iconThemes[currentIconTheme].fileExplorer, "fileExplorer", async() => {
     document.body.style.cursor = "wait";
 
     if(typeof fileExplorerFunction == "undefined") {

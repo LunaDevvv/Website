@@ -108,10 +108,15 @@ function contextMenuFunction(ev) {
 }
 
 /**
- * @param {MouseEvent} ev
- * @returns { HTMLDivElement } 
+ * 
+ * @param {MouseEvent} ev 
+ * @param {number} height 
+ * @param {number} width 
+ * @param {string} color 
+ * @param {number} borderRadius 
+ * @returns 
  */
-function createContextMenu(ev, height = 150, width = 100) {
+function createContextMenu(ev, height = 150, width = 100, color = colorThemes[currentTheme].contextDiv, borderRadius = 5, opacity = 80) {
     const CONTEXT_DIV = document.createElement("div");
 
     CONTEXT_DIV.style.width = `${width}px`;
@@ -121,9 +126,8 @@ function createContextMenu(ev, height = 150, width = 100) {
     CONTEXT_DIV.style.zIndex = "100";
     CONTEXT_DIV.id = "desktopContextMenu";
 
-    CONTEXT_DIV.style.borderRadius = "5px";
-    CONTEXT_DIV.style.opacity = "80%";
-    CONTEXT_DIV.style.filter = "10px";
+    CONTEXT_DIV.style.borderRadius = `${borderRadius}px`;
+    CONTEXT_DIV.style.opacity = `${opacity}%`;
     
     CONTEXT_DIV.style.left = `${ev.x}px`;
     CONTEXT_DIV.style.top = `${ev.y}px`;
@@ -138,12 +142,13 @@ function createContextMenu(ev, height = 150, width = 100) {
  * @param {(mouseEvent : MouseEvent) => any} onClickFunction 
  * @returns { HTMLButtonElement }
  */
-function createContextButton(name, onClickFunction) {
+function createContextButton(name, onClickFunction, borderRadius = 5, opacity = 80) {
     let contextButton = document.createElement("button");
 
     contextButton.textContent = name;
     contextButton.style.width = "100%";
     contextButton.style.fontSize = "15px";
+    contextButton.style.backgroundSize = "100% 40px";
     contextButton.style.background = "none";
     contextButton.style.border = "none";
     contextButton.style.color = colorThemes[currentTheme].text;
@@ -151,8 +156,6 @@ function createContextButton(name, onClickFunction) {
     contextButton.onclick = onClickFunction
 
     contextButton.onmouseenter = () => {
-        contextButton.style.borderRadius = "5px";
-        contextButton.style.backgroundSize = "100% 40px";
         contextButton.style.backgroundColor = colorThemes[currentTheme].contextMenuButton;
     }
 
@@ -169,7 +172,7 @@ function createContextButton(name, onClickFunction) {
  * @param {(createdDiv : HTMLDivElement,mouseEvent : MouseEvent) => any} onMouseEnter
  * @returns { HTMLDivElement }
  */
-function createContextHoverItem(name, onMouseEnter) {
+function createContextHoverItem(name, onMouseEnter, borderRadius = 5, opacity = 80) {
     const CONTEXT_DIV = document.createElement("div");
     CONTEXT_DIV.textContent = name;
     CONTEXT_DIV.style.paddingTop = "3px";
@@ -204,7 +207,7 @@ function createContextHoverItem(name, onMouseEnter) {
  * 
  * @returns 
  */
-function createContextHoverMenu(top, height=50, width=100) {
+function createContextHoverMenu(top, height=50, width=100, color = colorThemes[currentTheme].contextDiv, borderRadius = 5, opacity = 80) {
     const CONTEXT_HOVER_MENU = document.createElement("div");
     CONTEXT_HOVER_MENU.style.position = "absolute";
     CONTEXT_HOVER_MENU.style.left = "100%";
