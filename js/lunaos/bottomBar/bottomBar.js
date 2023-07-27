@@ -32,50 +32,50 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
 /**
- * @typedef {import("../color_themes")}
- * @typedef {import("../icon_themes")} icon_themes
+ * @typedef {import("../colorThemes")}
+ * @typedef {import("../iconThemes")} iconThemes
  */
 
-const baseDiv = document.createElement("div");
-baseDiv.width= window.innerWidth;
-baseDiv.style.height = "60px";
-baseDiv.style.width = `${window.innerWidth - 50}px`;
-baseDiv.style.background = color_themes[current_theme].base_div;
+const BASE_DIV = document.createElement("div");
+BASE_DIV.width= window.innerWidth;
+BASE_DIV.style.height = "60px";
+BASE_DIV.style.width = `${window.innerWidth - 50}px`;
+BASE_DIV.style.background = colorThemes[currentTheme].baseDiv;
 // baseDiv.style.opacity = "25%";
-baseDiv.style.backdropFilter = "blur(2px)";
-baseDiv.style.position = "fixed";
-baseDiv.style.top = `${window.innerHeight - 65}px`;
-baseDiv.style.left = `${window.innerWidth - (window.innerWidth / 10) * 9}px`;
-baseDiv.style.width = `${window.innerWidth - window.innerWidth / 5}px`;
-baseDiv.style.borderRadius = "20px";
-baseDiv.id = "bottomBar";
+BASE_DIV.style.backdropFilter = "blur(2px)";
+BASE_DIV.style.position = "fixed";
+BASE_DIV.style.top = `${window.innerHeight - 65}px`;
+BASE_DIV.style.left = `${window.innerWidth - (window.innerWidth / 10) * 9}px`;
+BASE_DIV.style.width = `${window.innerWidth - window.innerWidth / 5}px`;
+BASE_DIV.style.borderRadius = "20px";
+BASE_DIV.id = "bottomBar";
 
-document.body.appendChild(baseDiv);
+document.body.appendChild(BASE_DIV);
 
 
-let button_images = [];
+let buttonImages = [];
 
-async function updateIcons() {
-    for(let i  = 0; i < button_images.length; i++) {
-        if(icon_themes[current_icon_theme][button_images[i].image_key]) {
-            button_images[i].elem.src = icon_themes[current_icon_theme][button_images[i].image_key];
-            button_images[i].elem.style.fill = color_themes[current_theme].text;
+async function updateCurrentIcons() {
+    for(let i  = 0; i < buttonImages.length; i++) {
+        if(iconThemes[currentIconTheme][buttonImages[i].imageKey]) {
+            buttonImages[i].elem.src = iconThemes[currentIconTheme][buttonImages[i].imageKey];
+            buttonImages[i].elem.style.fill = colorThemes[currentTheme].text;
         }
     }
 }
 
 function reloadBottomBarColors() {
-    baseDiv.style.background = color_themes[current_theme].base_div;
+    BASE_DIV.style.background = colorThemes[currentTheme].baseDiv;
 }
 
 class BottomBar {
-    button_x = 10;
+    buttonX = 10;
 
     onResize() {
-        baseDiv.style.width = `${window.innerWidth - 50}px`;
-        baseDiv.style.top = `${window.innerHeight - 65}px`;
-        baseDiv.style.left = `${window.innerWidth - (window.innerWidth / 10) * 9}px`;
-        baseDiv.style.width = `${window.innerWidth - window.innerWidth / 5}px`;
+        BASE_DIV.style.width = `${window.innerWidth - 50}px`;
+        BASE_DIV.style.top = `${window.innerHeight - 65}px`;
+        BASE_DIV.style.left = `${window.innerWidth - (window.innerWidth / 10) * 9}px`;
+        BASE_DIV.style.width = `${window.innerWidth - window.innerWidth / 5}px`;
     }
 
 
@@ -86,43 +86,43 @@ class BottomBar {
      * @param {Function} callbackFunction 
      */
     appendButton(image, id, callbackFunction) {
-        const button = document.createElement("button");
-        const imageElem = document.createElement("img");
+        const BUTTON = document.createElement("button");
+        const IMAGE_ELEM = document.createElement("img");
 
         if(image.endsWith(".svg")) {
-            imageElem.onload = "SVGInject(this)";
+            IMAGE_ELEM.onload = "SVGInject(this)";
         }
 
         // button.style.border = "none";
-        button.style.backgroundColor = "rgba(0, 0, 0, 0)";
-        button.style.cursor = "pointer";
-        button.style.position = "absolute";
-        button.style.left = `${this.button_x}px`;
-        button.style.top = `5px`;
-        button.style.borderRadius = "50%";
-        button.style.borderColor = color_themes[current_theme].text;
+        BUTTON.style.backgroundColor = "rgba(0, 0, 0, 0)";
+        BUTTON.style.cursor = "pointer";
+        BUTTON.style.position = "absolute";
+        BUTTON.style.left = `${this.buttonX}px`;
+        BUTTON.style.top = `5px`;
+        BUTTON.style.borderRadius = "50%";
+        BUTTON.style.borderColor = colorThemes[currentTheme].text;
         
-        button.id = id;
+        BUTTON.id = id;
         
-        imageElem.src = image;
+        IMAGE_ELEM.src = image;
         
-        imageElem.style.borderRadius = "30%";
-        imageElem.width = 40;
-        imageElem.height = 40;
+        IMAGE_ELEM.style.borderRadius = "30%";
+        IMAGE_ELEM.width = 40;
+        IMAGE_ELEM.height = 40;
 
-        this.imageElem = imageElem;
+        this.imageElem = IMAGE_ELEM;
 
-        button.appendChild(imageElem);
+        BUTTON.appendChild(IMAGE_ELEM);
 
-        button.onclick = callbackFunction;
+        BUTTON.onclick = callbackFunction;
 
-        baseDiv.appendChild(button);
+        BASE_DIV.appendChild(BUTTON);
 
-        this.button_x += 65;
+        this.buttonX += 65;
 
-        button_images.push({
-            elem : imageElem,
-            image_key: id
+        buttonImages.push({
+            elem : IMAGE_ELEM,
+            imageKey: id
         });
     }
 }

@@ -75,7 +75,7 @@ class Line {
             this.css = this.css.replace("color: black;", "");
         }
 
-        this.css = `color: ${color_themes[current_theme].text}; ${this.css ? this.css : ""}`;
+        this.css = `color: ${colorThemes[currentTheme].text}; ${this.css ? this.css : ""}`;
 
         this.element.style = this.css;
 
@@ -98,17 +98,17 @@ class Line {
                     continue;
                 }
 
-                const text = this.elements[elementIndex].element.innerText;
-                this.elements[elementIndex].element.innerHTML = this.elements[elementIndex].element.innerHTML.replace(text, "");
+                const TEXT = this.elements[elementIndex].element.innerText;
+                this.elements[elementIndex].element.innerHTML = this.elements[elementIndex].element.innerHTML.replace(TEXT, "");
 
                 this.element.innerHTML += this.elements[elementIndex].element.innerHTML;
 
                 let id = this.elements[elementIndex].id;
                 if(id) {
                     document.getElementById(id).innerText = "";
-                    for(let j = 0; j < text.length; j++) {
+                    for(let j = 0; j < TEXT.length; j++) {
                         try {
-                            document.getElementById(id).innerText += text[j];
+                            document.getElementById(id).innerText += TEXT[j];
 
                             await sleep(this.speed ? this.speed : 50);
                         } catch(err) { 

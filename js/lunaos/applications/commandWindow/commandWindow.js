@@ -59,22 +59,22 @@ Run osInfo for information on the OS~
 {} `.split("\n");
 
 /**
- * @typedef {import("../../windows/window")} luna_window
+ * @typedef {import("../../windows/window")} lunaWindow
  * @typedef {import("./classes/terminal")} terminal
  * @typedef {import("./classes/Line")} Line
  * @typedef {import("../../utils/utils")}
- * @param {luna_window} command_window 
+ * @param {lunaWindow} commandWindow 
 */
-async function console_function(command_window) {
-    let Terminal = new terminal(command_window.holder_div);
+async function consoleFunction(commandWindow) {
+    let Terminal = new terminal(commandWindow.holderDiv);
 
-    command_window.add_to_storage("terminal", Terminal);
+    commandWindow.addToStorage("terminal", Terminal);
     
     await showHeader(Terminal);
 
     takeInput(undefined, Terminal);
 
-    let div = document.getElementById(command_window.window_name + "_holder");
+    let div = document.getElementById(commandWindow.windowName + "Holder");
 
     div.addEventListener("keydown", async (ev) => {
         await takeInput(ev, Terminal);
@@ -86,8 +86,8 @@ async function console_function(command_window) {
  * @param {terminal} Terminal 
  */
 async function showHeader(Terminal) {
-    const WelcomeElement = document.createElement("pre");
-    WelcomeElement.innerHTML = `<span id="WelcomeText" style="color : red;">Welcome to my websites terminal!</span>`;
+    const WELCOME_ELEMENT = document.createElement("pre");
+    WELCOME_ELEMENT.innerHTML = `<span id="WelcomeText" style="color : red;">Welcome to my websites terminal!</span>`;
 
 
     for(let i = 0; i < textArray.length; i++) {
@@ -97,7 +97,7 @@ async function showHeader(Terminal) {
                 {
                     css : `font-family: monospace; line-height:3px; color: blue;`,
                     speed : 10,
-                    elements : [{ element : WelcomeElement, id : "WelcomeText" }]
+                    elements : [{ element : WELCOME_ELEMENT, id : "WelcomeText" }]
                 }
             );
             continue;
@@ -137,7 +137,7 @@ async function showHeader(Terminal) {
 /**
  * @type {Line}
  */
-let prompt_line = undefined
+let promptLine = undefined
 
 async function takeInput(ev, Terminal) {
     if(Terminal.waiting != false) {
@@ -147,7 +147,7 @@ async function takeInput(ev, Terminal) {
     
     if(!Terminal.typing) {
         Terminal.waiting = true;
-        prompt_line = new Line(`LS .${Terminal.current_path} ~ `, Terminal, {
+        promptLine = new Line(`LS .${Terminal.currentPath} ~ `, Terminal, {
             speed : 5,
             isPrompt : true
         });
@@ -162,18 +162,18 @@ async function takeInput(ev, Terminal) {
     
     let character = (/[A-Za-z0-9`~!@#$%^&*()\[\];',./{}:"<>\-\=? ]{1}/.test(ev.key) && ev.key.length == 1);
 
-    let prompt_element = document.getElementById(`LS .${Terminal.current_path} ~ `);
+    let promptElement = document.getElementById(`LS .${Terminal.currentPath} ~ `);
 
-    prompt_element.textContent = prompt_element.textContent.replace("▭", "");
+    promptElement.textContent = promptElement.textContent.replace("▭", "");
 
     if(character) {
-        prompt_element.textContent += ev.key;
+        promptElement.textContent += ev.key;
     } else {
         switch(ev.key) {
             case "Backspace": {
-                if(prompt_element.textContent == `LS .${Terminal.current_path} ~ `) break;
+                if(promptElement.textContent == `LS .${Terminal.currentPath} ~ `) break;
 
-                prompt_element.textContent = prompt_element.textContent.slice(0, -1); 
+                promptElement.textContent = promptElement.textContent.slice(0, -1); 
                 break;
             }
 
@@ -181,13 +181,13 @@ async function takeInput(ev, Terminal) {
                 Terminal.typing = false;
                 Terminal.waiting = true;
                 
-                let text = prompt_element.textContent.replace(`LS .${Terminal.current_path} ~ `, "").replace("▭", "");
+                let text = promptElement.textContent.replace(`LS .${Terminal.currentPath} ~ `, "").replace("▭", "");
 
-                prompt_line.isPrompt = false;
+                promptLine.isPrompt = false;
 
-                prompt_element.id = "";
+                promptElement.id = "";
 
-                prompt_line.editText(`${text}`);
+                promptLine.editText(`${text}`);
 
                 Terminal = await parseInput(text, Terminal);
 
@@ -196,7 +196,7 @@ async function takeInput(ev, Terminal) {
         }
     }
 
-    prompt_element.textContent += "▭";
+    promptElement.textContent += "▭";
 
     return Terminal;
 }
@@ -211,31 +211,31 @@ async function takeInput(ev, Terminal) {
 async function parseInput(text, Terminal) {
     switch(text.split(" ")[0]) {
         case "help" : {
-            help_command(Terminal);
+            helpCommand(Terminal);
             break;
         }
 
         case "clear" : {
-            let CLEAR_SLEEP_TIME = 10;
+            const CLEAR_SLEEP_TIME = 10;
 
-            await clear_command(Terminal, CLEAR_SLEEP_TIME);
+            await clearCommand(Terminal, CLEAR_SLEEP_TIME);
 
             break;
         }
 
         case "header" : {
-            await header_command(Terminal);
+            await headerCommand(Terminal);
 
             break;
         }
 
         case "developer" : {
-            await developer_command(Terminal);
+            await developerCommand(Terminal);
             break;
         }
 
         case "github" : {
-            await github_command(Terminal);
+            await githubCommand(Terminal);
             break;
         }
 
@@ -259,38 +259,38 @@ async function parseInput(text, Terminal) {
     return Terminal;
 }
 
-async function import_scripts() {
-    const line_class = document.createElement("script");
-    line_class.src = "./js/lunaos/applications/command_window/classes/Line.js";
+async function importScripts() {
+    const LINE_CLASS = document.createElement("script");
+    LINE_CLASS.src = "./js/lunaos/applications/commandWindow/classes/Line.js";
 
-    const terminal_class = document.createElement("script");
-    terminal_class.src = "./js/lunaos/applications/command_window/classes/terminal.js";
+    const TERMINAL_CLASS = document.createElement("script");
+    TERMINAL_CLASS.src = "./js/lunaos/applications/commandWindow/classes/terminal.js";
 
-    const clear_command_class = document.createElement("script");
-    clear_command_class.src = "./js/lunaos/applications/command_window/commands/clear.js";
+    const CLEAR_COMMAND_CLASS = document.createElement("script");
+    CLEAR_COMMAND_CLASS.src = "./js/lunaos/applications/commandWindow/commands/clear.js";
 
-    const help_command_class = document.createElement("script");
-    help_command_class.src = "./js/lunaos/applications/command_window/commands/help.js";
+    const HELP_COMMAND_CLASS = document.createElement("script");
+    HELP_COMMAND_CLASS.src = "./js/lunaos/applications/commandWindow/commands/help.js";
 
-    const header_command_class = document.createElement("script");
-    header_command_class.src = "./js/lunaos/applications/command_window/commands/header.js";
+    const HEADER_COMMAND_CLASS = document.createElement("script");
+    HEADER_COMMAND_CLASS.src = "./js/lunaos/applications/commandWindow/commands/header.js";
 
-    const developers_command_class = document.createElement("script");
-    developers_command_class.src = "./js/lunaos/applications/command_window/commands/developers.js";
+    const DEVELOPERS_COMMAND_CLASS = document.createElement("script");
+    DEVELOPERS_COMMAND_CLASS.src = "./js/lunaos/applications/commandWindow/commands/developers.js";
 
-    const github_command_class = document.createElement("script");
-    github_command_class.src = "./js/lunaos/applications/command_window/commands/github.js";
+    const GITHUB_COMMAND_CLASS = document.createElement("script");
+    GITHUB_COMMAND_CLASS.src = "./js/lunaos/applications/commandWindow/commands/github.js";
 
 
-    document.head.appendChild(line_class);
-    document.head.appendChild(terminal_class);
-    document.head.appendChild(clear_command_class);
-    document.head.appendChild(help_command_class);
-    document.head.appendChild(developers_command_class);
-    document.head.appendChild(header_command_class);
-    document.head.appendChild(github_command_class);
+    document.head.appendChild(LINE_CLASS);
+    document.head.appendChild(TERMINAL_CLASS);
+    document.head.appendChild(CLEAR_COMMAND_CLASS);
+    document.head.appendChild(HELP_COMMAND_CLASS);
+    document.head.appendChild(DEVELOPERS_COMMAND_CLASS);
+    document.head.appendChild(HEADER_COMMAND_CLASS);
+    document.head.appendChild(GITHUB_COMMAND_CLASS);
 
-    while(typeof github_command == "undefined") {
+    while(typeof githubCommand == "undefined") {
         await sleep(5);
     }
 

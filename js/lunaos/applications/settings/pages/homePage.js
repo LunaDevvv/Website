@@ -33,12 +33,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 /**
  * @typedef {import("../../../windows/window")}
- * @typedef {import("../../../color_themes")}
- * @param {luna_window} window 
+ * @typedef {import("../../../colorThemes")}
+ * @param {lunaWindow} window 
  */
 async function systemPage(window) {
-    while(window.holder_div.firstChild) {
-        window.holder_div.firstChild.remove();
+    while(window.holderDiv.firstChild) {
+        window.holderDiv.firstChild.remove();
     }
 
     let mainDiv = document.createElement("div");
@@ -51,17 +51,17 @@ async function systemPage(window) {
     
     let systemTitle = document.createElement("h1");
     systemTitle.textContent = "LunaOS";
-    systemTitle.style.color = color_themes[current_theme].text;
+    systemTitle.style.color = colorThemes[currentTheme].text;
     systemTitle.style.textAlign = "center";
     
     let systemVersion = document.createElement("h2");
     systemVersion.textContent = "Version: v0.3.5";
-    systemVersion.style.color = color_themes[current_theme].text;
+    systemVersion.style.color = colorThemes[currentTheme].text;
     systemVersion.style.textAlign = "center";
     
     mainDiv.appendChild(systemTitle);
     mainDiv.appendChild(systemVersion);
     
-    window.holder_div.appendChild(mainDiv);
-    window.holder_div.appendChild(sideDiv);
+    window.holderDiv.appendChild(mainDiv);
+    window.holderDiv.appendChild(sideDiv);
 }

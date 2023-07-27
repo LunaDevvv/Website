@@ -30,6 +30,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 * @license Simplified BSD License
 */
 
+
 /**
  * 
  * @typedef {import("../classes/terminal")} terminal
@@ -37,24 +38,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * @param {terminal} Terminal 
  */
 
-function help_command(Terminal) {
-    new Line("Current Commands : ", Terminal, {
-        speed : 20
-    });
+async function clearCommand(Terminal, CLEAR_SLEEP_TIME) {
+    Terminal.lines = [];
 
-    new Line("help : sends information on the commands", Terminal, { 
-        speed : 10
-    });
+    while(Terminal.terminalDiv.firstChild) {
+        Terminal.terminalDiv.removeChild(Terminal.terminalDiv.firstChild);
 
-    new Line("clear: clears the console", Terminal, { 
-        speed : 10
-    });
-
-    new Line("header : shows the header when from when you open.", Terminal, {
-        speed : 10
-    })
-    
-    new Line("developer : Sends info on me, LunaDev, the only developer", Terminal, {
-        speed : 10
-    })
+        await sleep(CLEAR_SLEEP_TIME);
+    }
 }

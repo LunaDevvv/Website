@@ -30,23 +30,31 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 * @license Simplified BSD License
 */
 
-
 /**
  * 
  * @typedef {import("../classes/terminal")} terminal
- * @typedef {import("../../../windows/window")} luna_window
- * 
- * @typedef {luna_window} github_window
  * 
  * @param {terminal} Terminal 
  */
 
-async function github_command(Terminal) {
-    new Line("Making new tab for github (github doesn't allow iframes)", Terminal, {
-        speed : 15
+function helpCommand(Terminal) {
+    new Line("Current Commands : ", Terminal, {
+        speed : 20
     });
 
-    await sleep(1200);
+    new Line("help : sends information on the commands", Terminal, { 
+        speed : 10
+    });
 
-    window.open("https://github.com/lunadevvv/", "_blank");
+    new Line("clear: clears the console", Terminal, { 
+        speed : 10
+    });
+
+    new Line("header : shows the header when from when you open.", Terminal, {
+        speed : 10
+    })
+    
+    new Line("developer : Sends info on me, LunaDev, the only developer", Terminal, {
+        speed : 10
+    })
 }

@@ -1,9 +1,9 @@
 function rectangle(text) {
 
 
-    const args = text.split(" ");
+    const ARGS = text.split(" ");
 
-    switch (args[2]) {
+    switch (ARGS[2]) {
         case "x":
             new Line(`Argument : x`, "color : orange", 10);
             new Line(`X position to draw the rectangle`, "color : blue", 10);

@@ -33,12 +33,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 /**
  * @typedef {import("../../../windows/window")}
- * @typedef {import("../../../color_themes")}
- * @param {luna_window} window 
+ * @typedef {import("../../../colorThemes")}
+ * @param {lunaWindow} window 
  */
 async function personalizationPage(window) {
-    while(window.holder_div.firstChild) {
-        window.holder_div.firstChild.remove();
+    while(window.holderDiv.firstChild) {
+        window.holderDiv.firstChild.remove();
     }
 
     let divider = document.createElement("hr");
@@ -53,12 +53,12 @@ async function personalizationPage(window) {
     
     let systemTitle = document.createElement("h1");
     systemTitle.textContent = "Personalization";
-    systemTitle.style.color = color_themes[current_theme].text;
+    systemTitle.style.color = colorThemes[currentTheme].text;
     systemTitle.style.textAlign = "center";
 
     let themeText = document.createElement("h3");
     themeText.textContent = "Theme : "
-    themeText.style.color = color_themes[current_theme].text;
+    themeText.style.color = colorThemes[currentTheme].text;
 
     let themeSelector = document.createElement("select");
     themeSelector.style.position = "absolute";
@@ -66,29 +66,29 @@ async function personalizationPage(window) {
     themeSelector.style.top = "90px";
     themeSelector.style.width = "200px";
 
-    let current_theme_option = document.createElement("option");
+    let currentThemeOption = document.createElement("option");
 
-    current_theme_option.value = current_theme;
+    currentThemeOption.value = currentTheme;
 
-    current_theme_option.textContent = current_theme.replace("_", " ");
+    currentThemeOption.textContent = currentTheme.replace("_", " ");
 
-    themeSelector.appendChild(current_theme_option);
+    themeSelector.appendChild(currentThemeOption);
 
-    for(const [key, value] of Object.entries(color_themes)) {
+    for(const [KEY, VALUE] of Object.entries(colorThemes)) {
 
-        if(key == current_theme) continue;
+        if(KEY == currentTheme) continue;
         let option = document.createElement("option");
 
-        option.value = key;
+        option.value = KEY;
 
-        option.textContent = key.replace("_", " ");
+        option.textContent = KEY.replace("_", " ");
 
         themeSelector.appendChild(option);
     }
 
     themeSelector.onchange = async (ev) => {
-        current_theme = themeSelector.selectedOptions[0].value;
-        localStorage.setItem("current_theme", themeSelector.selectedOptions[0].value);
+        currentTheme = themeSelector.selectedOptions[0].value;
+        localStorage.setItem("currentTheme", themeSelector.selectedOptions[0].value);
         updateColors();
 
         sideDiv.children[1].click();
@@ -96,7 +96,7 @@ async function personalizationPage(window) {
 
     let iconThemeText = document.createElement("h3");
     iconThemeText.textContent = "Icon Theme : "
-    iconThemeText.style.color = color_themes[current_theme].text;
+    iconThemeText.style.color = colorThemes[currentTheme].text;
 
     let iconThemeSelector = document.createElement("select");
     iconThemeSelector.style.position = "absolute";
@@ -104,32 +104,27 @@ async function personalizationPage(window) {
     iconThemeSelector.style.top = "120px";
     iconThemeSelector.style.width = "200px";
 
-    let current_icon_theme_option = document.createElement("option");
+    let currentIconThemeOption = document.createElement("option");
 
-    current_icon_theme_option.value = current_icon_theme;
+    currentIconThemeOption.value = currentIconTheme;
 
-    current_icon_theme_option.textContent = current_icon_theme.replace("_", " ");
+    currentIconThemeOption.textContent = currentIconTheme.replace("_", " ");
 
-    iconThemeSelector.appendChild(current_icon_theme_option);
+    iconThemeSelector.appendChild(currentIconThemeOption);
 
-    for(const [key, value] of Object.entries(icon_themes)) {
-        console.log(key);
-
-        if(key == current_icon_theme) continue;
+    for(const [KEY, VALUE] of Object.entries(iconThemes)) {
+        if(KEY == currentIconTheme) continue;
         let option = document.createElement("option");
 
-        option.value = key;
+        option.value = KEY;
 
-        option.textContent = key.replace("_", " ");
+        option.textContent = KEY.replace("_", " ");
 
         iconThemeSelector.appendChild(option);
     }
 
     iconThemeSelector.onchange = async (ev) => {
-        current_icon_theme = iconThemeSelector.selectedOptions[0].value;
-        localStorage.setItem("current_icon_theme", iconThemeSelector[0].value);
-        updateIcons();
-
+        updateIcons(iconThemeSelector.selectedOptions[0].value);
         sideDiv.children[1].click();
     }
     
@@ -141,6 +136,6 @@ async function personalizationPage(window) {
     mainDiv.appendChild(iconThemeSelector);
     mainDiv.appendChild(divider);
 
-    window.holder_div.appendChild(mainDiv);
-    window.holder_div.appendChild(sideDiv);
+    window.holderDiv.appendChild(mainDiv);
+    window.holderDiv.appendChild(sideDiv);
 }

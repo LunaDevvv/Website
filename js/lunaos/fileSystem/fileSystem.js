@@ -45,95 +45,95 @@ class fileSystem {
     
     async init() {
 
-        let lunaOS_pass = generate_id_pass();
-        this.createFolder("~/", "lunaOS", true, lunaOS_pass);
+        let lunaOSPass = generateIdPass();
+        this.createFolder("~/", "lunaOS", true, lunaOSPass);
         
         // Home files
-        this.files["~/lunaOS"].appendFile("index.js", new file(await this.getFile("/js/lunaos/index.js"), "lunaOS.js", undefined, false), lunaOS_pass);
-        this.files["~/lunaOS"].appendFile("color_themes.js", new file(await this.getFile("/js/lunaos/color_themes.js"), "color_themes.js",undefined, false), lunaOS_pass);
-        this.files["~/lunaOS"].appendFile("icon_themes.js", new file(await this.getFile("/js/lunaos/icon_themes.js"), "icon_themes.js", undefined, false), lunaOS_pass);
-        this.files["~/lunaOS"].appendFile("menu_function.js", new file(await this.getFile("/js/lunaos/context_menu_function.js"), "context_menu_function.js", undefined, false), lunaOS_pass);
-        this.files["~/lunaOS"].appendFile("index.html", new file(await this.getFile("index.html"), "index.html", undefined, false), lunaOS_pass);
+        this.files["~/lunaOS"].appendFile("index.js", new file(await this.getFile("/js/lunaos/index.js"), "lunaOS.js", undefined, false), lunaOSPass);
+        this.files["~/lunaOS"].appendFile("colorThemes.js", new file(await this.getFile("/js/lunaos/colorThemes.js"), "colorThemes.js",undefined, false), lunaOSPass);
+        this.files["~/lunaOS"].appendFile("iconThemes.js", new file(await this.getFile("/js/lunaos/iconThemes.js"), "iconThemes.js", undefined, false), lunaOSPass);
+        this.files["~/lunaOS"].appendFile("contextMenuFunction.js", new file(await this.getFile("/js/lunaos/contextMenuFunction.js"), "contextMenuFunction.js", undefined, false), lunaOSPass);
+        this.files["~/lunaOS"].appendFile("index.html", new file(await this.getFile("index.html"), "index.html", undefined, false), lunaOSPass);
 
-        this.files["~/lunaOS"].appendFile("readme.txt", new file(await this.getFile("/js/lunaos/readme.txt"), "readme.txt", undefined, false), lunaOS_pass);
+        this.files["~/lunaOS"].appendFile("readme.txt", new file(await this.getFile("/js/lunaos/readme.txt"), "readme.txt", undefined, false), lunaOSPass);
 
         // CSS
-        this.createFolder("~/lunaOS/", "css", true, lunaOS_pass);
-        this.files["~/lunaOS/css"].appendFile("main.css", new file(await this.getFile("/css/lunaos/main.css"), "main.css", undefined, false), lunaOS_pass);
+        this.createFolder("~/lunaOS/", "css", true, lunaOSPass);
+        this.files["~/lunaOS/css"].appendFile("main.css", new file(await this.getFile("/css/lunaos/main.css"), "main.css", undefined, false), lunaOSPass);
 
 
         // Window dir files
-        this.createFolder("~/lunaOS/", "windows", true, lunaOS_pass);
-        this.files["~/lunaOS/windows"].appendFile("window.js", new file(await this.getFile("/js/lunaos/windows/window.js"), "window.js", undefined, false), lunaOS_pass);
+        this.createFolder("~/lunaOS/", "windows", true, lunaOSPass);
+        this.files["~/lunaOS/windows"].appendFile("window.js", new file(await this.getFile("/js/lunaos/windows/window.js"), "window.js", undefined, false), lunaOSPass);
 
         // Utils dir Files
-        this.createFolder("~/lunaOS/", "utils", true, lunaOS_pass);
+        this.createFolder("~/lunaOS/", "utils", true, lunaOSPass);
 
-        this.files["~/lunaOS/utils"].appendFile("utils.js", new file(await this.getFile("/js/lunaos/utils/utils.js"), "utils.js", undefined, false), lunaOS_pass);
+        this.files["~/lunaOS/utils"].appendFile("utils.js", new file(await this.getFile("/js/lunaos/utils/utils.js"), "utils.js", undefined, false), lunaOSPass);
         
         // Bottom Bar files
-        this.createFolder("~/lunaOS/", "bottomBar", true, lunaOS_pass);
-        this.files["~/lunaOS/bottomBar"].appendFile("bottomBar.js", new file(await this.getFile("/js/lunaos/bottomBar/bottomBar.js"), "bottomBar.js", undefined, false), lunaOS_pass);
+        this.createFolder("~/lunaOS/", "bottomBar", true, lunaOSPass);
+        this.files["~/lunaOS/bottomBar"].appendFile("bottomBar.js", new file(await this.getFile("/js/lunaos/bottomBar/bottomBar.js"), "bottomBar.js", undefined, false), lunaOSPass);
         
         // File system files
-        this.createFolder("~/lunaOS/", "fileSystem", true, lunaOS_pass);
-        this.files["~/lunaOS/fileSystem"].appendFile("fileSystem.js", new file(await this.getFile("/js/lunaos/fileSystem/fileSystem.js"), "fileSystem.js", undefined, false), lunaOS_pass);
+        this.createFolder("~/lunaOS/", "fileSystem", true, lunaOSPass);
+        this.files["~/lunaOS/fileSystem"].appendFile("fileSystem.js", new file(await this.getFile("/js/lunaos/fileSystem/fileSystem.js"), "fileSystem.js", undefined, false), lunaOSPass);
 
         //Application files
-        this.createFolder("~/lunaOS/", "applications", true, lunaOS_pass);
+        this.createFolder("~/lunaOS/", "applications", true, lunaOSPass);
         // Command Line
-        this.createFolder("~/lunaOS/applications/", "command_window", true, lunaOS_pass);
-        this.files["~/lunaOS/applications/command_window"].appendFile("command_window.js", new file(await this.getFile("/js/lunaos/applications/command_window/command_window.js"), "command_window.js", undefined, false), lunaOS_pass);
+        this.createFolder("~/lunaOS/applications/", "commandWindow", true, lunaOSPass);
+        this.files["~/lunaOS/applications/commandWindow"].appendFile("commandWindow.js", new file(await this.getFile("/js/lunaos/applications/commandWindow/commandWindow.js"), "commandWindow.js", undefined, false), lunaOSPass);
 
-        this.createFolder("~/lunaOS/applications/command_window/", "classes", true, lunaOS_pass);
-        this.files["~/lunaOS/applications/command_window/classes"].appendFile("Line.js", new file(await this.getFile("/js/lunaos/applications/command_window/classes/Line.js"), "Line.js", undefined, false));
-        this.files["~/lunaOS/applications/command_window/classes"].appendFile("Terminal.js",new file(await this.getFile("/js/lunaos/applications/command_window/classes/Terminal.js"), "Terminal.js", undefined, false), lunaOS_pass);
+        this.createFolder("~/lunaOS/applications/commandWindow/", "classes", true, lunaOSPass);
+        this.files["~/lunaOS/applications/commandWindow/classes"].appendFile("Line.js", new file(await this.getFile("/js/lunaos/applications/commandWindow/classes/Line.js"), "Line.js", undefined, false));
+        this.files["~/lunaOS/applications/commandWindow/classes"].appendFile("Terminal.js",new file(await this.getFile("/js/lunaos/applications/commandWindow/classes/Terminal.js"), "Terminal.js", undefined, false), lunaOSPass);
 
-        this.createFolder("~/lunaOS/applications/command_window/", "commands", true, lunaOS_pass);
-        this.files["~/lunaOS/applications/command_window/commands"].appendFile("clear.js", new file(await this.getFile("/js/lunaos/applications/command_window/commands/clear.js"), "clear.js", undefined, false), lunaOS_pass);
-        this.files["~/lunaOS/applications/command_window/commands"].appendFile("developers.js", new file(await this.getFile("/js/lunaos/applications/command_window/commands/developers.js"), "developers.js", undefined, false), lunaOS_pass);
-        this.files["~/lunaOS/applications/command_window/commands"].appendFile("github.js", new file(await this.getFile("/js/lunaos/applications/command_window/commands/github.js"), "github.js", false, undefined), lunaOS_pass);
-        this.files["~/lunaOS/applications/command_window/commands"].appendFile("header.js", new file(await this.getFile("/js/lunaos/applications/command_window/commands/header.js"), "header.js", undefined, false), lunaOS_pass);
-        this.files["~/lunaOS/applications/command_window/commands"].appendFile("help.js", new file(await this.getFile("/js/lunaos/applications/command_window/commands/help.js"), "help.js", undefined, false), lunaOS_pass);
+        this.createFolder("~/lunaOS/applications/commandWindow/", "commands", true, lunaOSPass);
+        this.files["~/lunaOS/applications/commandWindow/commands"].appendFile("clear.js", new file(await this.getFile("/js/lunaos/applications/commandWindow/commands/clear.js"), "clear.js", undefined, false), lunaOSPass);
+        this.files["~/lunaOS/applications/commandWindow/commands"].appendFile("developers.js", new file(await this.getFile("/js/lunaos/applications/commandWindow/commands/developers.js"), "developers.js", undefined, false), lunaOSPass);
+        this.files["~/lunaOS/applications/commandWindow/commands"].appendFile("github.js", new file(await this.getFile("/js/lunaos/applications/commandWindow/commands/github.js"), "github.js", false, undefined), lunaOSPass);
+        this.files["~/lunaOS/applications/commandWindow/commands"].appendFile("header.js", new file(await this.getFile("/js/lunaos/applications/commandWindow/commands/header.js"), "header.js", undefined, false), lunaOSPass);
+        this.files["~/lunaOS/applications/commandWindow/commands"].appendFile("help.js", new file(await this.getFile("/js/lunaos/applications/commandWindow/commands/help.js"), "help.js", undefined, false), lunaOSPass);
 
         //File Explorer
-        this.createFolder("~/lunaOS/applications/", "file_explorer", true, lunaOS_pass);
-        this.files["~/lunaOS/applications/file_explorer"].appendFile("file_explorer.js", new file(await this.getFile("/js/lunaos/applications/file_explorer/file_explorer.js"), "file_explorer.js", undefined, false), lunaOS_pass);
+        this.createFolder("~/lunaOS/applications/", "fileExplorer", true, lunaOSPass);
+        this.files["~/lunaOS/applications/fileExplorer"].appendFile("fileExplorer.js", new file(await this.getFile("/js/lunaos/applications/fileExplorer/fileExplorer.js"), "fileExplorer.js", undefined, false), lunaOSPass);
 
         // Settings
-        this.createFolder("~/lunaOS/applications/", "settings", true, lunaOS_pass);
-        this.files["~/lunaOS/applications/settings"].appendFile("settings_window.js", new file(await this.getFile("/js/lunaos/applications/settings/settings_window.js"), "settings_window.js", undefined, false), lunaOS_pass);
+        this.createFolder("~/lunaOS/applications/", "settings", true, lunaOSPass);
+        this.files["~/lunaOS/applications/settings"].appendFile("settingsWindow.js", new file(await this.getFile("/js/lunaos/applications/settings/settingsWindow.js"), "settingsWindow.js", undefined, false), lunaOSPass);
 
-        this.createFolder("~/lunaOS/applications/settings/", "pages", true, lunaOS_pass);
-        this.files["~/lunaOS/applications/settings/pages"].appendFile("homePage.js", new file(await this.getFile("/js/lunaos/applications/settings/pages/homePage.js"), "homePage.js", undefined, false), lunaOS_pass);
-        this.files["~/lunaOS/applications/settings/pages"].appendFile("personalization.js", new file(await this.getFile("/js/lunaos/applications/settings/pages/personalization.js"), "personalization.js", undefined, false), lunaOS_pass);
+        this.createFolder("~/lunaOS/applications/settings/", "pages", true, lunaOSPass);
+        this.files["~/lunaOS/applications/settings/pages"].appendFile("homePage.js", new file(await this.getFile("/js/lunaos/applications/settings/pages/homePage.js"), "homePage.js", undefined, false), lunaOSPass);
+        this.files["~/lunaOS/applications/settings/pages"].appendFile("personalization.js", new file(await this.getFile("/js/lunaos/applications/settings/pages/personalization.js"), "personalization.js", undefined, false), lunaOSPass);
 
         // Photos
-        this.createFolder("~/lunaOS/", "photos", true, lunaOS_pass);
+        this.createFolder("~/lunaOS/", "photos", true, lunaOSPass);
 
         // Backgrounds
-        this.createFolder("~/lunaOS/photos/", "backgrounds", true, lunaOS_pass);
-        this.files["~/lunaOS/photos/backgrounds"].appendFile("anime.png", new file("/photos/lunaos/backgrounds/anime.png", "anime.png", undefined, false), lunaOS_pass);
-        this.files["~/lunaOS/photos/backgrounds"].appendFile("desktop.png", new file("/photos/lunaos/backgrounds/desktop.jpg", "desktop.jpg", undefined, false), lunaOS_pass);
+        this.createFolder("~/lunaOS/photos/", "backgrounds", true, lunaOSPass);
+        this.files["~/lunaOS/photos/backgrounds"].appendFile("anime.png", new file("/photos/lunaos/backgrounds/anime.png", "anime.png", undefined, false), lunaOSPass);
+        this.files["~/lunaOS/photos/backgrounds"].appendFile("desktop.png", new file("/photos/lunaos/backgrounds/desktop.jpg", "desktop.jpg", undefined, false), lunaOSPass);
 
         //Bottom Bar
-        this.createFolder("~/lunaOS/photos/", "bottomBar", true, lunaOS_pass);
-        this.files["~/lunaOS/photos/bottomBar"].appendFile("file_explorer.svg",new file("/photos/lunaos/bottomBar/file_explorer.svg", "file_explorer.svg", undefined, false), lunaOS_pass);
-        this.files["~/lunaOS/photos/bottomBar"].appendFile("settings.svg",new file("/photos/lunaos/bottomBar/settings.svg", "settings.svg", undefined, false), lunaOS_pass);
-        this.files["~/lunaOS/photos/bottomBar"].appendFile("settingsButton.png",new file("/photos/lunaos/bottomBar/settingsButton.png", "settingsButton.png", undefined, false), lunaOS_pass);
-        this.files["~/lunaOS/photos/bottomBar"].appendFile("settingsButtonAnime.png",new file("/photos/lunaos/bottomBar/settingsButtonAnime.png", "settingsButtonAnime.png", undefined, false), lunaOS_pass);
-        this.files["~/lunaOS/photos/bottomBar"].appendFile("terminal.png",new file("/photos/lunaos/bottomBar/terminal.png", "terminal.png", undefined, false), lunaOS_pass);
-        this.files["~/lunaOS/photos/bottomBar"].appendFile("terminal.svg",new file("/photos/lunaos/bottomBar/terminal.svg", "terminal.svg", undefined, false), lunaOS_pass);
-        this.files["~/lunaOS/photos/bottomBar"].appendFile("terminalAnime.png",new file("/photos/lunaos/bottomBar/terminalAnime.png", "terminalAnime.png", undefined, false), lunaOS_pass);
+        this.createFolder("~/lunaOS/photos/", "bottomBar", true, lunaOSPass);
+        this.files["~/lunaOS/photos/bottomBar"].appendFile("fileExplorer.svg",new file("/photos/lunaos/bottomBar/fileExplorer.svg", "fileExplorer.svg", undefined, false), lunaOSPass);
+        this.files["~/lunaOS/photos/bottomBar"].appendFile("settings.svg",new file("/photos/lunaos/bottomBar/settings.svg", "settings.svg", undefined, false), lunaOSPass);
+        this.files["~/lunaOS/photos/bottomBar"].appendFile("settingsButton.png",new file("/photos/lunaos/bottomBar/settingsButton.png", "settingsButton.png", undefined, false), lunaOSPass);
+        this.files["~/lunaOS/photos/bottomBar"].appendFile("settingsButtonAnime.png",new file("/photos/lunaos/bottomBar/settingsButtonAnime.png", "settingsButtonAnime.png", undefined, false), lunaOSPass);
+        this.files["~/lunaOS/photos/bottomBar"].appendFile("terminal.png",new file("/photos/lunaos/bottomBar/terminal.png", "terminal.png", undefined, false), lunaOSPass);
+        this.files["~/lunaOS/photos/bottomBar"].appendFile("terminal.svg",new file("/photos/lunaos/bottomBar/terminal.svg", "terminal.svg", undefined, false), lunaOSPass);
+        this.files["~/lunaOS/photos/bottomBar"].appendFile("terminalAnime.png",new file("/photos/lunaos/bottomBar/terminalAnime.png", "terminalAnime.png", undefined, false), lunaOSPass);
         
         //Icons
-        this.createFolder("~/lunaOS/photos/", "icons", true, lunaOS_pass);
-        this.files["~/lunaOS/photos/icons"].appendFile("file.svg", new file("/photos/lunaos/icons/file.svg", "file.svg", undefined, false), lunaOS_pass);
-        this.files["~/lunaOS/photos/icons"].appendFile("folder.svg", new file("/photos/lunaos/icons/folder.svg", "folder.svg", undefined, false), lunaOS_pass);
-        this.files["~/lunaOS/photos/icons"].appendFile("file-minus.svg", new file("/photos/lunaos/icons/file-minus.svg", "file-minus.svg", undefined, false), lunaOS_pass);
-        this.files["~/lunaOS/photos/icons"].appendFile("file-plus.svg", new file("/photos/lunaos/icons/file-plus.svg", "file-plus.svg", undefined, false), lunaOS_pass);
-        this.files["~/lunaOS/photos/icons"].appendFile("folder-minus.svg", new file("/photos/lunaos/icons/folder-minus.svg", "folder-minus.svg", undefined, false), lunaOS_pass);
-        this.files["~/lunaOS/photos/icons"].appendFile("folder-plus.svg", new file("/photos/lunaos/icons/folder-plus.svg", "folder-plus.svg", undefined, false), lunaOS_pass);
+        this.createFolder("~/lunaOS/photos/", "icons", true, lunaOSPass);
+        this.files["~/lunaOS/photos/icons"].appendFile("file.svg", new file("/photos/lunaos/icons/file.svg", "file.svg", undefined, false), lunaOSPass);
+        this.files["~/lunaOS/photos/icons"].appendFile("folder.svg", new file("/photos/lunaos/icons/folder.svg", "folder.svg", undefined, false), lunaOSPass);
+        this.files["~/lunaOS/photos/icons"].appendFile("file-minus.svg", new file("/photos/lunaos/icons/file-minus.svg", "file-minus.svg", undefined, false), lunaOSPass);
+        this.files["~/lunaOS/photos/icons"].appendFile("file-plus.svg", new file("/photos/lunaos/icons/file-plus.svg", "file-plus.svg", undefined, false), lunaOSPass);
+        this.files["~/lunaOS/photos/icons"].appendFile("folder-minus.svg", new file("/photos/lunaos/icons/folder-minus.svg", "folder-minus.svg", undefined, false), lunaOSPass);
+        this.files["~/lunaOS/photos/icons"].appendFile("folder-plus.svg", new file("/photos/lunaos/icons/folder-plus.svg", "folder-plus.svg", undefined, false), lunaOSPass);
     }
 
     /**
@@ -142,7 +142,7 @@ class fileSystem {
      * @param {string} name 
      * @param {boolean} readonly
      */
-    async createFolder(path, name, readonly, id_pass) {
+    async createFolder(path, name, readonly, idPass) {
         path += `${name}`;
 
         if(this.files[path]) return false;
@@ -151,29 +151,29 @@ class fileSystem {
 
         path[0] = `${path[0]}/`
 
-        let current_path = path[0];
+        let currentPath = path[0];
 
-        let last_path = current_path;
+        let lastPath = currentPath;
 
-        if(!this.files[current_path]) {
-            this.files[current_path] = new folder(current_path, path, readonly, id_pass);
+        if(!this.files[currentPath]) {
+            this.files[currentPath] = new folder(currentPath, path[0], readonly, idPass);
         }
 
         for(let i = 1; i < path.length; i++) {
 
             if(i == 1) {
-                current_path = `${current_path}${path[i]}`;
+                currentPath = `${currentPath}${path[i]}`;
             } else {
-                current_path = `${current_path}/${path[i]}`;
+                currentPath = `${currentPath}/${path[i]}`;
             }
-            this.files[last_path].appendFolder(path[i], id_pass);;
+            this.files[lastPath].appendFolder(path[i], idPass);;
 
             
-            if(!this.files[current_path]) {
-                this.files[current_path] = new folder(current_path, path, readonly, id_pass);
+            if(!this.files[currentPath]) {
+                this.files[currentPath] = new folder(currentPath, path[i], readonly, idPass);
             }
 
-            last_path = current_path;
+            lastPath = currentPath;
         }
 
         return true;
@@ -182,32 +182,53 @@ class fileSystem {
     /**
      * 
      * @param {string} path 
-     * @param {string} id_pass 
+     * @param {string} idPass 
      */
-    editFolderPath(path, new_path, id_pass) {
+    editFolderPath(path, newPath, idPass) {
 
-        let matching_id = this.files[path].checkId(id_pass);
+        let matchingId = this.files[path].checkId(idPass);
 
-        if(!matching_id) return false;
+        if(!matchingId) return false;
 
-        this.files[new_path] = this.files[path];
+        this.files[newPath] = this.files[path];
 
-        let name = new_path.split("/")[new_path.split("/").length - 1];
-        let last_folder_name = path.split("/")[path.split("/").length - 1]
+        let name = newPath.split("/")[newPath.split("/").length - 1];
+        let lastFolderName = path.split("/")[path.split("/").length - 1]
 
-        let last_folder = path.split("/").slice(0, -1).join("/");
+        let lastFolder = path.split("/").slice(0, -1).join("/");
 
         if(path.split("/").slice(0, -1).join("/").length == 1) {
-            last_folder = "~/"
+            lastFolder = "~/"
         }
 
-        this.files[last_folder].deleteFile(last_folder_name, id_pass);
+        this.files[lastFolder].deleteFile(lastFolderName, idPass);
 
-        this.files[last_folder].appendFile(name, name, id_pass);
+        this.files[lastFolder].appendFile(name, name, idPass);
 
         this.files[path] = undefined;
 
-        this.files[new_path].edit_name(name, id_pass);
+        this.files[newPath].editName(name, idPass);
+    }
+
+
+    /**
+     * 
+     * 
+     */
+    deleteFolderPath(path, idPass) {
+        let matchingId = this.files[path].checkId(idPass);
+        if(!matchingId) return false;
+
+        let lastFolder = path.split("/").slice(0, -1).join("/");
+
+        if(path.split("/").slice(0, -1).join("/").length == 1) {
+            lastFolder = "~/"
+        }
+
+        console.log(this.files[path].getName());
+        this.files[lastFolder].deleteFile(this.files[path].getName(), idPass);
+
+        this.files[path] = undefined;
     }
 
     /**
@@ -225,7 +246,7 @@ class fileSystem {
 class file {
     #text
     #name
-    #save_enabled
+    #saveEnabled
     #openFunction
     #fileExtension
 
@@ -234,19 +255,19 @@ class file {
      * @param {string} text 
      * @param {string} name 
      * @param {function} openFunction 
-     * @param {boolean} save_enabled 
+     * @param {boolean} saveEnabled 
      */
-    constructor(text, name, openFunction, save_enabled = true) {
+    constructor(text, name, openFunction, saveEnabled = true) {
         this.#text = text;
         this.#name = name;
-        this.#save_enabled = save_enabled;
+        this.#saveEnabled = saveEnabled;
         this.#openFunction = openFunction;
 
         
         this.#fileExtension = this.#name.split(".")[this.#name.split(".").length - 1];
         
         if(!this.#openFunction) {
-            this.#openFunction = open_with_applications[this.#fileExtension].default;
+            this.#openFunction = openWithApplications[this.#fileExtension].default;
         }
         this.window = undefined;
     }
@@ -262,8 +283,8 @@ class file {
             return;
         }
 
-        this.window = new luna_window(this.#name, 100, 100, 500, 500, 300, 300, (open_window) => {
-            this.#openFunction(open_window, this.#text, this.#name, this)
+        this.window = new lunaWindow(this.#name, 100, 100, 500, 500, 300, 300, (openWindow) => {
+            this.#openFunction(openWindow, this.#text, this.#name, this)
         }, () => {
             this.window = undefined;
         });
@@ -275,7 +296,7 @@ class file {
      * @returns {boolean}
      */
     editText(text) {
-        if(!this.#save_enabled) return false;
+        if(!this.#saveEnabled) return false;
 
         this.#text = text;
         return true;
@@ -287,7 +308,7 @@ class file {
      * @returns {boolean}
      */
     editName(name) {
-        if(!this.#save_enabled) return false;
+        if(!this.#saveEnabled) return false;
         this.#name = name;
 
         return true;
@@ -310,22 +331,22 @@ class folder {
     #name
     #readonly
     #files
-    #id_pass
+    #idPass
     
     /**
      * 
      * @param {string} path 
      * @param {string} name 
      * @param {boolean} readonly 
-     * @param {string} id_pass 
+     * @param {string} idPass 
      */
-    constructor(path, name, readonly, id_pass) {
+    constructor(path, name, readonly, idPass) {
         this.path = path;
         this.#name = name;
         this.#readonly = readonly;
-        this.#id_pass = undefined;
+        this.#idPass = undefined;
 
-        this.#id_pass = id_pass;
+        this.#idPass = idPass;
         this.#files = {};
     }
 
@@ -336,11 +357,11 @@ class folder {
     /**
      * 
      * @param {string} name 
-     * @param {string} id_pass 
+     * @param {string} idPass 
      * @returns {boolean}
      */
-    edit_name(name, id_pass) {
-        if(this.#readonly && this.#id_pass != id_pass) return false;
+    editName(name, idPass) {
+        if(this.#readonly && this.#idPass != idPass) return false;
         
         this.#name = name;
         return true;
@@ -356,62 +377,62 @@ class folder {
 
     /**
      * 
-     * @param {string} file_key 
-     * @param {string} id_pass 
+     * @param {string} fileKey 
+     * @param {string} idPass 
      */
-    deleteFile(file_key, id_pass) {
-        if(this.#readonly && this.#id_pass != id_pass) return false;
-        this.#files[file_key] = undefined;
+    deleteFile(fileKey, idPass) {
+        if(this.#readonly && this.#idPass != idPass) return false;
+        this.#files[fileKey] = undefined;
     }
 
     /**
      * 
-     * @param {boolean} read_only 
-     * @param {string} id_pass 
+     * @param {boolean} readOnly 
+     * @param {string} idPass 
      * @returns {boolean}
      */
-    setReadonly(read_only, id_pass) {
-        if(this.#readonly == true && this.#id_pass != id_pass) return false;
+    setReadonly(readOnly, idPass) {
+        if(this.#readonly == true && this.#idPass != idPass) return false;
         
-        this.#readonly = read_only;
+        this.#readonly = readOnly;
         return true;
     }
 
     /**
      * 
-     * @param {string} file_name 
+     * @param {string} fileName 
      * @returns {file}
      */
-    getFile(file_name) {
-        return this.#files[file_name];
+    getFile(fileName) {
+        return this.#files[fileName];
     }
 
     /**
      * 
-     * @param {string} file_name 
+     * @param {string} fileName 
      * @param {file} file 
-     * @param {string} id_pass 
+     * @param {string} idPass 
      * @returns {boolean}
      */
-    appendFile(file_name, file, id_pass) {
-        if(this.#readonly && this.#id_pass != id_pass) return false;
+    appendFile(fileName, file, idPass) {
+        if(this.#readonly && this.#idPass != idPass) return false;
 
-        this.#files[file_name] = file;
+        this.#files[fileName] = file;
 
         return true;
     }
 
     /**
      * 
-     * @param {string} folder_name 
+     * @param {string} folderName 
      * @param {string} folder 
-     * @param {string} id_pass 
+     * @param {string} idPass 
      * @returns 
      */
-    appendFolder(folder_name, id_pass) {
-        if(this.#readonly && this.#id_pass != id_pass) return false;
+    appendFolder(folderName, idPass) {
+        if(this.#readonly && this.#idPass != idPass) return false;
         
-        this.#files[folder_name] = folder_name;
+        this.#files[folderName] = folderName;
         return true;
     }
 
@@ -423,26 +444,26 @@ class folder {
     checkId(id) {
         if(!this.#readonly) return true;
 
-        if(this.#id_pass == id) return true;
+        if(this.#idPass == id) return true;
 
         return false;
     }
 
     /**
      * 
-     * @param {string} old_file_name 
-     * @param {string} file_name 
-     * @param {string} id_pass 
+     * @param {string} oldFileName 
+     * @param {string} fileName 
+     * @param {string} idPass 
     */
-    async editFileName(old_file_name, file_name, id_pass) {
-        if(this.#readonly && this.#id_pass != id_pass) return false;
+    async editFileName(oldFileName, fileName, idPass) {
+        if(this.#readonly && this.#idPass != idPass) return false;
 
-        if(typeof this.#files[old_file_name] == "undefined" || typeof this.#files[old_file_name] == "string") return false;
+        if(typeof this.#files[oldFileName] == "undefined" || typeof this.#files[oldFileName] == "string") return false;
 
-        this.#files[old_file_name].editName(file_name);
+        this.#files[oldFileName].editName(fileName);
 
-        this.#files[file_name] = this.#files[old_file_name];
-        delete this.#files[old_file_name]
+        this.#files[fileName] = this.#files[oldFileName];
+        delete this.#files[oldFileName]
         return true;
     }
 }
@@ -450,78 +471,78 @@ class folder {
 /**
  * @returns {string}
  */
-function generate_id_pass() {
-    let id_pass_chars = "abcdefghijklmnopqrstuvwxyABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+function generateIdPass() {
+    let idPassChars = "abcdefghijklmnopqrstuvwxyABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
 
-    let id_pass = "";
+    let idPass = "";
 
     for(let i = 0; i < 20; i++) {
-        id_pass += id_pass_chars[randomIntMinMax(0, id_pass_chars.length)];
+        idPass += idPassChars[randomIntMinMax(0, idPassChars.length)];
     }
 
 
-    return id_pass;
+    return idPass;
 }
 
 /**
- * @param {luna_window} this_window 
+ * @param {lunaWindow} thisWindow 
  * @param {string} text 
  * @param {string} name 
- * @param {file} file_class
+ * @param {file} fileClass
  */
-async function openText(this_window, text, name, file_class, id_pass) {
-    let text_box = document.createElement("textarea");
-    text_box.style.height = "98%";
-    text_box.style.width = "99%";
-    text_box.style.color = color_themes[current_theme].text;
-    text_box.style.background = "none";
-    text_box.style.border = "none";
-    text_box.textContent = text;
-    text_box.id = `${name}_text_editor`;
-    text_box.autocomplete = "off";
-    text_box.autocapitalize = "off";
-    text_box.spellcheck = "false";
-    text_box.style.resize = "none";
-    text_box.style.whiteSpace = "nowrap";
-    text_box.style.overflow = "auto";
+async function openText(thisWindow, text, name, fileClass, idPass) {
+    let textBox = document.createElement("textarea");
+    textBox.style.height = "98%";
+    textBox.style.width = "99%";
+    textBox.style.color = colorThemes[currentTheme].text;
+    textBox.style.background = "none";
+    textBox.style.border = "none";
+    textBox.textContent = text;
+    textBox.id = `${name}TextEditor`;
+    textBox.autocomplete = "off";
+    textBox.autocapitalize = "off";
+    textBox.spellcheck = "false";
+    textBox.style.resize = "none";
+    textBox.style.whiteSpace = "nowrap";
+    textBox.style.overflow = "auto";
 
-    this_window.holder_div.appendChild(text_box);
+    thisWindow.holderDiv.appendChild(textBox);
 
-    text_box.addEventListener("keydown", (ev) => {
+    textBox.addEventListener("keydown", (ev) => {
         if(ev.key == "s" && ev.ctrlKey) {
             ev.preventDefault();
 
-            console.log(file_class);
+            console.log(fileClass);
 
-            file_class.editText(text_box.value);
+            fileClass.editText(textBox.value);
         }
     })
 }
 
 /**
- * @param {luna_window} this_window 
+ * @param {lunaWindow} thisWindow 
  * @param {string} text 
  * @param {string} name 
- * @param {file} file_class
+ * @param {file} fileClass
  */
-async function openImage(this_window, image, name, file_class) {
-    let image_box = document.createElement("img");
-    image_box.style.height = "98%";
-    image_box.style.width = "99%";
-    image_box.style.background = "none";
-    image_box.style.border = "none";
-    image_box.alt = name;
-    image_box.id = `${name}_image_viewer`;
-    image_box.style.overflow = "auto";
-    image_box.src = image;
-    image_box.style.objectFit = "fill";
+async function openImage(thisWindow, image, name, fileClass) {
+    let imageBox = document.createElement("img");
+    imageBox.style.height = "98%";
+    imageBox.style.width = "99%";
+    imageBox.style.background = "none";
+    imageBox.style.border = "none";
+    imageBox.alt = name;
+    imageBox.id = `${name}ImageViewer`;
+    imageBox.style.overflow = "auto";
+    imageBox.src = image;
+    imageBox.style.objectFit = "fill";
 
-    this_window.holder_div.style.backgroundColor = "#4c4d4c";
+    thisWindow.holderDiv.style.backgroundColor = "#4c4d4c";
 
-    this_window.holder_div.appendChild(image_box);
+    thisWindow.holderDiv.appendChild(imageBox);
 }
 
-let open_with_applications = {
+let openWithApplications = {
     txt : {
         default : openText,
         options : {}

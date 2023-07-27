@@ -33,7 +33,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 /**
  * @typedef {import("./bottomBar/bottomBar")}
- * @typedef {import("./windows/window")} luna_window
+ * @typedef {import("./windows/window")} lunaWindow
  */
 
 let desktop = document.getElementById("desktop");
@@ -43,6 +43,12 @@ let desktop = document.getElementById("desktop");
  */
 let osFileSystem = new fileSystem();
 
+const DEFAULT_STARTING_X = 100;
+const DEFAULT_STARTING_Y = 100;
+const DEFAULT_STARTING_HEIGHT = 1000;
+const DEFAULT_STARTING_WIDTH = 1200;
+const DEFAULT_MIN_HEIGHT = 300;
+const DEFAULT_MIN_WIDTH = 300;
 
 desktop.style.height = `${window.innerHeight}px`;
 document.body.style.backgroundImage = "url(\"/photos/LunaOS/backgrounds/desktop.jpg\")";
@@ -55,7 +61,7 @@ desktop.style.zIndex = "0";
 desktop.style.padding = "none";
 desktop.style.backgroundSize = `${window.innerWidth}px ${window.innerHeight}px`;
 
-desktop.addEventListener("contextmenu", context_menu_function);
+desktop.addEventListener("contextmenu", contextMenuFunction);
 
 document.addEventListener("mousedown", async (ev) => {
     let contextmenu = document.getElementById("desktopContextMenu");
@@ -68,19 +74,19 @@ document.addEventListener("mousedown", async (ev) => {
 
 
 /**
- * @type {luna_window}
+ * @type {lunaWindow}
  */
-let command_window = undefined;
+let commandWindow = undefined;
 
 /**
- * @type {luna_window}
+ * @type {lunaWindow}
  */
-let settings_window = undefined;
+let settingsWindow = undefined;
 
 /**
- * @type {luna_window}
+ * @type {lunaWindow}
  */
-let file_explorer_window = undefined;
+let fileExplorerWindow = undefined;
 
 let bottomBar = new BottomBar();
 
@@ -89,23 +95,23 @@ window.addEventListener("resize", (ev) => {
 })
 
 
-bottomBar.appendButton(icon_themes[current_icon_theme].settings, "settings", async () => {
+bottomBar.appendButton(iconThemes[currentIconTheme].settings, "settings", async () => {
     document.body.style.cursor = "wait";
-    if(typeof settings_function == "undefined") {
-        const settings_command_class = document.createElement("script");
-        settings_command_class.src = "./js/lunaos/applications/settings/settings_window.js";
+    if(typeof settingsFunction == "undefined") {
+        const SETTINGS_COMMAND_CLASS = document.createElement("script");
+        SETTINGS_COMMAND_CLASS.src = "./js/lunaos/applications/settings/settingsWindow.js";
 
-        document.head.appendChild(settings_command_class);
+        document.head.appendChild(SETTINGS_COMMAND_CLASS);
 
-        while(typeof settings_function == "undefined") {
+        while(typeof settingsFunction == "undefined") {
             await sleep(5);
         }
     }
     document.body.style.cursor = "default";
 
-    if(settings_window != undefined) {
-        settings_window = settings_window.update();
-        settings_window.minimize();
+    if(settingsWindow != undefined) {
+        settingsWindow = settingsWindow.update();
+        settingsWindow.minimize();
         return;
     }
 
@@ -116,26 +122,26 @@ bottomBar.appendButton(icon_themes[current_icon_theme].settings, "settings", asy
     const MIN_HEIGHT = 500;
     const MIN_WIDTH = 500;
 
-    settings_window = new luna_window("Settings", STARTING_X, STARTING_Y, STARTING_HEIGHT, STARTING_WIDTH, MIN_WIDTH, MIN_HEIGHT, settings_function, async() => {
-        settings_window = undefined;
+    settingsWindow = new lunaWindow("Settings", STARTING_X, STARTING_Y, STARTING_HEIGHT, STARTING_WIDTH, MIN_WIDTH, MIN_HEIGHT, settingsFunction, async() => {
+        settingsWindow = undefined;
     })
 
 });
 
-bottomBar.appendButton(icon_themes[current_icon_theme].terminal, "terminal", async () => {
+bottomBar.appendButton(iconThemes[currentIconTheme].terminal, "terminal", async () => {
     document.body.style.cursor = "wait";
 
-    if(typeof console_function == "undefined") {
-        const clear_command_class = document.createElement("script");
-        clear_command_class.src = "./js/lunaos/applications/command_window/command_window.js";
+    if(typeof consoleFunction == "undefined") {
+        const COMMAND_WINDOW_CLASS = document.createElement("script");
+        COMMAND_WINDOW_CLASS.src = "./js/lunaos/applications/commandWindow/commandWindow.js";
 
-        document.head.appendChild(clear_command_class);
+        document.head.appendChild(COMMAND_WINDOW_CLASS);
 
-        while(typeof import_scripts == "undefined") {
+        while(typeof importScripts == "undefined") {
             await sleep(5);
         }
 
-        await import_scripts();
+        await importScripts();
     
         while(typeof terminal == "undefined" || typeof Line == "undefined") {
             await sleep(5);
@@ -143,65 +149,57 @@ bottomBar.appendButton(icon_themes[current_icon_theme].terminal, "terminal", asy
     }
 
     document.body.style.cursor = "default";
-    if(command_window != undefined) {
-        command_window = command_window.update();
-        command_window.minimize();
+    if(commandWindow != undefined) {
+        commandWindow = commandWindow.update();
+        commandWindow.minimize();
         
         return;   
     }
 
-    const STARTING_X = 100;
-    const STARTING_Y = 100;
-    const STARTING_HEIGHT = 1000;
-    const STARTING_WIDTH = 1200;
-    const MIN_HEIGHT = 300;
-    const MIN_WIDTH = 300;
 
-
-    command_window = new luna_window("Command Prompt", STARTING_X, STARTING_Y, STARTING_HEIGHT, STARTING_WIDTH, MIN_HEIGHT, MIN_WIDTH, console_function, async () => {
-        command_window = undefined;
+    commandWindow = new lunaWindow("Command Prompt", DEFAULT_STARTING_X, DEFAULT_STARTING_Y, DEFAULT_STARTING_HEIGHT, DEFAULT_STARTING_WIDTH, DEFAULT_MIN_HEIGHT, DEFAULT_MIN_WIDTH, consoleFunction, async () => {
+        commandWindow = undefined;
     });
     
 });
 
-bottomBar.appendButton(icon_themes[current_icon_theme].file_explorer, "file_explorer", async() => {
+bottomBar.appendButton(iconThemes[currentIconTheme].fileExplorer, "fileExplorer", async() => {
     document.body.style.cursor = "wait";
 
-    if(typeof file_explorer_function == "undefined") {
-        const file_explorer_class = document.createElement("script");
-        file_explorer_class.src = "./js/lunaos/applications/file_explorer/file_explorer.js";
+    if(typeof fileExplorerFunction == "undefined") {
+        const FILE_EXPLORER_CLASS = document.createElement("script");
+        FILE_EXPLORER_CLASS.src = "./js/lunaos/applications/fileExplorer/fileExplorer.js";
 
-        document.head.appendChild(file_explorer_class);
+        document.head.appendChild(FILE_EXPLORER_CLASS);
 
-        while(typeof file_explorer_function == "undefined") {
+        while(typeof fileExplorerFunction == "undefined") {
             await sleep(5);
         }
     }
 
     document.body.style.cursor = "default";
-    if(file_explorer_window != undefined) {
-        file_explorer_window = file_explorer_window.update();
-        file_explorer_window.minimize();
+    if(fileExplorerWindow != undefined) {
+        fileExplorerWindow = fileExplorerWindow.update();
+        fileExplorerWindow.minimize();
         
         return;   
     }
 
-    const STARTING_X = 100;
-    const STARTING_Y = 100;
-    const STARTING_HEIGHT = 1000;
-    const STARTING_WIDTH = 1200;
-    const MIN_HEIGHT = 300;
-    const MIN_WIDTH = 1200;
-
-    file_explorer_window = new luna_window("File Explorer", STARTING_X, STARTING_Y, STARTING_HEIGHT, STARTING_WIDTH, MIN_HEIGHT, MIN_WIDTH, file_explorer_function, async () => {
-        file_explorer_window = undefined;
+    fileExplorerWindow = new lunaWindow("File Explorer", DEFAULT_STARTING_X, DEFAULT_STARTING_Y, DEFAULT_STARTING_HEIGHT, DEFAULT_STARTING_WIDTH, DEFAULT_MIN_HEIGHT, DEFAULT_MIN_WIDTH, fileExplorerFunction, async () => {
+        fileExplorerWindow = undefined;
     });
-})
+});
+
+function minimizeWindow(currentWindow) {
+    currentWindow = currentWindow.update();
+    currentWindow.minimize();
+    return;   
+}
 
 function updateColors() {
     reloadWindowColors();
     reloadBottomBarColors();
-    if(command_window) {
-        command_window.window_storage.terminal.updateLineColors();
+    if(commandWindow) {
+        commandWindow.windowStorage.terminal.updateLineColors();
     }
 }

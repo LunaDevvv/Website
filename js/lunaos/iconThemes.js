@@ -31,19 +31,40 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 
+let currentIconTheme = "default";
+
+if(localStorage.getItem("currentIconTheme")) {
+    currentIconTheme = localStorage.getItem("currentIconTheme");
+} else {
+    localStorage.setItem("currentIconTheme", currentIconTheme);
+}
+
+let iconThemes = {
+    default: {
+        settings : "/photos/LunaOS/bottomBar/settings.svg",
+        terminal : "/photos/LunaOS/bottomBar/terminal.svg",
+        fileExplorer : "/photos/LunaOS/bottomBar/fileExplorer.svg"
+    },
+
+    anime : { 
+        settings : "/photos/LunaOS/bottomBar/settingsButtonAnime.png",
+        terminal: "/photos/LunaOS/bottomBar/terminalAnime.png",
+        fileExplorer : "/photos/LunaOS/bottomBar/fileExplorer.svg"
+    },
+
+    old_default: {
+        settings : "/photos/LunaOS/bottomBar/settingsButton.png",
+        terminal : "/photos/LunaOS/bottomBar/terminal.png",
+        fileExplorer : "/photos/LunaOS/bottomBar/fileExplorer.svg"
+    }
+}
+
 /**
  * 
- * @typedef {import("../classes/terminal")} terminal
- * 
- * @param {terminal} Terminal 
+ * @param {"default" | "anime" | "old_default"} icon_theme 
  */
-
-async function clear_command(Terminal, CLEAR_SLEEP_TIME) {
-    Terminal.lines = [];
-
-    while(Terminal.terminalDiv.firstChild) {
-        Terminal.terminalDiv.removeChild(Terminal.terminalDiv.firstChild);
-
-        await sleep(CLEAR_SLEEP_TIME);
-    }
+function updateIcons(icon_theme) {
+    currentIconTheme = icon_theme;
+    localStorage.setItem("currentIconTheme", currentIconTheme);
+    updateCurrentIcons();
 }

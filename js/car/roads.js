@@ -7,23 +7,23 @@ class Road {
         this.left = x - width / 2;
         this.right = x + width / 2;
 
-        const infinity = 1000000;
-        this.top = -infinity;
-        this.bottom = infinity;
+        const INFINITY = 1000000;
+        this.top = -INFINITY;
+        this.bottom = INFINITY;
 
-        const topLeft = { x: this.left, y: this.top };
-        const topRight = { x: this.right, y: this.top };
-        const bottomLeft = { x: this.left, y: this.bottom };
-        const bottomRight = { x: this.right, y: this.bottom };
+        const TOP_LEFT = { x: this.left, y: this.top };
+        const TOP_RIGHT = { x: this.right, y: this.top };
+        const BOTTOM_LEFT = { x: this.left, y: this.bottom };
+        const BOTTOM_RIGHT = { x: this.right, y: this.bottom };
         this.borders = [
-            [topLeft, bottomLeft],
-            [topRight, bottomRight],
+            [TOP_LEFT, BOTTOM_LEFT],
+            [TOP_RIGHT, BOTTOM_RIGHT],
         ];
     }
 
     getLaneCenter(laneIndex) {
-        const laneWidth = this.width / this.laneCount;
-        return this.left + laneWidth / 2 + laneIndex * laneWidth;
+        const LANE_WIDTH = this.width / this.laneCount;
+        return this.left + LANE_WIDTH / 2 + laneIndex * LANE_WIDTH;
     }
 
     draw(ctx) {
@@ -31,12 +31,12 @@ class Road {
         ctx.strokeStyle = "white";
 
         for (let i = 1; i <= this.laneCount - 1; i++) {
-            const x = lerp(this.left, this.right, i / this.laneCount);
+            const X = lerp(this.left, this.right, i / this.laneCount);
 
             ctx.setLineDash([20, 20]);
             ctx.beginPath();
-            ctx.moveTo(x, this.top);
-            ctx.lineTo(x, this.bottom);
+            ctx.moveTo(X, this.top);
+            ctx.lineTo(X, this.bottom);
             ctx.stroke();
         }
 

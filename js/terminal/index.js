@@ -1,5 +1,5 @@
 //* Getting the div to hold the terminal.
-const terminalDiv = document.getElementById("terminal");
+const TERMINAL_DIV = document.getElementById("terminal");
 
 //* Creating the header.
 let textArray = `
@@ -29,7 +29,7 @@ Run osInfo for information on the OS~
 {} `.split("\n");
 
 //* Create a terminal instance.
-const Terminal = new terminal();
+const TERMINAL = new terminal();
 let waiting = true;
 
 //* Create the header.
@@ -85,11 +85,11 @@ async function showHeader() {
 
     //* If they are on a mobile device, replace the custom text handler with input box.
     if (mobileDevice()) {
-        const area = document.createElement("input");
-        area.innerHTML = '<input type="text" id="mobilePrompt"></input>';
+        const AREA = document.createElement("input");
+        AREA.innerHTML = '<input type="text" id="mobilePrompt"></input>';
 
         let line = new Line("ShiroDev.dev ~  {}", "", 10, undefined, false, {
-            element: area,
+            element: AREA,
         });
 
         await sleep(1000);
@@ -139,12 +139,12 @@ if (!mobileDevice()) {
 async function takeInput(ev) {
     //* If they are on a mobile device, create a text box to type in.
     if (mobileDevice()) {
-        const area = document.createElement("input");
-        area.innerHTML =
+        const AREA = document.createElement("input");
+        AREA.innerHTML =
             '<input type="text" id="mobilePrompt" style="background-color : black;"></input>';
 
         let line = new Line("ShiroDev.dev ~  {}", "", 10, undefined, false, {
-            element: area,
+            element: AREA,
         });
 
         await sleep(1000);
@@ -241,7 +241,7 @@ async function parseInput(text, sleeptime) {
     switch (text.split(" ")[0]) {
         //* Clear the terminal line-by-line
         case "clear":
-            await Terminal.clearLines();
+            await TERMINAL.clearLines();
             waiting = false;
             return takeInput();
 
@@ -413,9 +413,9 @@ async function parseInput(text, sleeptime) {
             return takeInput();
 
         case "docs":
-            const args = text.split(" ");
-            if (!args[1]) {
-                new Line("Missing Args : info_item", "color : red", 10);
+            const ARGS = text.split(" ");
+            if (!ARGS[1]) {
+                new Line("Missing Args : infoItem", "color : red", 10);
                 new Line(
                     'Run "docs args" to get a list of options',
                     "color : blue",
@@ -425,7 +425,7 @@ async function parseInput(text, sleeptime) {
                 return takeInput();
             }
 
-            switch (args[1]) {
+            switch (ARGS[1]) {
                 case "rectangle":
                     rectangle(text);
                     break;

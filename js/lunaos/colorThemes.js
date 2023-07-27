@@ -31,31 +31,41 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 
-/**
- * 
- * @typedef {import("../classes/terminal")} terminal
- * 
- * @param {terminal} Terminal 
- */
+let currentTheme = "dark_mode";
 
-async function developer_command(Terminal) {
-    new Line("[LunaDev]:", Terminal, {
-        speed : 20
-    });
+if(localStorage.getItem("currentTheme")) {
+    currentTheme = localStorage.getItem("currentTheme");
+} else {
+    localStorage.setItem("currentTheme", currentTheme);
+}
 
-    new Line("Hello, I'm LunaDev! (Used to be ShiroDev)", Terminal, {
-        speed : 15
-    });
-
-    new Line("I'm currently in highschool, and have been programming since 2019.", Terminal, {
-        speed : 15
-    });
-
-    new Line("I currently have worked alot of small projects, but some large ones.", Terminal, {
-        speed : 15
-    });
-
-    new Line("Most of the time if you see me anywhere, it will be doing backend, since I have problems making frontend stuff.", Terminal, {
-        speed : 15
-    });
+let colorThemes = {
+    dark_mode: {
+        text: "white",
+        windowHolder: "rgba(0, 0, 0, 1)",
+        titleDiv: "#373837",
+        holderDiv: "black",
+        contextDiv: "darkSlateGray",
+        contextMenuButton: "gray",
+        baseDiv: "rgba(9, 95, 97, 0.5)",
+        settingsButtons: "#424040",
+        selectedSettingsButton: "#292828",
+        fileExplorerSearchBar: "#3d3736",
+        fileExplorerUnselectedButton: "#3d3736",
+        fileExplorerSelectedButton : "#575352"
+    },
+    light_mode: {
+        text: "black",
+        windowHolder: "#b8bab9",
+        titleDiv: "#bdbdbd",
+        holderDiv: "#8f8f8f",
+        contextDiv: "#a29fb5",
+        contextMenuButton: "#998eed",
+        baseDiv: "rgba(122, 122, 122, 0.5)",
+        settingsButtons: "#d1d1d1",
+        selectedSettingsButton: "#adaaaa",
+        fileExplorerSearchBar: "#9c9c9c",
+        fileExplorerUnselectedButton: "#9c9c9c",
+        fileExplorerSelectedButton : "#757373"
+    }
 }

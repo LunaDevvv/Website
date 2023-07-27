@@ -52,16 +52,16 @@ class Line {
                     continue;
                 }
 
-                const text = this.elements[elementNumber].element.innerText;
-                this.elements[elementNumber].innerHTML = this.elements[elementNumber].element.innerHTML.replace(text, "");
+                const TEXT = this.elements[elementNumber].element.innerText;
+                this.elements[elementNumber].innerHTML = this.elements[elementNumber].element.innerHTML.replace(TEXT, "");
                 textp.innerHTML += this.elements[elementNumber].element.innerHTML;
 
                 let id = this.elements[elementNumber].id;
                 document.getElementById(id).innerText = "";
                 if (id) {
-                    for (let j = 0; j < text.length; j++) {
+                    for (let j = 0; j < TEXT.length; j++) {
                         try {
-                            document.getElementById(id).innerText += text[j];
+                            document.getElementById(id).innerText += TEXT[j];
                             await sleep(this.speed ? this.speed : 50);
                         } catch (err) { console.error(err) }
                     }

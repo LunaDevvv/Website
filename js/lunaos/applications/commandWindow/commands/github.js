@@ -31,49 +31,22 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 
-class terminal {
-    /**
-     * @type {Array<Line>}
-     */
-    lines = [];
-    current_path = "";
+/**
+ * 
+ * @typedef {import("../classes/terminal")} terminal
+ * @typedef {import("../../../windows/window")} lunaWindow
+ * 
+ * @typedef {lunaWindow} githubWindow
+ * 
+ * @param {terminal} Terminal 
+ */
 
-    /**
-     * 
-     * @param {HTMLDivElement} div
-     * @param {string} path 
-     */
-    constructor(div, path = "/") {
-        this.terminalDiv = div;
-        this.waiting = false;
-        this.typing = false;
-        this.current_path = path
-    }
+async function githubCommand(Terminal) {
+    new Line("Making new tab for github (github doesn't allow iframes)", Terminal, {
+        speed : 15
+    });
 
-    /**
-     * 
-     * @param {Line} line 
-     */
-    async loadLine(line) {
-        this.lines.push(line);
-    }
+    await sleep(1200);
 
-    async updateLineColors() {
-        for(let i = 0 ; i < this.lines.length; i++) {
-            this.lines[i].editText("");
-
-            await sleep(10);
-        }
-
-        return;
-    }
-
-    async clearLines() {
-        let CLEAR_SLEEP_TIME = 10;
-        while(this.terminalDiv.firstChild) {
-            this.terminalDiv.removeChild(this.terminalDiv.firstChild);
-    
-            await sleep(CLEAR_SLEEP_TIME);
-        }
-    }
+    window.open("https://github.com/lunadevvv/", "_blank");
 }

@@ -34,33 +34,33 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /**
  * @typedef {import("../../windows/window")}
  * 
- * @param {luna_window} window 
+ * @param {lunaWindow} window 
  */
-async function settings_function(window) {
-    await load_pages();
+async function settingsFunction(window) {
+    await loadPages();
 
     systemPage(window);
 }
 
 
-async function load_pages() {
-    const home_page = document.createElement("script");
-    home_page.src = "./js/lunaos/applications/settings/pages/homePage.js";
+async function loadPages() {
+    const HOME_PAGE = document.createElement("script");
+    HOME_PAGE.src = "./js/lunaos/applications/settings/pages/homePage.js";
 
-    const personalization_page = document.createElement("script");
-    personalization_page.src = "./js/lunaos/applications/settings/pages/personalization.js";
+    const PERSONALIZATION_PAGE = document.createElement("script");
+    PERSONALIZATION_PAGE.src = "./js/lunaos/applications/settings/pages/personalization.js";
 
-    document.head.appendChild(home_page);
-    document.head.appendChild(personalization_page);
+    document.head.appendChild(HOME_PAGE);
+    document.head.appendChild(PERSONALIZATION_PAGE);
 
-    while(typeof personalizationPage == "undefined") {
+    while(typeof systemPage == "undefined") {
         await sleep(5);
     }
 }
 
 /**
  * 
- * @param {luna_window} window 
+ * @param {lunaWindow} window 
  * @returns {HTMLDivElement}
  */
 function makeSideDiv(window) {
@@ -77,8 +77,8 @@ function makeSideDiv(window) {
     systemButton.style.borderRadius = "5px";
     systemButton.style.width = "99%";
     systemButton.style.fontSize = "15px";
-    systemButton.style.backgroundColor = color_themes[current_theme].settingsButtons
-    systemButton.style.color = color_themes[current_theme].text;
+    systemButton.style.backgroundColor = colorThemes[currentTheme].settingsButtons
+    systemButton.style.color = colorThemes[currentTheme].text;
     systemButton.style.border = "none";
 
     systemButton.onclick = () => {
@@ -86,11 +86,11 @@ function makeSideDiv(window) {
     }
 
     systemButton.onmouseenter = () => {
-        systemButton.style.backgroundColor = color_themes[current_theme].selectedSettingsButton
+        systemButton.style.backgroundColor = colorThemes[currentTheme].selectedSettingsButton
     }
 
     systemButton.onmouseleave = () => {
-        systemButton.style.backgroundColor = color_themes[current_theme].settingsButtons
+        systemButton.style.backgroundColor = colorThemes[currentTheme].settingsButtons
     }
 
     let personalizationButton = document.createElement("button");
@@ -100,8 +100,8 @@ function makeSideDiv(window) {
     personalizationButton.style.borderRadius = "5px";
     personalizationButton.style.width = "99%";
     personalizationButton.style.fontSize = "15px";
-    personalizationButton.style.backgroundColor = color_themes[current_theme].settingsButtons
-    personalizationButton.style.color = color_themes[current_theme].text;
+    personalizationButton.style.backgroundColor = colorThemes[currentTheme].settingsButtons
+    personalizationButton.style.color = colorThemes[currentTheme].text;
     personalizationButton.style.border = "none";
     personalizationButton.style.marginTop = "5px";
 
@@ -110,11 +110,11 @@ function makeSideDiv(window) {
     }
 
     personalizationButton.onmouseenter = () => {
-        personalizationButton.style.backgroundColor = color_themes[current_theme].selectedSettingsButton
+        personalizationButton.style.backgroundColor = colorThemes[currentTheme].selectedSettingsButton
     }
 
     personalizationButton.onmouseleave = () => {
-        personalizationButton.style.backgroundColor = color_themes[current_theme].settingsButtons
+        personalizationButton.style.backgroundColor = colorThemes[currentTheme].settingsButtons
     }
 
     sideDiv.appendChild(systemButton);

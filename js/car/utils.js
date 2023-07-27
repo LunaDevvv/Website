@@ -3,19 +3,19 @@ function lerp(A, B, T) {
 }
 
 function getIntersection(A, B, C, D) {
-    const tTop = (D.x - C.x) * (A.y - C.y) - (D.y - C.y) * (A.x - C.x);
-    const uTop = (C.y - A.y) * (A.x - B.x) - (C.x - A.x) * (A.y - B.y);
-    const bottom = (D.y - C.y) * (B.x - A.x) - (D.x - C.x) * (B.y - A.y);
+    const T_TOP = (D.x - C.x) * (A.y - C.y) - (D.y - C.y) * (A.x - C.x);
+    const U_TOP = (C.y - A.y) * (A.x - B.x) - (C.x - A.x) * (A.y - B.y);
+    const BOTTOM = (D.y - C.y) * (B.x - A.x) - (D.x - C.x) * (B.y - A.y);
 
-    if (bottom != 0) {
-        const t = tTop / bottom;
-        const u = uTop / bottom;
+    if (BOTTOM != 0) {
+        const T = T_TOP / BOTTOM;
+        const U = U_TOP / BOTTOM;
 
-        if (t >= 0 && t <= 1 && u >= 0 && u <= 1) {
+        if (T >= 0 && T <= 1 && U >= 0 && U <= 1) {
             return {
-                x: lerp(A.x, B.x, t),
-                y: lerp(A.y, B.y, t),
-                offset: t,
+                x: lerp(A.x, B.x, T),
+                y: lerp(A.y, B.y, T),
+                offset: T,
             };
         }
     }
@@ -26,14 +26,14 @@ function getIntersection(A, B, C, D) {
 function polysIntersect(poly1, poly2) {
     for (let i = 0; i < poly1.length; i++) {
         for (let j = 0; j < poly2.length; j++) {
-            const touch = getIntersection(
+            const TOUCH = getIntersection(
                 poly1[i],
                 poly1[(i + 1) % poly1.length],
                 poly2[j],
                 poly2[(j + 1) % poly2.length]
             );
 
-            if (touch) {
+            if (TOUCH) {
                 return true;
             }
         }
@@ -44,19 +44,19 @@ function polysIntersect(poly1, poly2) {
 
 class Visualizer {
     static drawNetwork(ctx, network) {
-        const margin = 50;
-        const left = margin;
-        const top = margin;
-        const width = ctx.canvas.width - margin * 2;
-        const height = ctx.canvas.height - margin * 2;
+        const MARGIN = 50;
+        const LEFT = MARGIN;
+        const TOP = MARGIN;
+        const WIDTH = ctx.canvas.width - MARGIN * 2;
+        const HEIGHT = ctx.canvas.height - MARGIN * 2;
 
-        const levelHeight = height / network.levels.length;
+        const LEVEL_HEIGHT = HEIGHT / network.levels.length;
 
         for (let i = network.levels.length - 1; i >= 0; i--) {
-            const levelTop =
-                top +
+            const LEVEL_TOP =
+                TOP +
                 lerp(
-                    height - levelHeight,
+                    HEIGHT - LEVEL_HEIGHT,
                     0,
                     network.levels.length == 1
                         ? 0.5
@@ -67,63 +67,63 @@ class Visualizer {
             Visualizer.drawLevel(
                 ctx,
                 network.levels[i],
-                left,
-                levelTop,
-                width,
-                levelHeight,
+                LEFT,
+                LEVEL_TOP,
+                WIDTH,
+                LEVEL_HEIGHT,
                 i == network.levels.length - 1 ? ["🠉", "🠈", "🠊", ""] : []
             );
         }
     }
 
     static drawLevel(ctx, level, left, top, width, height, outputLabels) {
-        const right = left + width;
-        const bottom = top + height;
+        const RIGHT = left + width;
+        const BOTTOM = top + height;
 
-        const { inputs, outputs, weights, biases } = level;
+        const { inputs: INPUTS, outputs: OUTPUTS, weights: WEIGHTS, biases: BIASES } = level;
 
-        for (let i = 0; i < inputs.length; i++) {
-            for (let j = 0; j < outputs.length; j++) {
+        for (let i = 0; i < INPUTS.length; i++) {
+            for (let j = 0; j < OUTPUTS.length; j++) {
                 ctx.beginPath();
                 ctx.moveTo(
-                    Visualizer.#getNodeX(inputs, i, left, right),
-                    bottom
+                    Visualizer.#getNodeX(INPUTS, i, left, RIGHT),
+                    BOTTOM
                 );
-                ctx.lineTo(Visualizer.#getNodeX(outputs, j, left, right), top);
+                ctx.lineTo(Visualizer.#getNodeX(OUTPUTS, j, left, RIGHT), top);
                 ctx.lineWidth = 2;
-                ctx.strokeStyle = getRGBA(weights[i][j]);
+                ctx.strokeStyle = getRGBA(WEIGHTS[i][j]);
                 ctx.stroke();
             }
         }
 
-        const nodeRadius = 18;
-        for (let i = 0; i < inputs.length; i++) {
-            const x = Visualizer.#getNodeX(inputs, i, left, right);
+        const NODE_RADIUS = 18;
+        for (let i = 0; i < INPUTS.length; i++) {
+            const X = Visualizer.#getNodeX(INPUTS, i, left, RIGHT);
             ctx.beginPath();
-            ctx.arc(x, bottom, nodeRadius, 0, Math.PI * 2);
+            ctx.arc(X, BOTTOM, NODE_RADIUS, 0, Math.PI * 2);
             ctx.fillStyle = "black";
             ctx.fill();
             ctx.beginPath();
-            ctx.arc(x, bottom, nodeRadius * 0.6, 0, Math.PI * 2);
-            ctx.fillStyle = getRGBA(inputs[i]);
+            ctx.arc(X, BOTTOM, NODE_RADIUS * 0.6, 0, Math.PI * 2);
+            ctx.fillStyle = getRGBA(INPUTS[i]);
             ctx.fill();
         }
 
-        for (let i = 0; i < outputs.length; i++) {
-            const x = Visualizer.#getNodeX(outputs, i, left, right);
+        for (let i = 0; i < OUTPUTS.length; i++) {
+            const X = Visualizer.#getNodeX(OUTPUTS, i, left, RIGHT);
             ctx.beginPath();
-            ctx.arc(x, top, nodeRadius, 0, Math.PI * 2);
+            ctx.arc(X, top, NODE_RADIUS, 0, Math.PI * 2);
             ctx.fillStyle = "black";
             ctx.fill();
             ctx.beginPath();
-            ctx.arc(x, top, nodeRadius * 0.6, 0, Math.PI * 2);
-            ctx.fillStyle = getRGBA(outputs[i]);
+            ctx.arc(X, top, NODE_RADIUS * 0.6, 0, Math.PI * 2);
+            ctx.fillStyle = getRGBA(OUTPUTS[i]);
             ctx.fill();
 
             ctx.beginPath();
             ctx.lineWidth = 2;
-            ctx.arc(x, top, nodeRadius * 0.8, 0, Math.PI * 2);
-            ctx.strokeStyle = getRGBA(biases[i]);
+            ctx.arc(X, top, NODE_RADIUS * 0.8, 0, Math.PI * 2);
+            ctx.strokeStyle = getRGBA(BIASES[i]);
             ctx.setLineDash([3, 3]);
             ctx.stroke();
             ctx.setLineDash([]);
@@ -134,10 +134,10 @@ class Visualizer {
                 ctx.textBaseline = "middle";
                 ctx.fillStyle = "black";
                 ctx.strokeStyle = "white";
-                ctx.font = nodeRadius * 1.5 + "px Arial";
-                ctx.fillText(outputLabels[i], x, top + nodeRadius * 0.1);
+                ctx.font = NODE_RADIUS * 1.5 + "px Arial";
+                ctx.fillText(outputLabels[i], X, top + NODE_RADIUS * 0.1);
                 ctx.lineWidth = 0.5;
-                ctx.strokeText(outputLabels[i], x, top + nodeRadius * 0.1);
+                ctx.strokeText(outputLabels[i], X, top + NODE_RADIUS * 0.1);
             }
         }
     }
@@ -152,9 +152,9 @@ class Visualizer {
 }
 
 function getRGBA(value) {
-    const alpha = Math.abs(value);
+    const ALPHA = Math.abs(value);
     const R = value < 0 ? 0 : 255;
     const G = R;
     const B = value > 0 ? 0 : 255;
-    return "rgba(" + R + "," + G + "," + B + "," + alpha + ")";
+    return "rgba(" + R + "," + G + "," + B + "," + ALPHA + ")";
 }

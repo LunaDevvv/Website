@@ -31,30 +31,49 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 
-let current_icon_theme = "default";
+class terminal {
+    /**
+     * @type {Array<Line>}
+     */
+    lines = [];
+    currentPath = "";
 
-if(localStorage.getItem("current_icon_theme")) {
-    current_icon_theme = localStorage.getItem("current_icon_theme");
-} else {
-    localStorage.setItem("current_icon_theme", current_icon_theme);
-}
+    /**
+     * 
+     * @param {HTMLDivElement} div
+     * @param {string} path 
+     */
+    constructor(div, path = "/") {
+        this.terminalDiv = div;
+        this.waiting = false;
+        this.typing = false;
+        this.currentPath = path
+    }
 
-let icon_themes = {
-    default: {
-        settings : "/photos/LunaOS/bottomBar/settings.svg",
-        terminal : "/photos/LunaOS/bottomBar/terminal.svg",
-        file_explorer : "/photos/LunaOS/bottomBar/file_explorer.svg"
-    },
+    /**
+     * 
+     * @param {Line} line 
+     */
+    async loadLine(line) {
+        this.lines.push(line);
+    }
 
-    anime : { 
-        settings : "/photos/LunaOS/bottomBar/settingsButtonAnime.png",
-        terminal: "/photos/LunaOS/bottomBar/terminalAnime.png",
-        file_explorer : "/photos/LunaOS/bottomBar/file_explorer.svg"
-    },
+    async updateLineColors() {
+        for(let i = 0 ; i < this.lines.length; i++) {
+            this.lines[i].editText("");
 
-    old_default: {
-        settings : "/photos/LunaOS/bottomBar/settingsButton.png",
-        terminal : "/photos/LunaOS/bottomBar/terminal.png",
-        file_explorer : "/photos/LunaOS/bottomBar/file_explorer.svg"
+            await sleep(10);
+        }
+
+        return;
+    }
+
+    async clearLines() {
+        let CLEAR_SLEEP_TIME = 10;
+        while(this.terminalDiv.firstChild) {
+            this.terminalDiv.removeChild(this.terminalDiv.firstChild);
+    
+            await sleep(CLEAR_SLEEP_TIME);
+        }
     }
 }

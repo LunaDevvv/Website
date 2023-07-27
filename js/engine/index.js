@@ -1,22 +1,22 @@
 //* Get elements from DOM
-const canvas = document.getElementById("gameCanvas");
-const codeText = document.getElementById("code");
-const ErrorArea = document.getElementById("ErrorArea");
-const codeDiv = document.getElementById("codeDiv");
+const CANVAS = document.getElementById("gameCanvas");
+const CODE_TEXT = document.getElementById("code");
+const ERROR_AREA = document.getElementById("ErrorArea");
+const CODE_DIV = document.getElementById("codeDiv");
 
 let fullscreen = false;
 
 let objects = [];
 
 //* Set up the canvas
-canvas.width = 600;
-canvas.height = 337;
-const ctx = canvas.getContext('2d');
+CANVAS.width = 600;
+CANVAS.height = 337;
+const CTX = CANVAS.getContext('2d');
 
-ctx.beginPath();
-ctx.strokeRect(50, 35, 50, 50);
+CTX.beginPath();
+CTX.strokeRect(50, 35, 50, 50);
 
-codeDiv.addEventListener("keydown", (ev) => {
+CODE_DIV.addEventListener("keydown", (ev) => {
     if (ev.ctrlKey && ev.key == "s") {
         ev.preventDefault();
 
@@ -31,35 +31,35 @@ document.addEventListener("keydown", (ev) => {
     }
 })
 
-codeText.addEventListener("keydown", (ev) => {
+CODE_TEXT.addEventListener("keydown", (ev) => {
     if (ev.key == "Tab") {
-        codeText.value += "  ";
+        CODE_TEXT.value += "  ";
         ev.preventDefault();
     }
 })
 
-const codeHandle = new codeRunner();
+const CODE_HANDLE = new codeRunner();
 
 function handleCode() {
-    codeHandle.setCode(codeText.value);
-    codeHandle.runCode();
+    CODE_HANDLE.setCode(CODE_TEXT.value);
+    CODE_HANDLE.runCode();
 }
 
 function clearCanvas() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    CTX.clearRect(0, 0, CANVAS.width, CANVAS.height);
 }
 
 function evol(code) {
-    ErrorArea.innerText = "";
+    ERROR_AREA.innerText = "";
     try {
         eval(code);
     } catch (err) {
         console.log(err);
-        const element = document.createElement("p");
-        element.innerText = err.message + ": line " + err.lineNumber;
-        element.style.backgroundColor = "darkred";
+        const ELEMENT = document.createElement("p");
+        ELEMENT.innerText = err.message + ": line " + err.lineNumber;
+        ELEMENT.style.backgroundColor = "darkred";
 
-        ErrorArea.appendChild(element);
+        ERROR_AREA.appendChild(ELEMENT);
     }
 }
 
@@ -76,19 +76,19 @@ function main() {
 
 function setFullscreen() {
     if (!fullscreen) {
-        codeDiv.style.display = "none";
+        CODE_DIV.style.display = "none";
         document.getElementsByTagName("body")[0].style.display = "block";
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        CANVAS.width = window.innerWidth;
+        CANVAS.height = window.innerHeight;
         fullscreen = true;
         handleCode();
         return;
     }
 
-    codeDiv.style.display = "";
+    CODE_DIV.style.display = "";
     document.getElementsByTagName("body")[0].style.display = "flex";
     objects = [];
     fullscreen = false;
-    canvas.width = 600;
-    canvas.height = 337;
+    CANVAS.width = 600;
+    CANVAS.height = 337;
 }

@@ -38,15 +38,15 @@ class Car {
         if (this.sensor) {
             this.sensor.update(roadBorders, traffic);
 
-            const offsets = this.sensor.readings.map((s) =>
+            const OFFSETS = this.sensor.readings.map((s) =>
                 s == null ? 0 : 1 - s.offset
             );
-            const outputs = NeuralNetwork.feedForward(offsets, this.brain);
+            const OUTPUTS = NeuralNetwork.feedForward(OFFSETS, this.brain);
             if (this.useBrain) {
-                this.controls.forward = outputs[0];
-                this.controls.left = outputs[1];
-                this.controls.right = outputs[2];
-                this.controls.reverse = outputs[3];
+                this.controls.forward = OUTPUTS[0];
+                this.controls.left = OUTPUTS[1];
+                this.controls.right = OUTPUTS[2];
+                this.controls.reverse = OUTPUTS[3];
             }
         }
     }
@@ -101,14 +101,14 @@ class Car {
         }
 
         if (this.speed != 0) {
-            const flip = this.speed > 0 ? 1 : -1;
+            const FLIP = this.speed > 0 ? 1 : -1;
 
             if (this.controls.left) {
-                this.angle += 0.03 * flip;
+                this.angle += 0.03 * FLIP;
             }
 
             if (this.controls.right) {
-                this.angle -= 0.03 * flip;
+                this.angle -= 0.03 * FLIP;
             }
         }
         this.x -= Math.sin(this.angle) * this.speed;
@@ -132,31 +132,31 @@ class Car {
     }
 
     #createPolygon() {
-        const points = [];
+        const POINTS = [];
 
-        const radius = Math.hypot(this.width, this.height) / 2;
-        const alpha = Math.atan2(this.width, this.height);
+        const RADIUS = Math.hypot(this.width, this.height) / 2;
+        const ALPHA = Math.atan2(this.width, this.height);
 
-        points.push({
-            x: this.x - Math.sin(this.angle + alpha) * radius,
-            y: this.y - Math.cos(this.angle + alpha) * radius,
+        POINTS.push({
+            x: this.x - Math.sin(this.angle + ALPHA) * RADIUS,
+            y: this.y - Math.cos(this.angle + ALPHA) * RADIUS,
         });
 
-        points.push({
-            x: this.x - Math.sin(this.angle - alpha) * radius,
-            y: this.y - Math.cos(this.angle - alpha) * radius,
+        POINTS.push({
+            x: this.x - Math.sin(this.angle - ALPHA) * RADIUS,
+            y: this.y - Math.cos(this.angle - ALPHA) * RADIUS,
         });
 
-        points.push({
-            x: this.x - Math.sin(Math.PI + this.angle + alpha) * radius,
-            y: this.y - Math.cos(Math.PI + this.angle + alpha) * radius,
+        POINTS.push({
+            x: this.x - Math.sin(Math.PI + this.angle + ALPHA) * RADIUS,
+            y: this.y - Math.cos(Math.PI + this.angle + ALPHA) * RADIUS,
         });
 
-        points.push({
-            x: this.x - Math.sin(Math.PI + this.angle - alpha) * radius,
-            y: this.y - Math.cos(Math.PI + this.angle - alpha) * radius,
+        POINTS.push({
+            x: this.x - Math.sin(Math.PI + this.angle - ALPHA) * RADIUS,
+            y: this.y - Math.cos(Math.PI + this.angle - ALPHA) * RADIUS,
         });
 
-        return points;
+        return POINTS;
     }
 }
