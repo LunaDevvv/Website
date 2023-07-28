@@ -88,6 +88,11 @@ let settingsWindow = undefined;
  */
 let fileExplorerWindow = undefined;
 
+/**
+ * @type {lunaWindow}
+ */
+let webBrowserWindow = undefined;
+
 const BOTTOM_BAR = new BottomBar();
 const TOP_BAR = new topBar();
 
@@ -200,6 +205,34 @@ BOTTOM_BAR.appendButton(iconThemes[currentIconTheme].fileExplorer, "fileExplorer
 
     fileExplorerWindow = new lunaWindow("File Explorer", DEFAULT_STARTING_X, DEFAULT_STARTING_Y, DEFAULT_STARTING_HEIGHT, DEFAULT_STARTING_WIDTH, DEFAULT_MIN_HEIGHT, DEFAULT_MIN_WIDTH, fileExplorerFunction, async () => {
         fileExplorerWindow = undefined;
+    });
+});
+
+BOTTOM_BAR.appendButton(iconThemes[currentIconTheme].fileExplorer, "webBrowser", async() => {
+    document.body.style.cursor = "wait";
+
+    if(typeof webBrowserFunction == "undefined") {
+        const WEB_BROWSER_CLASS = document.createElement("script");
+        WEB_BROWSER_CLASS.src = "./js/lunaos/applications/webBrowser/webBrowser.js";
+
+        document.head.appendChild(WEB_BROWSER_CLASS);
+
+        while(typeof webBrowserFunction == "undefined") {
+            await sleep(5);
+        }
+    }
+
+    document.body.style.cursor = "default";
+
+    if(webBrowserWindow != undefined) {
+        webBrowserWindow = webBrowserWindow.update();
+        webBrowserWindow.minimize();
+        
+        return;   
+    }
+
+    webBrowserWindow = new lunaWindow("Web Browser (Warning : Does not work, Dont log into anything)", DEFAULT_STARTING_X, DEFAULT_STARTING_Y, DEFAULT_STARTING_HEIGHT, DEFAULT_STARTING_WIDTH, DEFAULT_MIN_HEIGHT, DEFAULT_MIN_WIDTH, webBrowserFunction, async () => {
+        webBrowserWindow = undefined;
     });
 });
 
