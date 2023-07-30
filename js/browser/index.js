@@ -7,6 +7,8 @@ if(!webpage.startsWith("https://") && !webpage.startsWith("http://") && !webpage
 }
 
 
+document.domain = "shirodev.dev"
+
 let mainFrame = document.createElement("iframe");
 
 document.body.style.height = "100%";
@@ -26,8 +28,8 @@ mainFrame.style.top = "0px";
 updateHrefs();
 
 async function updateHrefs() {
+    mainFrame.contentWindow.document.domain = "shirodev.dev";
     await sleep(5000);
-    console.log(mainFrame.contentWindow.document.body);
     let elements = mainFrame.contentWindow.document.querySelectorAll("a");
 
    for(let i = 0; i < elements.length; i++) {
