@@ -1,0 +1,16 @@
+p {
+    color: white;
+}
+
+html, body {
+    min-height: 100%
+}
+
+
+
+body {
+    overflow: hidden;
+    min-height: 100%;
+}
+
+:focus { outline: none; }
