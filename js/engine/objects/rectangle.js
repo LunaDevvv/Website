@@ -23,22 +23,22 @@ class Rectangle {
     }
 
     draw() {
-        ctx.fillStyle = this.color;
+        CTX.fillStyle = this.color;
 
         // if (this.colliding == true) this.color = "red";
-        ctx.beginPath();
-        ctx.strokeRect(this.x, this.y, this.width, this.height);
-        ctx.fillRect(this.x, this.y, this.width, this.height);
+        CTX.beginPath();
+        CTX.strokeRect(this.x, this.y, this.width, this.height);
+        CTX.fillRect(this.x, this.y, this.width, this.height);
     }
 
     checks() {
         let collided = false;
-        if (this.gravity && this.y <= canvas.height - this.height) {
+        if (this.gravity && this.y <= CANVAS.height - this.height) {
             this.y += 2;
         }
 
-        if (this.y == canvas.height - this.height) {
-            this.y = canvas.height - this.height;
+        if (this.y == CANVAS.height - this.height) {
+            this.y = CANVAS.height - this.height;
         }
 
         for (let i = 0; i < objects.length; i++) {
